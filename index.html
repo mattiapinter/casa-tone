@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Casa Tone – Guida Ospiti · Appartamenti Brigadoi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&display=swap" rel="stylesheet"/>
+<link href="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --green:#6aaa3a;
+  --green-dark:#4d8a26;
+  --green-bg:#f0f7eb;
+  --navy:#1d3d5c;
+  --navy-light:#2a5580;
+  --bg:#f7f6f3;
+  --surface:#ffffff;
+  --border:#e5e1da;
+  --text:#1a1a1a;
+  --muted:#7a756e;
+  --bar-h:58px;
+  --tab-h:46px;
+}
+html{scroll-behavior:smooth;font-size:15px}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.65}
+
+/* ── TOP BAR ── */
+.topbar{
+  position:fixed;top:0;left:0;right:0;z-index:300;
+  height:var(--bar-h);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 20px;
+  background:var(--navy);
+}
+.topbar-logo{display:flex;align-items:center;gap:10px}
+.topbar-logo img{height:32px;width:auto;filter:brightness(0) invert(1)}
+.topbar-name{
+  font-family:'Fraunces',serif;font-size:1.05rem;font-weight:300;
+  color:rgba(255,255,255,.9);letter-spacing:.02em;
+}
+.lang-btns{display:flex;gap:4px}
+.lang-btn{
+  padding:4px 11px;font-size:11px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;
+  border:1px solid rgba(255,255,255,.25);border-radius:20px;
+  background:transparent;color:rgba(255,255,255,.7);cursor:pointer;transition:all .15s;
+}
+.lang-btn.active{background:var(--green);color:#fff;border-color:var(--green)}
+
+/* ── MAP HERO ── */
+.map-hero{
+  margin-top:var(--bar-h);
+  position:relative;height:calc(100svh - var(--bar-h) - var(--tab-h));
+  min-height:340px;max-height:600px;
+}
+#map{position:absolute;inset:0;width:100%;height:100%}
+
+/* Map overlay card */
+.map-card{
+  position:absolute;bottom:16px;left:50%;transform:translateX(-50%);
+  z-index:10;
+  background:var(--surface);border-radius:12px;
+  padding:14px 18px;
+  box-shadow:0 4px 24px rgba(0,0,0,.18);
+  display:flex;align-items:center;gap:14px;
+  min-width:260px;max-width:90vw;
+  border-top:3px solid var(--green);
+}
+.map-card-icon{font-size:22px}
+.map-card-info{}
+.map-card-name{font-family:'Fraunces',serif;font-size:1rem;font-weight:400;color:var(--navy)}
+.map-card-addr{font-size:12px;color:var(--muted);margin-top:1px}
+.map-card-btn{
+  margin-left:auto;padding:7px 13px;
+  background:var(--green);color:#fff;border-radius:6px;
+  font-size:12px;font-weight:500;text-decoration:none;
+  white-space:nowrap;flex-shrink:0;transition:background .15s;
+}
+.map-card-btn:hover{background:var(--green-dark)}
+
+/* Map filters */
+.map-filters-float{
+  position:absolute;top:12px;left:50%;transform:translateX(-50%);
+  z-index:10;display:flex;gap:6px;flex-wrap:nowrap;
+  background:rgba(255,255,255,.92);backdrop-filter:blur(8px);
+  border-radius:30px;padding:6px 10px;
+  box-shadow:0 2px 12px rgba(0,0,0,.12);
+  overflow-x:auto;max-width:94vw;scrollbar-width:none;
+}
+.map-filters-float::-webkit-scrollbar{display:none}
+.mf-btn{
+  padding:4px 11px;font-size:11.5px;font-weight:500;
+  border-radius:20px;border:1px solid transparent;
+  background:transparent;color:var(--muted);cursor:pointer;
+  transition:all .15s;white-space:nowrap;
+}
+.mf-btn.active{color:#fff}
+.mf-btn[data-cat="all"].active{background:var(--navy)}
+.mf-btn[data-cat="casa"].active{background:#e74c3c}
+.mf-btn[data-cat="ristoranti"].active{background:#e67e22}
+.mf-btn[data-cat="bar"].active{background:#8e44ad}
+.mf-btn[data-cat="negozi"].active{background:#2980b9}
+.mf-btn[data-cat="impianti"].active{background:var(--green)}
+.mf-btn[data-cat="skibus"].active{background:#7f8c00}
+.mf-btn[data-cat="parcheggi"].active{background:#546e7a}
+
+/* ── NAV TABS ── */
+.nav-tabs-wrap{
+  position:sticky;top:var(--bar-h);z-index:200;
+  height:var(--tab-h);
+  background:var(--surface);border-bottom:1px solid var(--border);
+  overflow-x:auto;scrollbar-width:none;display:flex;align-items:stretch;
+}
+.nav-tabs-wrap::-webkit-scrollbar{display:none}
+.nav-tabs{display:flex;min-width:max-content;padding:0 10px;align-items:stretch}
+.nav-tab{
+  padding:0 14px;font-size:12px;font-weight:500;letter-spacing:.03em;
+  color:var(--muted);border-bottom:2px solid transparent;
+  cursor:pointer;white-space:nowrap;transition:all .15s;
+  background:none;border-top:none;border-left:none;border-right:none;
+  display:flex;align-items:center;
+}
+.nav-tab:hover{color:var(--text)}
+.nav-tab.active{color:var(--navy);border-bottom-color:var(--green)}
+
+/* ── CONTENT ── */
+.content{max-width:680px;margin:0 auto;padding:0 20px 80px}
+
+/* ── SECTION ── */
+.section{padding:32px 0 28px;border-bottom:1px solid var(--border)}
+.section:last-child{border-bottom:none}
+.sec-head{display:flex;align-items:center;gap:9px;margin-bottom:16px}
+.sec-icon{font-size:17px}
+.sec-title{font-family:'Fraunces',serif;font-size:1.15rem;font-weight:400;color:var(--navy)}
+
+/* ── CARDS ── */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:15px 17px;margin-bottom:9px}
+.clabel{font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.cvalue{font-size:.95rem;font-weight:500;color:var(--text)}
+.csub{font-size:12px;color:var(--muted);margin-top:2px}
+
+/* grids */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+@media(max-width:400px){.g2{grid-template-columns:1fr}.g3{grid-template-columns:1fr 1fr}}
+
+/* ── HIGHLIGHT ── */
+.hl{
+  background:var(--green-bg);border-left:3px solid var(--green);
+  border-radius:0 8px 8px 0;padding:13px 16px;margin:13px 0;
+  font-size:13.5px;line-height:1.6;
+}
+.hl strong{color:var(--green-dark)}
+
+/* ── RULES ── */
+.rule-list{display:flex;flex-direction:column;gap:6px}
+.rule-item{
+  display:flex;align-items:flex-start;gap:10px;font-size:13.5px;
+  padding:10px 13px;background:var(--surface);border:1px solid var(--border);border-radius:6px;
+}
+.ri{font-size:14px;flex-shrink:0;margin-top:1px}
+
+/* ── WIFI ── */
+.wifi-val{font-size:1.1rem;font-weight:700;font-family:monospace;color:var(--navy);margin-top:4px;word-break:break-all}
+.copy-btn{
+  display:inline-flex;align-items:center;gap:4px;margin-top:7px;
+  font-size:11px;font-weight:500;color:var(--green);
+  cursor:pointer;background:none;border:none;padding:0;
+}
+.copy-btn:hover{color:var(--green-dark)}
+
+/* ── LINEN ── */
+.linen-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px 10px;text-align:center}
+.linen-price{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:400;color:var(--navy);margin-top:3px}
+.linen-name{font-size:11px;color:var(--muted)}
+
+/* ── CONTACTS ── */
+.contact-list{display:flex;flex-direction:column;gap:7px}
+.ci{
+  display:flex;align-items:center;gap:12px;padding:12px 14px;
+  background:var(--surface);border:1px solid var(--border);border-radius:8px;
+  text-decoration:none;color:var(--text);transition:border-color .15s;
+}
+.ci:hover{border-color:var(--green)}
+.ci-icon{font-size:19px;flex-shrink:0}
+.ci-label{font-size:10.5px;color:var(--muted);font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.ci-val{font-size:.92rem;font-weight:500;margin-top:1px}
+.ci.emergency{border-color:#fca5a5;background:#fff5f5}
+.ci.emergency .ci-val{color:#c0392b}
+
+/* ── BUTTONS ── */
+.btn{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:10px 17px;border-radius:6px;font-size:13px;font-weight:500;
+  text-decoration:none;cursor:pointer;border:none;transition:all .15s;
+}
+.btn-green{background:var(--green);color:#fff}
+.btn-green:hover{background:var(--green-dark)}
+.btn-navy{background:var(--navy);color:#fff}
+.btn-navy:hover{background:var(--navy-light)}
+.btn-out{background:transparent;color:var(--text);border:1px solid var(--border)}
+.btn-out:hover{border-color:var(--green);color:var(--green)}
+.btn-group{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
+
+/* ── REVIEW ── */
+.review-box{
+  background:var(--navy);border-radius:12px;padding:28px 24px;
+  text-align:center;color:#fff;
+}
+.stars{font-size:22px;letter-spacing:4px;margin-bottom:10px}
+.review-box p{font-size:13.5px;opacity:.82;line-height:1.75;max-width:460px;margin:0 auto}
+.review-note{
+  font-size:12px;background:rgba(255,255,255,.08);
+  border-radius:6px;padding:10px 14px;margin-top:12px;opacity:.75;
+}
+.review-sign{
+  font-family:'Fraunces',serif;font-style:italic;font-size:1.05rem;
+  color:rgba(255,255,255,.85);margin-top:20px;
+}
+.review-box .btn-green{margin-top:18px}
+.btn-group-center{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+.btn-white{background:#fff;color:var(--navy);font-weight:600}
+.btn-white:hover{background:var(--green-bg)}
+.btn-white-out{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.35)}
+.btn-white-out:hover{border-color:#fff}
+
+/* ── LANG ── */
+[data-l]{display:none}[data-l].on{display:block}
+[data-li]{display:none}[data-li].on{display:inline}
+
+/* ── MAPBOX POPUP ── */
+.mapboxgl-popup-content{
+  font-family:'Inter',sans-serif;border-radius:8px!important;
+  padding:12px 14px!important;box-shadow:0 4px 20px rgba(0,0,0,.15)!important;
+  border-top:3px solid var(--green);min-width:180px;
+}
+.popup-name{font-weight:600;font-size:13.5px;color:var(--navy);margin-bottom:3px}
+.popup-cat{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--green);margin-bottom:5px}
+.popup-desc{font-size:12px;color:#555;line-height:1.5}
+.mapboxgl-popup-close-button{font-size:16px;color:var(--muted);right:6px;top:4px}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<header class="topbar">
+  <div class="topbar-logo">
+    <img src="logo.png" alt="Appartamenti Brigadoi"/>
+    <span class="topbar-name">Casa Tone</span>
+  </div>
+  <div class="lang-btns">
+    <button class="lang-btn active" onclick="setLang('it')">IT</button>
+    <button class="lang-btn" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" onclick="setLang('de')">DE</button>
+  </div>
+</header>
+
+<!-- MAP HERO -->
+<div class="map-hero">
+  <div id="map"></div>
+
+  <!-- floating filters -->
+  <div class="map-filters-float">
+    <button class="mf-btn active" data-cat="all" onclick="filterMap('all',this)">
+      <span data-li="it" class="on">Tutti</span><span data-li="en">All</span><span data-li="de">Alle</span>
+    </button>
+    <button class="mf-btn" data-cat="casa" onclick="filterMap('casa',this)">🏠 Casa</button>
+    <button class="mf-btn" data-cat="ristoranti" onclick="filterMap('ristoranti',this)">🍽 <span data-li="it" class="on">Ristoranti</span><span data-li="en">Food</span><span data-li="de">Essen</span></button>
+    <button class="mf-btn" data-cat="bar" onclick="filterMap('bar',this)">🍸 Bar</button>
+    <button class="mf-btn" data-cat="negozi" onclick="filterMap('negozi',this)">🛒 <span data-li="it" class="on">Negozi</span><span data-li="en">Shops</span><span data-li="de">Läden</span></button>
+    <button class="mf-btn" data-cat="impianti" onclick="filterMap('impianti',this)">⛷ Ski</button>
+    <button class="mf-btn" data-cat="skibus" onclick="filterMap('skibus',this)">🚌 SkiBus</button>
+    <button class="mf-btn" data-cat="parcheggi" onclick="filterMap('parcheggi',this)">🅿 <span data-li="it" class="on">Parcheggi</span><span data-li="en">Parking</span><span data-li="de">Parken</span></button>
+  </div>
+
+  <!-- address card -->
+  <div class="map-card">
+    <span class="map-card-icon">📍</span>
+    <div class="map-card-info">
+      <div class="map-card-name">Casa Tone</div>
+      <div class="map-card-addr">Via Dante 47, Predazzo · Val di Fiemme</div>
+    </div>
+    <a class="map-card-btn" href="https://maps.google.com/?q=Via+Dante+47,+Predazzo" target="_blank">
+      <span data-li="it" class="on">Naviga</span><span data-li="en">Navigate</span><span data-li="de">Navigieren</span>
+    </a>
+  </div>
+</div>
+
+<!-- NAV TABS -->
+<div class="nav-tabs-wrap">
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="goTo('sec-arrival')">
+      <span data-li="it" class="on">🚗 Arrivo</span><span data-li="en">🚗 Arrival</span><span data-li="de">🚗 Ankunft</span>
+    </button>
+    <button class="nav-tab" onclick="goTo('sec-checkin')">🕒 Check-in</button>
+    <button class="nav-tab" onclick="goTo('sec-rules')">
+      <span data-li="it" class="on">📋 Regole</span><span data-li="en">📋 Rules</span><span data-li="de">📋 Regeln</span>
+    </button>
+    <button class="nav-tab" onclick="goTo('sec-wifi')">📶 Wi-Fi</button>
+    <button class="nav-tab" onclick="goTo('sec-ski')">⛷ Ski</button>
+    <button class="nav-tab" onclick="goTo('sec-contacts')">
+      <span data-li="it" class="on">📞 Contatti</span><span data-li="en">📞 Contacts</span><span data-li="de">📞 Kontakte</span>
+    </button>
+    <button class="nav-tab" onclick="goTo('sec-review')">⭐ Review</button>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+
+  <!-- ARRIVAL -->
+  <section class="section" id="sec-arrival">
+    <div class="sec-head"><span class="sec-icon">🚗</span>
+      <h2 class="sec-title">
+        <span data-li="it" class="on">Arrivo & Parcheggio</span>
+        <span data-li="en">Arrival & Parking</span>
+        <span data-li="de">Ankunft & Parken</span>
+      </h2>
+    </div>
+    <div data-l="it" class="on">
+      <div class="card">
+        <div class="clabel">🚗 Parcheggio privato</div>
+        <div class="cvalue" style="font-weight:400;font-size:.9rem">Il tuo posto è davanti al <strong>portone di legno</strong>. Per soste aggiuntive usa la mappa in cima — trovi 3 parcheggi nelle vicinanze.</div>
+      </div>
+      <div class="card">
+        <div class="clabel">🗑️ Rifiuti</div>
+        <div class="cvalue" style="font-weight:400;font-size:.9rem">Puoi lasciare i rifiuti in casa, ma devono essere ben <strong>differenziati</strong>. Guida alla raccolta differenziata disponibile in appartamento.</div>
+      </div>
+    </div>
+    <div data-l="en">
+      <div class="card">
+        <div class="clabel">🚗 Private parking</div>
+        <div class="cvalue" style="font-weight:400;font-size:.9rem">Your spot is in front of the <strong>wooden gate</strong>. For extra options check the map above — 3 nearby parking spots included.</div>
+      </div>
+      <div class="card">
+        <div class="clabel">🗑️ Waste</div>
+        <div class="cvalue" style="font-weight:400;font-size:.9rem">You can leave waste inside, but it must be properly <strong>sorted</strong>. A sorting guide is available in the apartment.</div>
+      </div>
+    </div>
+    <div data-l="de">
+      <div class="card">
+        <div class="clabel">🚗 Privatparkplatz</div>
+        <div class="cvalue" style="font-weight:400;font-size:.9rem">Ihr Platz ist vor dem <strong>Holztor</strong>. Weitere Optionen auf der Karte oben — 3 Parkplätze in der Nähe.</div>
+      </div>
+      <div class="card">
+        <div class="clabel">🗑️ Müll</div>
+        <div class="cvalue" style="font-weight:400;font-size:.9rem">Müll kann in der Wohnung gelassen werden, muss aber <strong>korrekt getrennt</strong> sein. Anleitung in der Wohnung vorhanden.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHECK-IN -->
+  <section class="section" id="sec-checkin">
+    <div class="sec-head"><span class="sec-icon">🕒</span>
+      <h2 class="sec-title">Check-in & Check-out</h2>
+    </div>
+    <div class="g2">
+      <div class="card"><div class="clabel">Check-in</div><div class="cvalue">dalle 16:00</div></div>
+      <div class="card"><div class="clabel">Check-out</div><div class="cvalue">entro le 10:00</div></div>
+    </div>
+    <div data-l="it" class="on">
+      <div class="hl">🔑 <strong>Consegna chiavi:</strong> ci vediamo direttamente in appartamento.<br>
+      <small style="color:var(--muted)">Se parti prima, lascia le chiavi sul tavolo della cucina e chiudi la porta senza girare la chiave.</small></div>
+    </div>
+    <div data-l="en">
+      <div class="hl">🔑 <strong>Keys:</strong> we'll meet you directly at the apartment.<br>
+      <small style="color:var(--muted)">Leaving early? Leave keys on the kitchen table and pull the door shut without locking.</small></div>
+    </div>
+    <div data-l="de">
+      <div class="hl">🔑 <strong>Schlüssel:</strong> wir treffen Sie direkt in der Wohnung.<br>
+      <small style="color:var(--muted)">Bei frühzeitiger Abreise Schlüssel auf Küchentisch lassen und Tür zuziehen ohne abzuschließen.</small></div>
+    </div>
+  </section>
+
+  <!-- RULES -->
+  <section class="section" id="sec-rules">
+    <div class="sec-head"><span class="sec-icon">📋</span>
+      <h2 class="sec-title">
+        <span data-li="it" class="on">Regole della casa</span>
+        <span data-li="en">House rules</span>
+        <span data-li="de">Hausregeln</span>
+      </h2>
+    </div>
+    <div data-l="it" class="on">
+      <div class="rule-list">
+        <div class="rule-item"><span class="ri">✅</span>Differenzia i rifiuti correttamente</div>
+        <div class="rule-item"><span class="ri">🚭</span>Vietato fumare all'interno</div>
+        <div class="rule-item"><span class="ri">💡</span>Spegni luci e riscaldamento quando esci</div>
+        <div class="rule-item"><span class="ri">🛠</span>Comunica eventuali danni il prima possibile</div>
+        <div class="rule-item"><span class="ri">🧊</span>Svuota frigorifero e cassetti prima di partire</div>
+        <div class="rule-item"><span class="ri">🧹</span>Lascia l'appartamento in ordine — sporco eccessivo comporta costi extra</div>
+      </div>
+      <p style="font-size:12px;color:var(--muted);margin-top:10px">Tutte le regole sono disponibili anche nella guida stampata in appartamento.</p>
+    </div>
+    <div data-l="en">
+      <div class="rule-list">
+        <div class="rule-item"><span class="ri">✅</span>Sort waste correctly</div>
+        <div class="rule-item"><span class="ri">🚭</span>No smoking inside</div>
+        <div class="rule-item"><span class="ri">💡</span>Turn off lights and heating when you leave</div>
+        <div class="rule-item"><span class="ri">🛠</span>Report any damage as soon as possible</div>
+        <div class="rule-item"><span class="ri">🧊</span>Empty fridge and drawers before departure</div>
+        <div class="rule-item"><span class="ri">🧹</span>Leave the apartment tidy — excessive mess may incur extra cleaning costs</div>
+      </div>
+      <p style="font-size:12px;color:var(--muted);margin-top:10px">A printed version of all rules is available inside the apartment.</p>
+    </div>
+    <div data-l="de">
+      <div class="rule-list">
+        <div class="rule-item"><span class="ri">✅</span>Müll korrekt trennen</div>
+        <div class="rule-item"><span class="ri">🚭</span>Rauchen verboten</div>
+        <div class="rule-item"><span class="ri">💡</span>Licht und Heizung beim Verlassen ausschalten</div>
+        <div class="rule-item"><span class="ri">🛠</span>Schäden sofort melden</div>
+        <div class="rule-item"><span class="ri">🧊</span>Kühlschrank und Schubladen vor Abreise leeren</div>
+        <div class="rule-item"><span class="ri">🧹</span>Wohnung ordentlich hinterlassen — Extrakosten bei starker Verschmutzung</div>
+      </div>
+      <p style="font-size:12px;color:var(--muted);margin-top:10px">Eine gedruckte Version liegt in der Wohnung aus.</p>
+    </div>
+
+    <div style="margin-top:22px">
+      <div class="clabel" style="margin-bottom:9px">
+        🛏 <span data-li="it" class="on">Biancheria extra (su richiesta)</span>
+        <span data-li="en">Extra linen (on request)</span>
+        <span data-li="de">Zusätzliche Wäsche (auf Anfrage)</span>
+      </div>
+      <div class="g3">
+        <div class="linen-card">
+          <div class="linen-name"><span data-li="it" class="on">Solo lenzuola</span><span data-li="en">Sheets only</span><span data-li="de">Nur Bettwäsche</span></div>
+          <div class="linen-price">€8</div>
+        </div>
+        <div class="linen-card">
+          <div class="linen-name"><span data-li="it" class="on">Solo asciugamani</span><span data-li="en">Towels only</span><span data-li="de">Nur Handtücher</span></div>
+          <div class="linen-price">€7</div>
+        </div>
+        <div class="linen-card">
+          <div class="linen-name"><span data-li="it" class="on">Set completo</span><span data-li="en">Full set</span><span data-li="de">Komplettes Set</span></div>
+          <div class="linen-price">€15</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WIFI -->
+  <section class="section" id="sec-wifi">
+    <div class="sec-head"><span class="sec-icon">📶</span><h2 class="sec-title">Wi-Fi</h2></div>
+    <div class="g2">
+      <div class="card">
+        <div class="clabel"><span data-li="it" class="on">Rete</span><span data-li="en">Network</span><span data-li="de">Netzwerk</span></div>
+        <div class="wifi-val">Via Dante</div>
+        <button class="copy-btn" onclick="copyText('Via Dante',this)">📋 <span data-li="it" class="on">Copia</span><span data-li="en">Copy</span><span data-li="de">Kopieren</span></button>
+      </div>
+      <div class="card">
+        <div class="clabel">Password</div>
+        <div class="wifi-val">Viadante47</div>
+        <button class="copy-btn" onclick="copyText('Viadante47',this)">📋 <span data-li="it" class="on">Copia</span><span data-li="en">Copy</span><span data-li="de">Kopieren</span></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKI -->
+  <section class="section" id="sec-ski">
+    <div class="sec-head"><span class="sec-icon">⛷</span>
+      <h2 class="sec-title">
+        <span data-li="it" class="on">Sci & Attività</span>
+        <span data-li="en">Ski & Activities</span>
+        <span data-li="de">Ski & Aktivitäten</span>
+      </h2>
+    </div>
+    <div data-l="it" class="on">
+      <div class="card" style="margin-bottom:9px">
+        <div class="clabel">🏔 Comprensori sciistici</div>
+        <div style="font-size:13.5px;margin-top:8px;display:flex;flex-direction:column;gap:9px">
+          <div><strong>Ski Center Latemar</strong> — 48 km di piste, il più grande della zona. Attenzione: il rientro è su <em>pista rossa</em>.</div>
+          <div><strong>Alpe Lusia Bellamonte</strong> — Perfetto per imparare, rientro su pista blu. Percorso "Giro d'Ali" per famiglie.</div>
+          <div><strong>Alpe Cermis</strong> — Cabinovia panoramica, Cermislandia per i bambini.</div>
+        </div>
+      </div>
+      <div class="card" style="margin-bottom:9px">
+        <div class="clabel">🚌 SkiBus</div>
+        <div style="font-size:13.5px;margin-top:5px">Fermate in <strong>Piazza</strong> e all'<strong>Hotel Ancora</strong> — visibili sulla mappa.</div>
+        <a class="btn btn-out" style="margin-top:10px" href="https://www.visitfiemme.it/it/inverno/sciare-in-val-di-fiemme/skibus" target="_blank">🚌 Orari SkiBus</a>
+      </div>
+      <div class="card">
+        <div class="clabel">❄️ Fiemme Cembra Guest Card</div>
+        <div style="font-size:13.5px;margin-top:5px">Ciaspole, degustazioni locali, passeggiate guidate e molto altro.</div>
+        <a class="btn btn-out" style="margin-top:10px" href="https://www.visitfiemme.it/it" target="_blank">🏔 Scopri le esperienze</a>
+      </div>
+    </div>
+    <div data-l="en">
+      <div class="card" style="margin-bottom:9px">
+        <div class="clabel">🏔 Ski areas</div>
+        <div style="font-size:13.5px;margin-top:8px;display:flex;flex-direction:column;gap:9px">
+          <div><strong>Ski Center Latemar</strong> — 48 km, largest in the valley. Note: return run is <em>red (intermediate)</em>.</div>
+          <div><strong>Alpe Lusia Bellamonte</strong> — Great for beginners, blue return run. Family trail "Giro d'Ali".</div>
+          <div><strong>Alpe Cermis</strong> — Panoramic gondola, Cermislandia for kids.</div>
+        </div>
+      </div>
+      <div class="card" style="margin-bottom:9px">
+        <div class="clabel">🚌 SkiBus</div>
+        <div style="font-size:13.5px;margin-top:5px">Stops at the <strong>Piazza</strong> and <strong>Hotel Ancora</strong> — visible on the map.</div>
+        <a class="btn btn-out" style="margin-top:10px" href="https://www.visitfiemme.it/en/winter/skiing-in-val-di-fiemme/skibus" target="_blank">🚌 SkiBus Timetables</a>
+      </div>
+      <div class="card">
+        <div class="clabel">❄️ Fiemme Cembra Guest Card</div>
+        <div style="font-size:13.5px;margin-top:5px">Snowshoeing, local tastings, guided nature walks and more.</div>
+        <a class="btn btn-out" style="margin-top:10px" href="https://www.visitfiemme.it/en" target="_blank">🏔 Explore experiences</a>
+      </div>
+    </div>
+    <div data-l="de">
+      <div class="card" style="margin-bottom:9px">
+        <div class="clabel">🏔 Skigebiete</div>
+        <div style="font-size:13.5px;margin-top:8px;display:flex;flex-direction:column;gap:9px">
+          <div><strong>Ski Center Latemar</strong> — 48 km, größtes Skigebiet im Tal. Heimfahrt über <em>rote Piste</em>.</div>
+          <div><strong>Alpe Lusia Bellamonte</strong> — Ideal für Anfänger, blaue Heimfahrtspiste. Familienweg "Giro d'Ali".</div>
+          <div><strong>Alpe Cermis</strong> — Panorama-Gondelbahn, Cermislandia für Kinder.</div>
+        </div>
+      </div>
+      <div class="card" style="margin-bottom:9px">
+        <div class="clabel">🚌 SkiBus</div>
+        <div style="font-size:13.5px;margin-top:5px">Haltestellen am <strong>Piazza</strong> und <strong>Hotel Ancora</strong> — auf der Karte sichtbar.</div>
+        <a class="btn btn-out" style="margin-top:10px" href="https://www.visitfiemme.it/de/winter/skifahren-im-val-di-fiemme/skibus" target="_blank">🚌 SkiBus Fahrpläne</a>
+      </div>
+      <div class="card">
+        <div class="clabel">❄️ Fiemme Cembra Guest Card</div>
+        <div style="font-size:13.5px;margin-top:5px">Schneeschuhtouren, lokale Verkostungen, Naturführungen und mehr.</div>
+        <a class="btn btn-out" style="margin-top:10px" href="https://www.visitfiemme.it/de" target="_blank">🏔 Erlebnisse entdecken</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTS -->
+  <section class="section" id="sec-contacts">
+    <div class="sec-head"><span class="sec-icon">📞</span>
+      <h2 class="sec-title">
+        <span data-li="it" class="on">Contatti utili</span>
+        <span data-li="en">Useful contacts</span>
+        <span data-li="de">Nützliche Kontakte</span>
+      </h2>
+    </div>
+    <div class="contact-list">
+      <a class="ci" href="tel:+393491368343">
+        <span class="ci-icon">👤</span>
+        <div><div class="ci-label">Mattia</div><div class="ci-val">+39 349 136 8343</div></div>
+      </a>
+      <a class="ci" href="tel:+393487600318">
+        <span class="ci-icon">👤</span>
+        <div><div class="ci-label">Andrea</div><div class="ci-val">+39 348 760 0318</div></div>
+      </a>
+      <a class="ci emergency" href="tel:112">
+        <span class="ci-icon">🚨</span>
+        <div>
+          <div class="ci-label"><span data-li="it" class="on">Emergenze</span><span data-li="en">Emergency</span><span data-li="de">Notruf</span></div>
+          <div class="ci-val">112</div>
+        </div>
+      </a>
+      <a class="ci" href="tel:116117">
+        <span class="ci-icon">🏥</span>
+        <div>
+          <div class="ci-label"><span data-li="it" class="on">Guardia Medica</span><span data-li="en">Medical Guard</span><span data-li="de">Ärztl. Bereitschaft</span></div>
+          <div class="ci-val">116 117</div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- REVIEW -->
+  <section class="section" id="sec-review">
+    <div class="sec-head"><span class="sec-icon">⭐</span><h2 class="sec-title">Review</h2></div>
+    <div class="review-box">
+      <div class="stars">★★★★★</div>
+      <div data-l="it" class="on">
+        <p>Se vi siete trovati bene, una <strong>5 stelle</strong> su Airbnb o <strong>10/10</strong> su Booking fa davvero la differenza per la nostra visibilità.</p>
+        <div class="review-note">💡 Anche 4 stelle o 8/10 sembrano ottimi, ma le piattaforme li penalizzano. Il vostro supporto ci aiuta tantissimo 💛</div>
+      </div>
+      <div data-l="en">
+        <p>If you enjoyed your stay, a <strong>5-star</strong> review on Airbnb or <strong>10/10</strong> on Booking makes a real difference for us.</p>
+        <div class="review-note">💡 Even 4 stars or 8/10 sound great, but platforms penalise them. Your support means everything 💛</div>
+      </div>
+      <div data-l="de">
+        <p>Wenn Ihnen der Aufenthalt gefallen hat, macht eine <strong>5-Sterne</strong>-Bewertung auf Airbnb oder <strong>10/10</strong> auf Booking wirklich einen Unterschied.</p>
+        <div class="review-note">💡 Auch 4 Sterne oder 8/10 werden von den Plattformen schlechter bewertet. Ihre Unterstützung bedeutet uns viel 💛</div>
+      </div>
+      <div class="btn-group-center">
+        <a class="btn btn-white" href="https://www.airbnb.com" target="_blank">⭐ Airbnb</a>
+        <a class="btn btn-white-out" href="https://www.booking.com" target="_blank">🏨 Booking</a>
+      </div>
+      <div class="review-sign">— Famiglia Brigadoi</div>
+    </div>
+  </section>
+
+</div><!-- /content -->
+
+<script src="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"></script>
+<script>
+// ── LANG ──
+function setLang(l){
+  document.querySelectorAll('[data-l]').forEach(el=>el.classList.toggle('on',el.dataset.l===l));
+  document.querySelectorAll('[data-li]').forEach(el=>el.classList.toggle('on',el.dataset.li===l));
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.textContent.trim().toLowerCase()===l));
+  document.documentElement.lang=l;
+}
+
+// ── NAV SCROLL ──
+const sids=['sec-arrival','sec-checkin','sec-rules','sec-wifi','sec-ski','sec-contacts','sec-review'];
+const tabs=document.querySelectorAll('.nav-tab');
+function goTo(id){
+  const el=document.getElementById(id);if(!el)return;
+  const off=58+46+16;
+  window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-off,behavior:'smooth'});
+}
+window.addEventListener('scroll',()=>{
+  const off=58+46+50;let cur=0;
+  sids.forEach((id,i)=>{const el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<=off)cur=i;});
+  tabs.forEach((t,i)=>t.classList.toggle('active',i===cur));
+},{passive:true});
+
+// ── COPY ──
+function copyText(text,btn){
+  navigator.clipboard.writeText(text).then(()=>{
+    const o=btn.innerHTML;btn.innerHTML='✅ OK!';
+    setTimeout(()=>btn.innerHTML=o,1800);
+  });
+}
+
+// ── MAPBOX ──
+mapboxgl.accessToken='pk.eyJ1IjoibWF0dGlhcGludGVyIiwiYSI6ImNtbmJwMHR6MTB0a2oycHF5MHZwcmJ5N3IifQ.9D1PjZmFj61y2rr3B_mJeg';
+
+const map=new mapboxgl.Map({
+  container:'map',
+  style:'mapbox://styles/mapbox/outdoors-v12',
+  center:[11.6017,46.3137],
+  zoom:13,
+  attributionControl:false
+});
+
+map.addControl(new mapboxgl.NavigationControl({showCompass:false}),'top-right');
+map.addControl(new mapboxgl.AttributionControl({compact:true}));
+
+const catColors={
+  casa:'#e74c3c',
+  ristoranti:'#e67e22',
+  bar:'#8e44ad',
+  negozi:'#2980b9',
+  impianti:'#6aaa3a',
+  skibus:'#7f8c00',
+  parcheggi:'#546e7a',
+};
+const catEmoji={
+  casa:'🏠',ristoranti:'🍽',bar:'🍸',negozi:'🛒',
+  impianti:'⛷',skibus:'🚌',parcheggi:'🅿',
+};
+
+const places=[
+  {cat:'casa',      name:'Casa ❤️ Tone',               lat:46.3137803, lng:11.6017093, desc:'Via Dante 47, Predazzo'},
+  {cat:'ristoranti',name:'Poldo Pub',                   lat:46.3166098, lng:11.598915,  desc:'Pub con cucina fino a mezzanotte. Hamburger, piadine, birre artigianali.'},
+  {cat:'ristoranti',name:'Ristorante Bar Miola',         lat:46.2979202, lng:11.6065943, desc:'Cucina tipica in locale moderno e rustico.'},
+  {cat:'ristoranti',name:'Malga Venegia',                lat:46.322073,  lng:11.7960606, desc:'Prodotti tipici con panorama da cartolina. Da non perdere la tosela! 😍'},
+  {cat:'ristoranti',name:'In.Treska',                   lat:46.3312877, lng:11.5574972, desc:'Chalet sulle piste del Latemar. Ottima carne.'},
+  {cat:'ristoranti',name:'Agritur Maso Lena',            lat:46.2982673, lng:11.6022739, desc:'Agriturismo con prodotti tipici.'},
+  {cat:'ristoranti',name:"Pizzeria L'Incontro",          lat:46.314244,  lng:11.6013091, desc:'Pizza in un antico vólto storico. A due passi da casa.'},
+  {cat:'ristoranti',name:'Terrazza Lagorai Pizzeria',    lat:46.3128297, lng:11.665027,  desc:'La pizzeria preferita di Mattia. Stile napoletano.'},
+  {cat:'bar',       name:'Bar Ristorante Ancora',        lat:46.3111842, lng:11.6028879, desc:'Ottimo bar nel centro di Predazzo.'},
+  {cat:'bar',       name:'CAMPANIL spirits&food',        lat:46.3117551, lng:11.6025547, desc:'Aperitivo a due passi dalla piazza.'},
+  {cat:'negozi',    name:'La Sportiva Factory Store',    lat:46.2829562, lng:11.5539256, desc:'Outlet La Sportiva a Ziano. Scarpe, abbigliamento tecnico, prezzi scontati.'},
+  {cat:'negozi',    name:'Spaccio Caseificio (storico)', lat:46.3044741, lng:11.5946479, desc:'Formaggi locali direttamente dal luogo di produzione.'},
+  {cat:'negozi',    name:'Macelleria Dellantonio',       lat:46.3126327, lng:11.6019792, desc:'Carni e affettati tipici.'},
+  {cat:'negozi',    name:'Negozio Curioso',              lat:46.3135303, lng:11.6023528, desc:'Il negozio di famiglia! Souvenir fatti a mano e idee regalo.'},
+  {cat:'negozi',    name:'Shop & Bistrot Caseificio',    lat:46.2981968, lng:11.5854841, desc:'Formaggi e prodotti tipici del caseificio.'},
+  {cat:'negozi',    name:'Coop',                        lat:46.312982,  lng:11.6010848, desc:'5 minuti a piedi dall\'appartamento.'},
+  {cat:'negozi',    name:'Supermercato Poli',            lat:46.3034772, lng:11.5930762, desc:'Il più grande della zona, pochi minuti in auto.'},
+  {cat:'impianti',  name:'Ski Center Latemar',           lat:46.32767,   lng:11.602024,  desc:'48 km di piste. Il più grande della Val di Fiemme. Rientro pista rossa.'},
+  {cat:'impianti',  name:'Alpe Lusia Bellamonte',        lat:46.3124948, lng:11.6872782, desc:'Perfetto per principianti. Rientro pista blu.'},
+  {cat:'impianti',  name:'Alpe Cermis',                  lat:46.2833298, lng:11.4716853, desc:'Cabinovia panoramica. Cermislandia per i bambini.'},
+  {cat:'skibus',    name:'Skibus – Predazzo Piazza',     lat:46.3123822, lng:11.6023684, desc:'Fermata principale SkiBus.'},
+  {cat:'skibus',    name:'Skibus – Hotel Bellaria',      lat:46.3097618, lng:11.5988509, desc:'Fermata SkiBus.'},
+  {cat:'skibus',    name:'Skibus – Hotel Ancora',        lat:46.3110777, lng:11.6030043, desc:'Fermata SkiBus.'},
+  {cat:'parcheggi', name:'Parcheggio 1 (disco 5h)',      lat:46.314007,  lng:11.60218,   desc:'Gratuito con disco orario 5h (8–20). Dalle 20 alle 8 libero.'},
+  {cat:'parcheggi', name:'Parcheggio 2 (pagamento)',     lat:46.313401,  lng:11.600847,  desc:'A pagamento 8–18. Dalle 18 alle 8 gratuito.'},
+  {cat:'parcheggi', name:'Parcheggio 3 (gratuito)',      lat:46.311293,  lng:11.607785,  desc:'Completamente gratuito, ~10 min a piedi.'},
+];
+
+let markers=[];
+function makeMarker(p){
+  const el=document.createElement('div');
+  const c=catColors[p.cat]||'#666';
+  el.innerHTML=`<div style="width:34px;height:34px;background:${c};border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:2.5px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center;cursor:pointer;"><span style="transform:rotate(45deg);font-size:14px;line-height:1">${catEmoji[p.cat]||'📍'}</span></div>`;
+  el.style.cssText='width:34px;height:34px';
+
+  const popup=new mapboxgl.Popup({offset:30,closeButton:true,maxWidth:'220px'})
+    .setHTML(`<div class="popup-name">${p.name}</div><div class="popup-cat">${p.cat}</div><div class="popup-desc">${p.desc}</div>`);
+
+  const m=new mapboxgl.Marker({element:el,anchor:'bottom'})
+    .setLngLat([p.lng,p.lat])
+    .setPopup(popup)
+    .addTo(map);
+  m._cat=p.cat;
+  return m;
+}
+
+map.on('load',()=>{
+  places.forEach(p=>markers.push(makeMarker(p)));
+});
+
+function filterMap(cat,btn){
+  document.querySelectorAll('.mf-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  markers.forEach(m=>{
+    const show=cat==='all'||m._cat===cat;
+    const el=m.getElement();
+    el.style.display=show?'':'none';
+  });
+}
+</script>
+</body>
+</html>
