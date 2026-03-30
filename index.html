@@ -508,6 +508,8 @@ body.winter .summer-only{display:none}
 // DARK MODE
 (function(){const h=new Date().getHours();if(h>=20||h<7)document.documentElement.setAttribute('data-theme','dark');})();
 
+let markers=[],openPopup=null,openPlace=null;
+
 // LANG
 let lang='it';
 function setLang(l){
@@ -528,6 +530,7 @@ function applySeason(){
   markers.forEach(m=>{if(m._cat==='skibus')m.getElement().style.display=season==='winter'?'':'none';});
 }
 function toggleSeason(){season=season==='winter'?'summer':'winter';applySeason();}
+applySeason();
 
 // NAV
 const SIDS=['sec-arrival','sec-checkin','sec-rules','sec-wifi','sec-casa','sec-ski','sec-contacts','sec-review'];
@@ -609,8 +612,6 @@ const PLACES=[
   {cat:'info',lng:11.601623,lat:46.3128348,it:{name:'APT Val di Fiemme',desc:'Ufficio informazioni turistiche di Predazzo. Mappe, consigli su escursioni, eventi e attivit\u00e0 in valle. Aperto tutti i giorni.'},en:{name:'APT Val di Fiemme',desc:'Tourist information office in Predazzo. Maps, hiking tips, events and activities in the valley. Open every day.'},de:{name:'APT Val di Fiemme',desc:'Touristisches Informationsb\u00fcro in Predazzo. Karten, Wandertipps, Veranstaltungen und Aktivit\u00e4ten im Tal. T\u00e4glich ge\u00f6ffnet.'}},
 ];
 
-let markers=[],openPopup=null,openPlace=null;
-applySeason();
 
 function popHtml(p){
   const d=p[lang]||p.it;
