@@ -217,9 +217,7 @@ body.winter .summer-only{display:none}
   <div class="map-card">
     <span style="font-size:22px">📍</span>
     <div><div class="mc-name">Casa Tone</div><div class="mc-addr">Via Dante 47, Predazzo · Val di Fiemme</div></div>
-    <a class="mc-btn" href="https://maps.google.com/?q=Via+Dante+47,+Predazzo" target="_blank">
-      <span data-li="it" class="on">Naviga</span><span data-li="en">Navigate</span><span data-li="de">Navigieren</span>
-    </a>
+
   </div>
 </div>
 
@@ -255,16 +253,19 @@ body.winter .summer-only{display:none}
     <div class="card"><div class="clabel">🚗 Parcheggio privato</div><div style="font-size:.9rem;margin-top:4px">Il posto auto è davanti alla <strong>porta di legno</strong> nel piazzale sotto casa. Se dovessero servire ulteriori posti, ci sono diversi parcheggi pubblici nelle vicinanze: controlla la mappa!</div></div>
     <div class="card"><div class="clabel">🗑️ Raccolta differenziata</div><div style="font-size:.9rem;margin-top:4px">Puoi lasciare i rifiuti in casa prima di partire, purché siano <strong>ben differenziati</strong>.</div>
     <a class="btn btn-out" href="https://v4m-vps5.juniper-xs.it/v4web/file?RefOwner=60A7C1BB8B7C4CC69FA07E352EA1FA2C&UUID=F62152996DB24395B3F4DFF060AFEF29" target="_blank" style="margin-top:10px;font-size:12px">🗑️ Guida alla differenziata</a></div>
+    <a class="btn" href="https://maps.google.com/?q=Via+Dante+47,+Predazzo" target="_blank" style="background:var(--green);color:#fff;width:100%;justify-content:center;margin-top:4px">🧭 Naviga verso Casa Tone</a>
   </div>
   <div data-l="en">
     <div class="card"><div class="clabel">🚗 Private parking</div><div style="font-size:.9rem;margin-top:4px">The parking spot is in front of the <strong>wooden gate</strong> in the courtyard below the apartment. If you need extra space, there are several public car parks nearby: check the map!</div></div>
     <div class="card"><div class="clabel">🗑️ Waste sorting</div><div style="font-size:.9rem;margin-top:4px">You can leave sorted waste inside before departing, as long as it is <strong>properly separated</strong>.</div>
     <a class="btn btn-out" href="https://v4m-vps5.juniper-xs.it/v4web/file?RefOwner=60A7C1BB8B7C4CC69FA07E352EA1FA2C&UUID=F62152996DB24395B3F4DFF060AFEF29" target="_blank" style="margin-top:10px;font-size:12px">🗑️ Waste sorting guide</a></div>
+    <a class="btn" href="https://maps.google.com/?q=Via+Dante+47,+Predazzo" target="_blank" style="background:var(--green);color:#fff;width:100%;justify-content:center;margin-top:4px">🧭 Navigate to Casa Tone</a>
   </div>
   <div data-l="de">
     <div class="card"><div class="clabel">🚗 Privatparkplatz</div><div style="font-size:.9rem;margin-top:4px">Der Parkplatz befindet sich vor dem <strong>Holztor</strong> im Hof unterhalb der Wohnung. Bei Bedarf gibt es mehrere öffentliche Parkplätze in der Nähe: auf der Karte nachschauen!</div></div>
     <div class="card"><div class="clabel">🗑️ Mülltrennung</div><div style="font-size:.9rem;margin-top:4px">Müll kann vor der Abreise in der Wohnung gelassen werden, sofern er <strong>korrekt getrennt</strong> ist.</div>
     <a class="btn btn-out" href="https://v4m-vps5.juniper-xs.it/v4web/file?RefOwner=60A7C1BB8B7C4CC69FA07E352EA1FA2C&UUID=F62152996DB24395B3F4DFF060AFEF29" target="_blank" style="margin-top:10px;font-size:12px">🗑️ Mülltrennung Predazzo</a></div>
+    <a class="btn" href="https://maps.google.com/?q=Via+Dante+47,+Predazzo" target="_blank" style="background:var(--green);color:#fff;width:100%;justify-content:center;margin-top:4px">🧭 Zu Casa Tone navigieren</a>
   </div>
 </section>
 
@@ -657,7 +658,10 @@ function popHtml(p){
   } else {
     desc=d.desc||'';
   }
-  return `<div class="pname">${d.name}</div><div class="pcat">${(CL[lang]||CL.it)[p.cat]||p.cat}</div><div class="pdesc">${desc}</div>`;
+  const mapsUrl=`https://maps.google.com/?q=${p.lat},${p.lng}`;
+  const mapsLabel={it:'Apri in Maps',en:'Open in Maps',de:'In Maps öffnen'};
+  const mapsLink=`<a href="${mapsUrl}" target="_blank" style="display:inline-block;margin-top:7px;font-size:11px;color:var(--green);text-decoration:none;font-weight:500">🧭 ${mapsLabel[lang]||mapsLabel.it} →</a>`;
+  return `<div class="pname">${d.name}</div><div class="pcat">${(CL[lang]||CL.it)[p.cat]||p.cat}</div><div class="pdesc">${desc}</div>${mapsLink}`;
 }
 function updateOpenPopup(){if(openPopup&&openPlace)openPopup.setHTML(popHtml(openPlace));}
 
