@@ -255,6 +255,21 @@ body.winter .summer-only{display:none}
 .popup-cat{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--green);margin-bottom:5px}
 .popup-desc{font-size:12px;color:#555;line-height:1.5}
 .mapboxgl-popup-close-button{font-size:16px;color:#999;right:6px;top:4px}
+
+/* ACCORDION */
+.accordion{display:flex;flex-direction:column;gap:8px}
+.acc-item{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.acc-trigger{width:100%;display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:none;border:none;cursor:pointer;font-family:'Inter',sans-serif;font-size:13.5px;font-weight:500;color:var(--text);text-align:left;gap:12px;}
+.acc-trigger:hover{background:var(--green-bg)}
+.acc-left{display:flex;align-items:center;gap:10px}
+.acc-icon{font-size:18px;flex-shrink:0}
+.acc-chevron{font-size:12px;color:var(--muted);transition:transform .2s;flex-shrink:0}
+.acc-trigger.open .acc-chevron{transform:rotate(180deg)}
+.acc-body{max-height:0;overflow:hidden;transition:max-height .35s ease;}
+.acc-body.open{max-height:800px}
+.acc-inner{padding:0 16px 16px;font-size:13.5px;line-height:1.7;color:var(--text)}
+.acc-inner a{color:var(--green);text-decoration:none}
+.acc-inner a:hover{text-decoration:underline}
 </style>
 </head>
 <body class="winter">
@@ -316,6 +331,7 @@ body.winter .summer-only{display:none}
     <button class="nav-tab" onclick="goTo('sec-checkin')">🕒 Check-in</button>
     <button class="nav-tab" onclick="goTo('sec-rules')"><span data-li="it" class="on">📋 Regole</span><span data-li="en">📋 Rules</span><span data-li="de">📋 Regeln</span></button>
     <button class="nav-tab" onclick="goTo('sec-wifi')">📶 Wi-Fi</button>
+    <button class="nav-tab" onclick="goTo('sec-casa')">🏠 <span data-li="it" class="on">La casa</span><span data-li="en">The apt</span><span data-li="de">Wohnung</span></button>
     <button class="nav-tab winter-only" onclick="goTo('sec-ski')">⛷ Ski</button>
     <button class="nav-tab summer-only" onclick="goTo('sec-ski')">🌿 <span data-li="it" class="on">Estate</span><span data-li="en">Summer</span><span data-li="de">Sommer</span></button>
     <button class="nav-tab" onclick="goTo('sec-contacts')"><span data-li="it" class="on">📞 Contatti</span><span data-li="en">📞 Contacts</span><span data-li="de">📞 Kontakte</span></button>
@@ -418,6 +434,72 @@ body.winter .summer-only{display:none}
         <div class="wifi-val">Viadante47</div>
         <button class="copy-btn" onclick="copyText('Viadante47',this)">📋 <span data-li="it" class="on">Copia</span><span data-li="en">Copy</span><span data-li="de">Kopieren</span></button>
       </div>
+    </div>
+  </section>
+
+
+  <!-- LA CASA -->
+  <section class="section" id="sec-casa">
+    <div class="sec-head"><span class="sec-icon">🏠</span>
+      <h2 class="sec-title"><span data-li="it" class="on">Vivere la casa</span><span data-li="en">Around the apartment</span><span data-li="de">In der Wohnung</span></h2>
+    </div>
+
+    <div style="margin-bottom:16px">
+      <a class="btn btn-out" href="https://v4m-vps5.juniper-xs.it/v4web/file?RefOwner=60A7C1BB8B7C4CC69FA07E352EA1FA2C&UUID=F62152996DB24395B3F4DFF060AFEF29" target="_blank" style="width:100%;justify-content:center">
+        🗑️ <span data-li="it" class="on">Guida raccolta differenziata di Predazzo</span><span data-li="en">Predazzo waste sorting guide</span><span data-li="de">Abfalltrennung Predazzo</span>
+      </a>
+    </div>
+
+    <div class="accordion">
+
+      <div class="acc-item">
+        <button class="acc-trigger" onclick="toggleAcc(this)">
+          <span class="acc-left"><span class="acc-icon">💧</span><span data-li="it" class="on">Acqua del rubinetto</span><span data-li="en">Tap water</span><span data-li="de">Leitungswasser</span></span>
+          <span class="acc-chevron">▼</span>
+        </button>
+        <div class="acc-body"><div class="acc-inner">
+          <div data-l="it" class="on">È acqua di montagna: <strong>potabile, fresca e buonissima</strong>. Nessun bisogno di comprare bottiglie.</div>
+          <div data-l="en">Mountain spring water: <strong>safe to drink, fresh and delicious</strong>. No need to buy bottles.</div>
+          <div data-l="de">Bergquellwasser: <strong>trinkbar, frisch und sehr gut</strong>. Keine Flaschen nötig.</div>
+        </div></div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-trigger" onclick="toggleAcc(this)">
+          <span class="acc-left"><span class="acc-icon">🌡️</span><span data-li="it" class="on">Riscaldamento</span><span data-li="en">Heating</span><span data-li="de">Heizung</span></span>
+          <span class="acc-chevron">▼</span>
+        </button>
+        <div class="acc-body"><div class="acc-inner">
+          <div data-l="it" class="on">Il termostato è <strong>sopra il modem, a destra della porta del soggiorno</strong>. Di default è impostato a 20°C.<br><br><strong>Come regolarlo:</strong> premi al centro — appariranno le frecce ↑↓. Usale per alzare o abbassare. Ricordati di abbassarlo o spegnerlo quando esci. <a href="https://www.vimar.com/it/it/catalog/product/index/code/02912" target="_blank">→ Manuale termostato</a></div>
+          <div data-l="en">The thermostat is <strong>above the modem, to the right of the living room door</strong>. Default is 20°C.<br><br><strong>How to adjust:</strong> press the centre — arrows ↑↓ will appear. Please turn it down or off when you go out. <a href="https://www.vimar.com/it/it/catalog/product/index/code/02912" target="_blank">→ Thermostat manual</a></div>
+          <div data-l="de">Der Thermostat ist <strong>über dem Modem, rechts von der Wohnzimmertür</strong>. Standard: 20°C.<br><br><strong>Regulieren:</strong> Mitte drücken — Pfeile ↑↓ erscheinen. Beim Verlassen bitte herunterregeln oder ausschalten. <a href="https://www.vimar.com/it/it/catalog/product/index/code/02912" target="_blank">→ Thermostat-Anleitung</a></div>
+        </div></div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-trigger" onclick="toggleAcc(this)">
+          <span class="acc-left"><span class="acc-icon">🫧</span><span data-li="it" class="on">Lavatrice</span><span data-li="en">Washing machine</span><span data-li="de">Waschmaschine</span></span>
+          <span class="acc-chevron">▼</span>
+        </button>
+        <div class="acc-body"><div class="acc-inner">
+          <div data-l="it" class="on">La lavatrice è in <strong>bagno</strong>. Il detersivo è sotto il lavandino. Per un lavaggio normale usa il programma <strong>cotone 40°C</strong> — va bene per quasi tutto. Per dubbi su capi delicati, scrivimi.</div>
+          <div data-l="en">The washing machine is in the <strong>bathroom</strong>. Detergent is under the sink. For a standard wash, use the <strong>cotton 40°C</strong> programme. Not sure about a delicate item? Just message me.</div>
+          <div data-l="de">Die Waschmaschine ist im <strong>Badezimmer</strong>. Waschmittel unter dem Waschbecken. Normalprogramm: <strong>Baumwolle 40°C</strong> — funktioniert für fast alles. Bei Unsicherheit einfach schreiben.</div>
+        </div></div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-trigger" onclick="toggleAcc(this)">
+          <span class="acc-left"><span class="acc-icon">☕</span><span data-li="it" class="on">Macchina del caffè</span><span data-li="en">Coffee machine</span><span data-li="de">Kaffeemaschine</span></span>
+          <span class="acc-chevron">▼</span>
+        </button>
+        <div class="acc-body"><div class="acc-inner">
+          <div data-l="it" class="on">È una <strong>Lavazza A Modo Mio</strong>. Inserisci la capsula nel vano in cima, abbassa il coperchio fino al click, metti la tazza e premi il pulsante. Le capsule di scorta le trovi nel pensile sopra la macchinetta. <a href="https://www.clickcafeshop.it/macchinette-per-caff%C3%A8-in-capsule/7114-macchina-caff%C3%A8-new-tiny-ecolm840-rossa.html" target="_blank">→ Scheda prodotto</a></div>
+          <div data-l="en">It&#39;s a <strong>Lavazza A Modo Mio</strong>. Insert a capsule in the top compartment, close the lid until it clicks, place your cup and press the button. Spare capsules are in the cabinet above the machine. <a href="https://www.clickcafeshop.it/macchinette-per-caff%C3%A8-in-capsule/7114-macchina-caff%C3%A8-new-tiny-ecolm840-rossa.html" target="_blank">→ Product page</a></div>
+          <div data-l="de">Es ist eine <strong>Lavazza A Modo Mio</strong>. Kapsel oben einlegen, Deckel bis zum Klick schließen, Tasse hinstellen, Knopf drücken. Ersatzkapseln im Schrank über der Maschine. <a href="https://www.clickcafeshop.it/macchinette-per-caff%C3%A8-in-capsule/7114-macchina-caff%C3%A8-new-tiny-ecolm840-rossa.html" target="_blank">→ Produktseite</a></div>
+        </div></div>
+      </div>
+
     </div>
   </section>
 
@@ -575,7 +657,7 @@ function toggleSeason(){
 }
 
 // ── NAV ──────────────────────────────────────────────────────────────────────
-const sids=['sec-arrival','sec-checkin','sec-rules','sec-wifi','sec-ski','sec-contacts','sec-review'];
+const sids=['sec-arrival','sec-checkin','sec-rules','sec-wifi','sec-casa','sec-ski','sec-contacts','sec-review'];
 const tabs=document.querySelectorAll('.nav-tab');
 function goTo(id){
   const el=document.getElementById(id);if(!el)return;
@@ -697,6 +779,13 @@ function filterMap(cat,btn){
     const catMatch=cat==='all'||m._cat===cat;
     m.getElement().style.display=(catMatch&&!winterHidden)?'':'none';
   });
+}
+
+function toggleAcc(btn){
+  const body=btn.nextElementSibling;
+  const isOpen=body.classList.contains('open');
+  btn.classList.toggle('open',!isOpen);
+  body.classList.toggle('open',!isOpen);
 }
 </script>
 </body>
