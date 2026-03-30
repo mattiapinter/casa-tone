@@ -61,11 +61,6 @@ body.summer .s-icon:last-child{opacity:1}
 .mf[data-c="info"].on{background:#ff6f00}
 .mf[data-c="svago"].on{background:#c0392b}
 .mf[data-c="attivita"].on{background:#16a085}
-.map-card{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);z-index:10;background:var(--surface);border-radius:12px;padding:12px 14px;box-shadow:0 4px 24px rgba(0,0,0,.18);display:flex;align-items:center;gap:10px;min-width:0;width:calc(100% - 32px);max-width:420px;border-top:3px solid var(--green);}
-.mc-name{font-family:'Fraunces',serif;font-size:1rem;font-weight:400;color:var(--navy)}
-.mc-addr{font-size:12px;color:var(--muted);margin-top:1px}
-.mc-btn{margin-left:auto;padding:7px 13px;background:var(--green);color:#fff;border-radius:6px;font-size:12px;font-weight:500;text-decoration:none;white-space:nowrap;flex-shrink:0;}
-.mc-btn:hover{background:var(--green-dark)}
 
 /* WEATHER */
 .wx-strip{background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;gap:16px;padding:10px 20px;font-size:13px;flex-wrap:wrap;}
@@ -213,11 +208,6 @@ body.winter .summer-only{display:none}
     <button class="mf" data-c="noleggio" onclick="filterMap('noleggio',this)">🎿 <span data-li="it" class="on">Noleggio</span><span data-li="en">Rental</span><span data-li="de">Verleih</span></button>
     <button class="mf" data-c="parcheggi" onclick="filterMap('parcheggi',this)">🅿 <span data-li="it" class="on">Parcheggi</span><span data-li="en">Parking</span><span data-li="de">Parken</span></button>
     <button class="mf" data-c="info" onclick="filterMap('info',this)">ℹ️ Info</button>
-  </div>
-  <div class="map-card">
-    <span style="font-size:22px">📍</span>
-    <div><div class="mc-name">Casa Tone</div><div class="mc-addr">Via Dante 47, Predazzo · Val di Fiemme</div></div>
-
   </div>
 </div>
 
