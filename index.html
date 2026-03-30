@@ -6,876 +6,644 @@
 <title>Casa Tone – Guida Ospiti · Appartamenti Brigadoi</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏔</text></svg>"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,400&display=swap" rel="stylesheet"/>
 <link href="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css" rel="stylesheet"/>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-
-/* ── LIGHT / DARK ── */
 :root{
   --green:#6aaa3a;--green-dark:#4d8a26;--green-bg:#f0f7eb;
   --navy:#1d3d5c;--navy-light:#2a5580;
   --bg:#f7f6f3;--surface:#fff;--border:#e5e1da;
   --text:#1a1a1a;--muted:#7a756e;
   --bar-h:58px;--tab-h:46px;
-  --shadow:rgba(0,0,0,.08);
 }
 [data-theme="dark"]{
   --bg:#111418;--surface:#1c2128;--border:#2d333b;
-  --text:#e6edf3;--muted:#8b949e;
-  --green-bg:#162012;--shadow:rgba(0,0,0,.3);
+  --text:#e6edf3;--muted:#8b949e;--green-bg:#162012;
 }
-
 html{scroll-behavior:smooth;font-size:15px}
 body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.65;transition:background .3s,color .3s}
 
-/* ── TOP BAR ── */
-.topbar{
-  position:fixed;top:0;left:0;right:0;z-index:300;
-  height:var(--bar-h);display:flex;align-items:center;justify-content:space-between;
-  padding:0 16px;background:var(--navy);
-}
+/* TOP BAR */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:300;height:var(--bar-h);display:flex;align-items:center;justify-content:space-between;padding:0 16px;background:var(--navy);}
 .brand{font-family:'Fraunces',serif;font-size:.95rem;font-weight:300;color:#fff;letter-spacing:.02em;line-height:1.2}
 .brand small{display:block;font-family:'Inter',sans-serif;font-size:10px;font-weight:400;opacity:.6;letter-spacing:.08em;text-transform:uppercase;margin-top:1px}
 .topbar-right{display:flex;align-items:center;gap:8px}
 .lang-btns{display:flex;gap:3px}
-.lang-btn{
-  padding:3px 10px;font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;
-  border:1px solid rgba(255,255,255,.25);border-radius:20px;
-  background:transparent;color:rgba(255,255,255,.7);cursor:pointer;transition:all .15s;
-}
+.lang-btn{padding:3px 10px;font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;border:1px solid rgba(255,255,255,.25);border-radius:20px;background:transparent;color:rgba(255,255,255,.7);cursor:pointer;transition:all .15s;}
 .lang-btn.active{background:var(--green);color:#fff;border-color:var(--green)}
-.season-toggle-wrap{
-  display:flex;align-items:center;gap:6px;
-  background:none;border:none;cursor:pointer;padding:0;
-}
-.season-icon{font-size:16px;line-height:1;transition:opacity .2s}
-.toggle-track{
-  width:38px;height:20px;border-radius:10px;
-  background:rgba(255,255,255,.25);
-  position:relative;transition:background .3s;flex-shrink:0;
-}
-.toggle-thumb{
-  position:absolute;top:2px;left:2px;
-  width:16px;height:16px;border-radius:50%;
-  background:#fff;transition:transform .3s;
-  box-shadow:0 1px 3px rgba(0,0,0,.2);
-}
-body.summer .toggle-track{background:rgba(255,220,50,.6)}
-body.summer .toggle-thumb{transform:translateX(18px)}
-body.winter .season-icon:first-child{opacity:1}
-body.winter .season-icon:last-child{opacity:.4}
-body.summer .season-icon:first-child{opacity:.4}
-body.summer .season-icon:last-child{opacity:1}
 
-/* ── MAP HERO ── */
-.map-hero{
-  margin-top:var(--bar-h);position:relative;
-  height:calc(100svh - var(--bar-h) - var(--tab-h));
-  min-height:340px;max-height:600px;
-}
+/* SEASON TOGGLE */
+.season-btn{display:flex;align-items:center;gap:6px;background:none;border:none;cursor:pointer;padding:0;}
+.s-icon{font-size:16px;line-height:1;transition:opacity .2s}
+.s-track{width:38px;height:20px;border-radius:10px;background:rgba(255,255,255,.25);position:relative;transition:background .3s;flex-shrink:0;}
+.s-thumb{position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;transition:transform .3s;box-shadow:0 1px 3px rgba(0,0,0,.2);}
+body.summer .s-track{background:rgba(255,220,50,.6)}
+body.summer .s-thumb{transform:translateX(18px)}
+body.winter .s-icon:first-child{opacity:1}
+body.winter .s-icon:last-child{opacity:.4}
+body.summer .s-icon:first-child{opacity:.4}
+body.summer .s-icon:last-child{opacity:1}
+
+/* MAP HERO */
+.map-hero{margin-top:var(--bar-h);position:relative;height:calc(100svh - var(--bar-h) - var(--tab-h));min-height:340px;max-height:600px;}
 #map{position:absolute;inset:0;width:100%;height:100%}
-.map-filters-float{
-  position:absolute;top:12px;left:50%;transform:translateX(-50%);z-index:10;
-  display:flex;gap:6px;flex-wrap:nowrap;
-  background:rgba(255,255,255,.92);backdrop-filter:blur(8px);
-  border-radius:30px;padding:6px 10px;box-shadow:0 2px 12px rgba(0,0,0,.12);
-  overflow-x:auto;max-width:94vw;scrollbar-width:none;
-}
-.map-filters-float::-webkit-scrollbar{display:none}
-.mf-btn{
-  padding:4px 11px;font-size:11.5px;font-weight:500;border-radius:20px;
-  border:1px solid transparent;background:transparent;color:#555;
-  cursor:pointer;transition:all .15s;white-space:nowrap;
-}
-.mf-btn.active{color:#fff}
-.mf-btn[data-cat="all"].active{background:var(--navy)}
-.mf-btn[data-cat="casa"].active{background:#e74c3c}
-.mf-btn[data-cat="ristoranti"].active{background:#e67e22}
-.mf-btn[data-cat="bar"].active{background:#8e44ad}
-.mf-btn[data-cat="negozi"].active{background:#2980b9}
-.mf-btn[data-cat="impianti"].active{background:var(--green)}
-.mf-btn[data-cat="skibus"].active{background:#7f8c00}
-.mf-btn[data-cat="parcheggi"].active{background:#546e7a}
-.mf-btn[data-cat="noleggio"].active{background:#00838f}
-.map-card{
-  position:absolute;bottom:16px;left:50%;transform:translateX(-50%);z-index:10;
-  background:var(--surface);border-radius:12px;padding:14px 18px;
-  box-shadow:0 4px 24px rgba(0,0,0,.18);display:flex;align-items:center;gap:14px;
-  min-width:260px;max-width:90vw;border-top:3px solid var(--green);
-}
-.map-card-name{font-family:'Fraunces',serif;font-size:1rem;font-weight:400;color:var(--navy)}
-.map-card-addr{font-size:12px;color:var(--muted);margin-top:1px}
-.map-card-btn{
-  margin-left:auto;padding:7px 13px;background:var(--green);color:#fff;
-  border-radius:6px;font-size:12px;font-weight:500;text-decoration:none;
-  white-space:nowrap;flex-shrink:0;transition:background .15s;
-}
-.map-card-btn:hover{background:var(--green-dark)}
+.map-filters{position:absolute;top:12px;left:50%;transform:translateX(-50%);z-index:10;display:flex;gap:6px;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-radius:30px;padding:6px 10px;box-shadow:0 2px 12px rgba(0,0,0,.12);overflow-x:auto;max-width:94vw;scrollbar-width:none;}
+.map-filters::-webkit-scrollbar{display:none}
+.mf{padding:4px 11px;font-size:11.5px;font-weight:500;border-radius:20px;border:1px solid transparent;background:transparent;color:#555;cursor:pointer;transition:all .15s;white-space:nowrap;}
+.mf.on{color:#fff}
+.mf[data-c="all"].on{background:var(--navy)}
+.mf[data-c="casa"].on{background:#e74c3c}
+.mf[data-c="ristoranti"].on{background:#e67e22}
+.mf[data-c="bar"].on{background:#8e44ad}
+.mf[data-c="negozi"].on{background:#2980b9}
+.mf[data-c="supermercato"].on{background:#0097a7}
+.mf[data-c="impianti"].on{background:var(--green)}
+.mf[data-c="skibus"].on{background:#7f8c00}
+.mf[data-c="noleggio"].on{background:#00838f}
+.mf[data-c="parcheggi"].on{background:#546e7a}
+.mf[data-c="info"].on{background:#ff6f00}
+.map-card{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);z-index:10;background:var(--surface);border-radius:12px;padding:14px 18px;box-shadow:0 4px 24px rgba(0,0,0,.18);display:flex;align-items:center;gap:14px;min-width:260px;max-width:90vw;border-top:3px solid var(--green);}
+.mc-name{font-family:'Fraunces',serif;font-size:1rem;font-weight:400;color:var(--navy)}
+.mc-addr{font-size:12px;color:var(--muted);margin-top:1px}
+.mc-btn{margin-left:auto;padding:7px 13px;background:var(--green);color:#fff;border-radius:6px;font-size:12px;font-weight:500;text-decoration:none;white-space:nowrap;flex-shrink:0;}
+.mc-btn:hover{background:var(--green-dark)}
 
-/* ── WEATHER STRIP ── */
-.weather-strip{
-  background:var(--navy);color:#fff;
-  display:flex;align-items:center;justify-content:center;gap:16px;
-  padding:10px 20px;font-size:13px;flex-wrap:wrap;
-}
-.wx-item{display:flex;align-items:center;gap:5px;opacity:.9}
-.wx-icon{font-size:18px}
-.wx-val{font-weight:600}
-.wx-label{font-size:11px;opacity:.65}
+/* WEATHER */
+.wx-strip{background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;gap:16px;padding:10px 20px;font-size:13px;flex-wrap:wrap;}
+.wx-it{display:flex;align-items:center;gap:5px;opacity:.9}
+.wx-v{font-weight:600}
+.wx-l{font-size:11px;opacity:.65}
 
-/* ── NAV TABS ── */
-.nav-tabs-wrap{
-  position:sticky;top:var(--bar-h);z-index:200;height:var(--tab-h);
-  background:var(--surface);border-bottom:1px solid var(--border);
-  overflow-x:auto;scrollbar-width:none;display:flex;align-items:stretch;
-  transition:background .3s;
-}
-.nav-tabs-wrap::-webkit-scrollbar{display:none}
+/* NAV TABS */
+.nav-wrap{position:sticky;top:var(--bar-h);z-index:200;height:var(--tab-h);background:var(--surface);border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none;display:flex;align-items:stretch;transition:background .3s;}
+.nav-wrap::-webkit-scrollbar{display:none}
 .nav-tabs{display:flex;min-width:max-content;padding:0 10px;align-items:stretch}
-.nav-tab{
-  padding:0 14px;font-size:12px;font-weight:500;letter-spacing:.03em;
-  color:var(--muted);border-bottom:2px solid transparent;
-  cursor:pointer;white-space:nowrap;transition:all .15s;
-  background:none;border-top:none;border-left:none;border-right:none;display:flex;align-items:center;
-}
-.nav-tab:hover{color:var(--text)}
-.nav-tab.active{color:var(--navy);border-bottom-color:var(--green)}
-[data-theme="dark"] .nav-tab.active{color:var(--green)}
+.nt{padding:0 14px;font-size:12px;font-weight:500;color:var(--muted);border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;transition:all .15s;background:none;border-top:none;border-left:none;border-right:none;display:flex;align-items:center;}
+.nt:hover{color:var(--text)}
+.nt.on{color:var(--navy);border-bottom-color:var(--green)}
+[data-theme="dark"] .nt.on{color:var(--green)}
 
-/* ── CONTENT ── */
+/* CONTENT */
 .content{max-width:680px;margin:0 auto;padding:0 20px 100px}
-.section{padding:32px 0 28px;border-bottom:1px solid var(--border)}
-.section:last-child{border-bottom:none}
+.sec{padding:32px 0 28px;border-bottom:1px solid var(--border)}
+.sec:last-child{border-bottom:none}
 .sec-head{display:flex;align-items:center;gap:9px;margin-bottom:16px}
 .sec-icon{font-size:17px}
 .sec-title{font-family:'Fraunces',serif;font-size:1.15rem;font-weight:400;color:var(--navy)}
 [data-theme="dark"] .sec-title{color:var(--green)}
 
-/* ── CARDS ── */
-.card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:15px 17px;margin-bottom:9px;transition:background .3s,border-color .3s}
+/* CARDS */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:15px 17px;margin-bottom:9px}
 .clabel{font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
-.cvalue{font-size:.95rem;font-weight:500;color:var(--text)}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;min-width:0}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 @media(max-width:400px){.g2{grid-template-columns:1fr}.g3{grid-template-columns:1fr 1fr}}
 
-/* ── HIGHLIGHT ── */
-.hl{
-  background:var(--green-bg);border-left:3px solid var(--green);
-  border-radius:0 8px 8px 0;padding:13px 16px;margin:13px 0;font-size:13.5px;line-height:1.6;
-}
+/* HIGHLIGHT */
+.hl{background:var(--green-bg);border-left:3px solid var(--green);border-radius:0 8px 8px 0;padding:13px 16px;margin:13px 0;font-size:13.5px;line-height:1.6;}
 .hl strong{color:var(--green-dark)}
 
-/* ── RULES ── */
-.rule-list{display:flex;flex-direction:column;gap:6px}
-.rule-item{
-  display:flex;align-items:flex-start;gap:10px;font-size:13.5px;
-  padding:10px 13px;background:var(--surface);border:1px solid var(--border);border-radius:6px;
-}
+/* RULES */
+.rlist{display:flex;flex-direction:column;gap:6px}
+.ritem{display:flex;align-items:flex-start;gap:10px;font-size:13.5px;padding:10px 13px;background:var(--surface);border:1px solid var(--border);border-radius:6px;}
 .ri{font-size:14px;flex-shrink:0;margin-top:1px}
 
-/* ── WIFI ── */
-.wifi-val{font-size:1.1rem;font-weight:700;font-family:monospace;color:var(--navy);margin-top:4px;word-break:break-all}
-[data-theme="dark"] .wifi-val{color:var(--green)}
-.copy-btn{
-  display:inline-flex;align-items:center;gap:4px;margin-top:7px;
-  font-size:11px;font-weight:500;color:var(--green);cursor:pointer;background:none;border:none;padding:0;
-}
+/* WIFI */
+.wval{font-size:1.1rem;font-weight:700;font-family:monospace;color:var(--navy);margin-top:4px;word-break:break-all}
+[data-theme="dark"] .wval{color:var(--green)}
+.cpbtn{display:inline-flex;align-items:center;gap:4px;margin-top:7px;font-size:11px;font-weight:500;color:var(--green);cursor:pointer;background:none;border:none;padding:0;}
 
-/* ── LINEN ── */
-.linen-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 8px;text-align:center;min-width:0}
-.linen-price{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:400;color:var(--navy);margin-top:3px}
-[data-theme="dark"] .linen-price{color:var(--green)}
-.linen-name{font-size:10px;color:var(--muted);word-break:break-word}
+/* LINEN */
+.lcard{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 8px;text-align:center}
+.lprice{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:400;color:var(--navy);margin-top:3px}
+[data-theme="dark"] .lprice{color:var(--green)}
+.lname{font-size:10px;color:var(--muted)}
 
-/* ── CONTACTS ── */
-.contact-list{display:flex;flex-direction:column;gap:7px}
-.ci{
-  display:flex;align-items:center;gap:12px;padding:12px 14px;
-  background:var(--surface);border:1px solid var(--border);border-radius:8px;
-  text-decoration:none;color:var(--text);transition:border-color .15s;
-}
-.ci:hover{border-color:var(--green)}
+/* CONTACTS */
+.ci-exp{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:7px}
+.ci-hd{display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer;transition:background .15s;}
+.ci-hd:hover{background:var(--green-bg)}
+.ci-arr{font-size:11px;color:var(--muted);transition:transform .2s;flex-shrink:0;margin-left:auto}
+.ci-actions{display:flex;gap:8px;padding:0 14px;flex-wrap:wrap;max-height:0;overflow:hidden;transition:max-height .25s ease,padding .2s;}
+.ci-actions.on{max-height:80px;padding:0 14px 12px}
+.ci-btn{display:inline-flex;align-items:center;gap:5px;padding:8px 14px;background:var(--green-bg);color:var(--green-dark);border-radius:6px;text-decoration:none;font-size:13px;font-weight:500;border:1px solid var(--green);}
+.ci-btn:hover{background:var(--green);color:#fff}
 .ci-icon{font-size:19px;flex-shrink:0}
 .ci-label{font-size:10.5px;color:var(--muted);font-weight:600;letter-spacing:.06em;text-transform:uppercase}
 .ci-val{font-size:.92rem;font-weight:500;margin-top:1px}
 .ci-note{font-size:11px;color:var(--muted);margin-top:2px}
-.ci.emergency{border-color:#fca5a5;background:#fff5f5}
-.ci.emergency .ci-val{color:#c0392b}
-[data-theme="dark"] .ci.emergency{background:#2d1515;border-color:#7f3434}
+.ci-em{background:var(--surface);border:1px solid #fca5a5;border-radius:8px;margin-bottom:7px}
+.ci-em a{display:flex;align-items:center;gap:12px;padding:12px 14px;text-decoration:none;color:var(--text);}
+.ci-em .ci-val{color:#c0392b}
+[data-theme="dark"] .ci-em{border-color:#7f3434;background:#2d1515}
 
-/* ── BUTTONS ── */
-.btn{
-  display:inline-flex;align-items:center;gap:6px;padding:10px 17px;border-radius:6px;
-  font-size:13px;font-weight:500;text-decoration:none;cursor:pointer;border:none;transition:all .15s;
-}
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:10px 17px;border-radius:6px;font-size:13px;font-weight:500;text-decoration:none;cursor:pointer;border:none;transition:all .15s;}
 .btn-out{background:transparent;color:var(--text);border:1px solid var(--border)}
 .btn-out:hover{border-color:var(--green);color:var(--green)}
 
-/* ── REVIEW ── */
-.review-box{background:var(--navy);border-radius:12px;padding:28px 24px;text-align:center;color:#fff}
+/* REVIEW */
+.rev-box{background:var(--navy);border-radius:12px;padding:28px 24px;text-align:center;color:#fff}
 .stars{font-size:22px;letter-spacing:4px;margin-bottom:10px}
-.review-box p{font-size:13.5px;opacity:.82;line-height:1.75;max-width:460px;margin:0 auto}
-.review-note{font-size:12px;background:rgba(255,255,255,.08);border-radius:6px;padding:10px 14px;margin-top:12px;opacity:.75}
-.review-sign{font-family:'Fraunces',serif;font-style:italic;font-size:1.05rem;color:rgba(255,255,255,.85);margin-top:20px}
-.btn-group-center{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:16px}
-.btn-white{background:#fff;color:var(--navy);font-weight:600}
-.btn-white:hover{background:var(--green-bg)}
-.btn-white-out{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.35)}
+.rev-box p{font-size:13.5px;opacity:.82;line-height:1.75;max-width:460px;margin:0 auto}
+.rev-sign{font-family:'Fraunces',serif;font-style:italic;font-size:1.05rem;color:rgba(255,255,255,.85);margin-top:20px}
 
-/* ── FAB ── */
-.fab{
-  position:fixed;bottom:24px;right:20px;z-index:400;
-  display:flex;flex-direction:column;align-items:flex-end;gap:10px;
-}
-.fab-main{
-  width:56px;height:56px;border-radius:50%;
-  background:var(--green);color:#fff;border:none;
-  font-size:24px;cursor:pointer;box-shadow:0 4px 16px rgba(106,170,58,.45);
-  display:flex;align-items:center;justify-content:center;
-  transition:transform .2s,background .15s;
-}
-.fab-main:hover{transform:scale(1.08);background:var(--green-dark)}
-.fab-options{
-  display:flex;flex-direction:column;gap:8px;align-items:flex-end;
-  overflow:hidden;max-height:0;transition:max-height .25s ease,opacity .2s;opacity:0;
-}
-.fab-options.open{max-height:200px;opacity:1}
-.fab-option{
-  display:flex;align-items:center;gap:8px;
-  background:var(--surface);border:1px solid var(--border);border-radius:24px;
-  padding:8px 14px 8px 10px;text-decoration:none;color:var(--text);
-  font-size:13px;font-weight:500;box-shadow:0 2px 8px var(--shadow);
-  white-space:nowrap;transition:border-color .15s;
-}
-.fab-option:hover{border-color:var(--green)}
-.fab-option-icon{font-size:18px}
+/* FAB */
+.fab{position:fixed;bottom:24px;right:20px;z-index:400;display:flex;flex-direction:column;align-items:flex-end;gap:10px;}
+.fab-main{width:56px;height:56px;border-radius:50%;background:var(--green);color:#fff;border:none;font-size:24px;cursor:pointer;box-shadow:0 4px 16px rgba(106,170,58,.45);display:flex;align-items:center;justify-content:center;transition:transform .2s;}
+.fab-main:hover{transform:scale(1.08)}
+.fab-opts{display:flex;flex-direction:column;gap:8px;align-items:flex-end;max-height:0;overflow:hidden;opacity:0;transition:max-height .25s,opacity .2s;}
+.fab-opts.on{max-height:200px;opacity:1}
+.fab-opt{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border);border-radius:24px;padding:8px 14px 8px 10px;text-decoration:none;color:var(--text);font-size:13px;font-weight:500;box-shadow:0 2px 8px rgba(0,0,0,.08);white-space:nowrap;}
+.fab-opt:hover{border-color:var(--green)}
 
-/* ── SEASON HIDDEN ── */
-.winter-only,.summer-only{transition:opacity .3s}
+/* ACCORDION */
+.acc-item{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:8px}
+.acc-trig{width:100%;display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:none;border:none;cursor:pointer;font-family:'Inter',sans-serif;font-size:13.5px;font-weight:500;color:var(--text);text-align:left;gap:12px;}
+.acc-trig:hover{background:var(--green-bg)}
+.acc-left{display:flex;align-items:center;gap:10px}
+.acc-chev{font-size:12px;color:var(--muted);transition:transform .2s}
+.acc-trig.on .acc-chev{transform:rotate(180deg)}
+.acc-body{max-height:0;overflow:hidden;transition:max-height .35s ease;}
+.acc-body.on{max-height:600px}
+.acc-inner{padding:0 16px 16px;font-size:13.5px;line-height:1.7;color:var(--text)}
+
+/* SEASON CLASSES */
 body.summer .winter-only{display:none}
 body.winter .summer-only{display:none}
 
-/* ── LANG ── */
+/* LANG */
 [data-l]{display:none}[data-l].on{display:block}
 [data-li]{display:none}[data-li].on{display:inline}
 
-/* ── MAPBOX ── */
-.mapboxgl-popup-content{
-  font-family:'Inter',sans-serif;border-radius:8px!important;
-  padding:12px 14px!important;box-shadow:0 4px 20px rgba(0,0,0,.15)!important;
-  border-top:3px solid var(--green);min-width:180px;max-width:220px;
-}
-.popup-name{font-weight:600;font-size:13px;color:var(--navy);margin-bottom:3px}
-.popup-cat{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--green);margin-bottom:5px}
-.popup-desc{font-size:12px;color:#555;line-height:1.5}
+/* MAPBOX */
+.mapboxgl-popup-content{font-family:'Inter',sans-serif;border-radius:8px!important;padding:12px 14px!important;box-shadow:0 4px 20px rgba(0,0,0,.15)!important;border-top:3px solid var(--green);min-width:180px;max-width:220px;}
+.pname{font-weight:600;font-size:13px;color:var(--navy);margin-bottom:3px}
+.pcat{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--green);margin-bottom:5px}
+.pdesc{font-size:12px;color:#555;line-height:1.5}
+.pdesc a{color:var(--green)}
 .mapboxgl-popup-close-button{font-size:16px;color:#999;right:6px;top:4px}
-
-/* ACCORDION */
-.accordion{display:flex;flex-direction:column;gap:8px}
-.acc-item{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden}
-.acc-trigger{width:100%;display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:none;border:none;cursor:pointer;font-family:'Inter',sans-serif;font-size:13.5px;font-weight:500;color:var(--text);text-align:left;gap:12px;}
-.acc-trigger:hover{background:var(--green-bg)}
-.acc-left{display:flex;align-items:center;gap:10px}
-.acc-icon{font-size:18px;flex-shrink:0}
-.acc-chevron{font-size:12px;color:var(--muted);transition:transform .2s;flex-shrink:0}
-.acc-trigger.open .acc-chevron{transform:rotate(180deg)}
-.acc-body{max-height:0;overflow:hidden;transition:max-height .35s ease;}
-.acc-body.open{max-height:800px}
-.acc-inner{padding:0 16px 16px;font-size:13.5px;line-height:1.7;color:var(--text)}
-.acc-inner a{color:var(--green);text-decoration:none}
-.acc-inner a:hover{text-decoration:underline}
-
-/* EXPANDABLE CONTACTS */
-.ci-expandable{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:7px}
-.ci-header{display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer;transition:background .15s}
-.ci-header:hover{background:var(--green-bg)}
-.ci-arr{font-size:11px;color:var(--muted);transition:transform .2s;flex-shrink:0}
-.ci-actions{display:flex;gap:8px;padding:0 14px 12px;flex-wrap:wrap;max-height:0;overflow:hidden;transition:max-height .25s ease,padding .25s}
-.ci-actions.open{max-height:80px;padding:0 14px 12px}
-.ci-action-btn{display:inline-flex;align-items:center;gap:5px;padding:8px 14px;background:var(--green-bg);color:var(--green-dark);border-radius:6px;text-decoration:none;font-size:13px;font-weight:500;border:1px solid var(--green);transition:background .15s}
-.ci-action-btn:hover{background:var(--green);color:#fff}
 </style>
 </head>
 <body>
 
-<!-- TOP BAR -->
 <header class="topbar">
-  <div class="brand">
-    Casa Tone
-    <small>Appartamenti Brigadoi</small>
-  </div>
+  <div class="brand">Casa Tone<small>Appartamenti Brigadoi</small></div>
   <div class="topbar-right">
-    <button class="season-toggle-wrap" onclick="toggleSeason()" id="seasonBtn" title="Cambia stagione">
-    <span class="season-icon" id="seasonIcon">❄️</span>
-    <span class="toggle-track" id="toggleTrack">
-      <span class="toggle-thumb" id="toggleThumb"></span>
-    </span>
-    <span class="season-icon" id="seasonIcon2">☀️</span>
-  </button>
+    <button class="season-btn" onclick="toggleSeason()" title="Cambia stagione">
+      <span class="s-icon">❄️</span>
+      <span class="s-track"><span class="s-thumb"></span></span>
+      <span class="s-icon">☀️</span>
+    </button>
     <div class="lang-btns">
-      <button class="lang-btn active" onclick="setLang('it')">IT</button>
+      <button class="lang-btn on" onclick="setLang('it')">IT</button>
       <button class="lang-btn" onclick="setLang('en')">EN</button>
       <button class="lang-btn" onclick="setLang('de')">DE</button>
     </div>
   </div>
 </header>
 
-<!-- MAP HERO -->
 <div class="map-hero">
   <div id="map"></div>
-  <div class="map-filters-float">
-    <button class="mf-btn active" data-cat="all" onclick="filterMap('all',this)"><span data-li="it" class="on">Tutti</span><span data-li="en">All</span><span data-li="de">Alle</span></button>
-    <button class="mf-btn" data-cat="casa" onclick="filterMap('casa',this)">🏠 Casa</button>
-    <button class="mf-btn" data-cat="ristoranti" onclick="filterMap('ristoranti',this)">🍽 <span data-li="it" class="on">Ristoranti</span><span data-li="en">Food</span><span data-li="de">Essen</span></button>
-    <button class="mf-btn" data-cat="bar" onclick="filterMap('bar',this)">🍸 Bar</button>
-    <button class="mf-btn" data-cat="negozi" onclick="filterMap('negozi',this)">🛒 <span data-li="it" class="on">Negozi</span><span data-li="en">Shops</span><span data-li="de">Läden</span></button>
-    <button class="mf-btn" data-cat="impianti" onclick="filterMap('impianti',this)">⛷ <span data-li="it" class="on">Impianti</span><span data-li="en">Lifts</span><span data-li="de">Lifte</span></button>
-    <button class="mf-btn winter-only" data-cat="skibus" onclick="filterMap('skibus',this)">🚌 SkiBus</button>
-    <button class="mf-btn" data-cat="noleggio" onclick="filterMap('noleggio',this)">🎿 <span data-li="it" class="on">Noleggio</span><span data-li="en">Rental</span><span data-li="de">Verleih</span></button>
-    <button class="mf-btn" data-cat="parcheggi" onclick="filterMap('parcheggi',this)">🅿 <span data-li="it" class="on">Parcheggi</span><span data-li="en">Parking</span><span data-li="de">Parken</span></button>
+  <div class="map-filters">
+    <button class="mf on" data-c="all" onclick="filterMap('all',this)"><span data-li="it" class="on">Tutti</span><span data-li="en">All</span><span data-li="de">Alle</span></button>
+    <button class="mf" data-c="casa" onclick="filterMap('casa',this)">🏠 Casa</button>
+    <button class="mf" data-c="ristoranti" onclick="filterMap('ristoranti',this)">🍽 <span data-li="it" class="on">Ristoranti</span><span data-li="en">Food</span><span data-li="de">Essen</span></button>
+    <button class="mf" data-c="bar" onclick="filterMap('bar',this)">🍸 Bar</button>
+    <button class="mf" data-c="negozi" onclick="filterMap('negozi',this)">🛒 <span data-li="it" class="on">Negozi</span><span data-li="en">Shops</span><span data-li="de">Läden</span></button>
+    <button class="mf" data-c="supermercato" onclick="filterMap('supermercato',this)">🏪 <span data-li="it" class="on">Supermercati</span><span data-li="en">Supermarkets</span><span data-li="de">Supermärkte</span></button>
+    <button class="mf" data-c="impianti" onclick="filterMap('impianti',this)">⛷ <span data-li="it" class="on">Impianti</span><span data-li="en">Lifts</span><span data-li="de">Lifte</span></button>
+    <button class="mf winter-only" data-c="skibus" onclick="filterMap('skibus',this)">🚌 SkiBus</button>
+    <button class="mf" data-c="noleggio" onclick="filterMap('noleggio',this)">🎿 <span data-li="it" class="on">Noleggio</span><span data-li="en">Rental</span><span data-li="de">Verleih</span></button>
+    <button class="mf" data-c="parcheggi" onclick="filterMap('parcheggi',this)">🅿 <span data-li="it" class="on">Parcheggi</span><span data-li="en">Parking</span><span data-li="de">Parken</span></button>
+    <button class="mf" data-c="info" onclick="filterMap('info',this)">ℹ️ Info</button>
   </div>
   <div class="map-card">
     <span style="font-size:22px">📍</span>
-    <div>
-      <div class="map-card-name">Casa Tone</div>
-      <div class="map-card-addr">Via Dante 47, Predazzo · Val di Fiemme</div>
-    </div>
-    <a class="map-card-btn" href="https://maps.google.com/?q=Via+Dante+47,+Predazzo" target="_blank">
+    <div><div class="mc-name">Casa Tone</div><div class="mc-addr">Via Dante 47, Predazzo · Val di Fiemme</div></div>
+    <a class="mc-btn" href="https://maps.google.com/?q=Via+Dante+47,+Predazzo" target="_blank">
       <span data-li="it" class="on">Naviga</span><span data-li="en">Navigate</span><span data-li="de">Navigieren</span>
     </a>
   </div>
 </div>
 
-<!-- WEATHER STRIP -->
-<div class="weather-strip" id="weatherStrip">
-  <div class="wx-item"><span class="wx-icon">🌡</span><span class="wx-val" id="wxTemp">–</span><span class="wx-label">°C</span></div>
-  <div class="wx-item"><span class="wx-icon" id="wxIcon">⛅</span><span class="wx-val" id="wxDesc">Predazzo</span></div>
-  <div class="wx-item"><span class="wx-icon">💨</span><span class="wx-val" id="wxWind">–</span><span class="wx-label">km/h</span></div>
-  <div class="wx-item winter-only"><span class="wx-icon">❄️</span><span class="wx-val" id="wxSnow">–</span><span class="wx-label">cm neve</span></div>
+<div class="wx-strip">
+  <div class="wx-it"><span style="font-size:18px">🌡</span><span class="wx-v" id="wxTemp">–</span><span class="wx-l">°C</span></div>
+  <div class="wx-it"><span style="font-size:18px" id="wxIcon">⛅</span><span class="wx-v" id="wxDesc">Predazzo</span></div>
+  <div class="wx-it"><span style="font-size:18px">💨</span><span class="wx-v" id="wxWind">–</span><span class="wx-l">km/h</span></div>
+  <div class="wx-it winter-only"><span style="font-size:18px">❄️</span><span class="wx-v" id="wxSnow">–</span><span class="wx-l">cm neve</span></div>
 </div>
 
-<!-- NAV TABS -->
-<div class="nav-tabs-wrap">
+<div class="nav-wrap">
   <div class="nav-tabs">
-    <button class="nav-tab active" onclick="goTo('sec-arrival')"><span data-li="it" class="on">🚗 Arrivo</span><span data-li="en">🚗 Arrival</span><span data-li="de">🚗 Ankunft</span></button>
-    <button class="nav-tab" onclick="goTo('sec-checkin')">🕒 Check-in</button>
-    <button class="nav-tab" onclick="goTo('sec-rules')"><span data-li="it" class="on">📋 Regole</span><span data-li="en">📋 Rules</span><span data-li="de">📋 Regeln</span></button>
-    <button class="nav-tab" onclick="goTo('sec-wifi')">📶 Wi-Fi</button>
-    <button class="nav-tab" onclick="goTo('sec-casa')">🏠 <span data-li="it" class="on">La casa</span><span data-li="en">The apt</span><span data-li="de">Wohnung</span></button>
-    <button class="nav-tab winter-only" onclick="goTo('sec-ski')">⛷ Ski</button>
-    <button class="nav-tab summer-only" onclick="goTo('sec-ski')">🌿 <span data-li="it" class="on">Estate</span><span data-li="en">Summer</span><span data-li="de">Sommer</span></button>
-    <button class="nav-tab" onclick="goTo('sec-contacts')"><span data-li="it" class="on">📞 Contatti</span><span data-li="en">📞 Contacts</span><span data-li="de">📞 Kontakte</span></button>
-    <button class="nav-tab" onclick="goTo('sec-review')">⭐ Review</button>
+    <button class="nt on" onclick="goTo('sec-arrival')"><span data-li="it" class="on">🚗 Arrivo</span><span data-li="en">🚗 Arrival</span><span data-li="de">🚗 Ankunft</span></button>
+    <button class="nt" onclick="goTo('sec-checkin')">🕒 Check-in</button>
+    <button class="nt" onclick="goTo('sec-rules')"><span data-li="it" class="on">📋 Regole</span><span data-li="en">📋 Rules</span><span data-li="de">📋 Regeln</span></button>
+    <button class="nt" onclick="goTo('sec-wifi')">📶 Wi-Fi</button>
+    <button class="nt" onclick="goTo('sec-casa')">🏠 <span data-li="it" class="on">La casa</span><span data-li="en">The apt</span><span data-li="de">Wohnung</span></button>
+    <button class="nt winter-only" onclick="goTo('sec-ski')">⛷ Ski</button>
+    <button class="nt summer-only" onclick="goTo('sec-ski')">🌿 <span data-li="it" class="on">Estate</span><span data-li="en">Summer</span><span data-li="de">Sommer</span></button>
+    <button class="nt" onclick="goTo('sec-contacts')"><span data-li="it" class="on">📞 Contatti</span><span data-li="en">📞 Contacts</span><span data-li="de">📞 Kontakte</span></button>
+    <button class="nt" onclick="goTo('sec-review')">⭐ Review</button>
   </div>
 </div>
 
 <div class="content">
 
-  <!-- ARRIVAL -->
-  <section class="section" id="sec-arrival">
-    <div class="sec-head"><span class="sec-icon">🚗</span>
-      <h2 class="sec-title"><span data-li="it" class="on">Arrivo & Parcheggio</span><span data-li="en">Arrival & Parking</span><span data-li="de">Ankunft & Parken</span></h2>
-    </div>
-    <div data-l="it" class="on">
-      <div class="card"><div class="clabel">🚗 Parcheggio privato</div><div class="cvalue" style="font-weight:400;font-size:.9rem">Il posto auto è davanti alla <strong>porta di legno</strong> nel piazzale sotto casa. Se dovessero servire ulteriori posti, ci sono diversi parcheggi pubblici nelle vicinanze: controlla la mappa!</div></div>
-      <div class="card"><div class="clabel">🗑️ Raccolta differenziata</div><div class="cvalue" style="font-weight:400;font-size:.9rem">Puoi lasciare i rifiuti in casa prima di partire, purché siano <strong>ben differenziati</strong>.</div><a class="btn btn-out" href="https://v4m-vps5.juniper-xs.it/v4web/file?RefOwner=60A7C1BB8B7C4CC69FA07E352EA1FA2C&UUID=F62152996DB24395B3F4DFF060AFEF29" target="_blank" style="margin-top:10px;font-size:12px">🗑️ <span data-li="it" class="on">Guida alla differenziata</span><span data-li="en">Waste sorting guide</span><span data-li="de">Mülltrennung Predazzo</span></a></div>
-    </div>
-    <div data-l="en">
-      <div class="card"><div class="clabel">🚗 Private parking</div><div class="cvalue" style="font-weight:400;font-size:.9rem">The parking spot is in front of the <strong>wooden gate</strong> in the courtyard below the apartment. If you need extra space, there are several public car parks nearby: check the map!</div></div>
-      <div class="card"><div class="clabel">🗑️ Waste sorting</div><div class="cvalue" style="font-weight:400;font-size:.9rem">You can leave sorted waste inside before departing, as long as it's <strong>properly separated</strong>.</div></div>
-    </div>
-    <div data-l="de">
-      <div class="card"><div class="clabel">🚗 Privatparkplatz</div><div class="cvalue" style="font-weight:400;font-size:.9rem">Der Parkplatz befindet sich vor dem <strong>Holztor</strong> im Hof unterhalb der Wohnung. Bei Bedarf gibt es mehrere öffentliche Parkplätze in der Nähe: auf der Karte nachschauen!</div></div>
-      <div class="card"><div class="clabel">🗑️ Mülltrennung</div><div class="cvalue" style="font-weight:400;font-size:.9rem">Müll kann vor der Abreise in der Wohnung gelassen werden, sofern er <strong>korrekt getrennt</strong> ist.</div></div>
-    </div>
-  </section>
+<!-- ARRIVAL -->
+<section class="sec" id="sec-arrival">
+  <div class="sec-head"><span class="sec-icon">🚗</span>
+    <h2 class="sec-title"><span data-li="it" class="on">Arrivo & Parcheggio</span><span data-li="en">Arrival & Parking</span><span data-li="de">Ankunft & Parken</span></h2>
+  </div>
+  <div data-l="it" class="on">
+    <div class="card"><div class="clabel">🚗 Parcheggio privato</div><div style="font-size:.9rem;margin-top:4px">Il posto auto è davanti alla <strong>porta di legno</strong> nel piazzale sotto casa. Se dovessero servire ulteriori posti, ci sono diversi parcheggi pubblici nelle vicinanze: controlla la mappa!</div></div>
+    <div class="card"><div class="clabel">🗑️ Raccolta differenziata</div><div style="font-size:.9rem;margin-top:4px">Puoi lasciare i rifiuti in casa prima di partire, purché siano <strong>ben differenziati</strong>.</div>
+    <a class="btn btn-out" href="https://v4m-vps5.juniper-xs.it/v4web/file?RefOwner=60A7C1BB8B7C4CC69FA07E352EA1FA2C&UUID=F62152996DB24395B3F4DFF060AFEF29" target="_blank" style="margin-top:10px;font-size:12px">🗑️ Guida alla differenziata</a></div>
+  </div>
+  <div data-l="en">
+    <div class="card"><div class="clabel">🚗 Private parking</div><div style="font-size:.9rem;margin-top:4px">The parking spot is in front of the <strong>wooden gate</strong> in the courtyard below the apartment. If you need extra space, there are several public car parks nearby: check the map!</div></div>
+    <div class="card"><div class="clabel">🗑️ Waste sorting</div><div style="font-size:.9rem;margin-top:4px">You can leave sorted waste inside before departing, as long as it is <strong>properly separated</strong>.</div>
+    <a class="btn btn-out" href="https://v4m-vps5.juniper-xs.it/v4web/file?RefOwner=60A7C1BB8B7C4CC69FA07E352EA1FA2C&UUID=F62152996DB24395B3F4DFF060AFEF29" target="_blank" style="margin-top:10px;font-size:12px">🗑️ Waste sorting guide</a></div>
+  </div>
+  <div data-l="de">
+    <div class="card"><div class="clabel">🚗 Privatparkplatz</div><div style="font-size:.9rem;margin-top:4px">Der Parkplatz befindet sich vor dem <strong>Holztor</strong> im Hof unterhalb der Wohnung. Bei Bedarf gibt es mehrere öffentliche Parkplätze in der Nähe: auf der Karte nachschauen!</div></div>
+    <div class="card"><div class="clabel">🗑️ Mülltrennung</div><div style="font-size:.9rem;margin-top:4px">Müll kann vor der Abreise in der Wohnung gelassen werden, sofern er <strong>korrekt getrennt</strong> ist.</div>
+    <a class="btn btn-out" href="https://v4m-vps5.juniper-xs.it/v4web/file?RefOwner=60A7C1BB8B7C4CC69FA07E352EA1FA2C&UUID=F62152996DB24395B3F4DFF060AFEF29" target="_blank" style="margin-top:10px;font-size:12px">🗑️ Mülltrennung Predazzo</a></div>
+  </div>
+</section>
 
-  <!-- CHECK-IN -->
-  <section class="section" id="sec-checkin">
-    <div class="sec-head"><span class="sec-icon">🕒</span><h2 class="sec-title">Check-in & Check-out</h2></div>
-    <div class="g2">
-      <div class="card"><div class="clabel">Check-in</div><div class="cvalue">dalle 16:00</div></div>
-      <div class="card"><div class="clabel">Check-out</div><div class="cvalue">entro le 10:00</div></div>
-    </div>
-    <div data-l="it" class="on"><div class="hl">🔑 <strong>Ci troviamo direttamente in appartamento</strong> per le chiavi. Nessuna cassetta, nessuna reception: passiamo noi.<br><small style="color:var(--muted)">Se per qualsiasi motivo dovessi partire prima, lascia le chiavi sul tavolo della cucina e tira la porta non serve chiudere a chiave.</small></div></div>
-    <div data-l="en"><div class="hl">🔑 <strong>We'll meet you at the apartment</strong> for the keys. No lockboxes, no reception we come to you.<br><small style="color:var(--muted)">If you need to leave before we meet, just put the keys on the kitchen table and pull the door shut. No need to lock it.</small></div></div>
-    <div data-l="de"><div class="hl">🔑 <strong>Wir kommen direkt zu Ihnen in die Wohnung</strong> mit den Schlüsseln. Keine Rezeption, kein Schlüsseltresor.<br><small style="color:var(--muted)">Falls Sie früher abreisen müssen, legen Sie die Schlüssel auf den Küchentisch und ziehen Sie die Tür zu. Abschließen ist nicht nötig.</small></div></div>
-  </section>
+<!-- CHECK-IN -->
+<section class="sec" id="sec-checkin">
+  <div class="sec-head"><span class="sec-icon">🕒</span><h2 class="sec-title">Check-in & Check-out</h2></div>
+  <div class="g2">
+    <div class="card"><div class="clabel">Check-in</div><div style="font-size:.95rem;font-weight:500;margin-top:4px">dalle 16:00</div></div>
+    <div class="card"><div class="clabel">Check-out</div><div style="font-size:.95rem;font-weight:500;margin-top:4px">entro le 10:00</div></div>
+  </div>
+  <div data-l="it" class="on"><div class="hl">🔑 <strong>Ci troviamo direttamente in appartamento</strong> per le chiavi. Nessuna cassetta, nessuna reception: passiamo noi.<br><small style="color:var(--muted)">Se per qualsiasi motivo dovessi partire prima, lascia le chiavi sul tavolo della cucina e tira la porta. Non serve chiudere a chiave.</small></div></div>
+  <div data-l="en"><div class="hl">🔑 <strong>We will meet you at the apartment</strong> for the keys. No lockboxes, no reception — we come to you.<br><small style="color:var(--muted)">If you need to leave before we meet, put the keys on the kitchen table and pull the door shut. No need to lock it.</small></div></div>
+  <div data-l="de"><div class="hl">🔑 <strong>Wir kommen direkt zu Ihnen in die Wohnung</strong> mit den Schlüsseln. Keine Rezeption, kein Schlüsseltresor.<br><small style="color:var(--muted)">Falls Sie früher abreisen, legen Sie die Schlüssel auf den Küchentisch und ziehen Sie die Tür zu. Abschließen ist nicht nötig.</small></div></div>
+</section>
 
-  <!-- RULES -->
-  <section class="section" id="sec-rules">
-    <div class="sec-head"><span class="sec-icon">📋</span>
-      <h2 class="sec-title"><span data-li="it" class="on">Regole della casa</span><span data-li="en">House rules</span><span data-li="de">Hausregeln</span></h2>
+<!-- RULES -->
+<section class="sec" id="sec-rules">
+  <div class="sec-head"><span class="sec-icon">📋</span>
+    <h2 class="sec-title"><span data-li="it" class="on">Regole della casa</span><span data-li="en">House rules</span><span data-li="de">Hausregeln</span></h2>
+  </div>
+  <div data-l="it" class="on">
+    <div class="rlist">
+      <div class="ritem"><span class="ri">✅</span>Differenzia i rifiuti: carta, plastica, vetro e umido vanno separati</div>
+      <div class="ritem"><span class="ri">🚭</span>In appartamento non si fuma</div>
+      <div class="ritem"><span class="ri">💡</span>Quando esci, spegni luci e riscaldamento</div>
+      <div class="ritem"><span class="ri">🛠</span>Se qualcosa si rompe o non funziona, scrivici subito. Nessun problema, ci pensiamo noi</div>
+      <div class="ritem"><span class="ri">🧊</span>Prima di partire svuota il frigo e i cassetti</div>
+      <div class="ritem"><span class="ri">🧹</span>Lascia l'appartamento in ordine. In caso di sporco eccessivo possono essere applicati costi aggiuntivi di pulizia</div>
     </div>
-    <div data-l="it" class="on">
-      <div class="rule-list">
-        <div class="rule-item"><span class="ri">✅</span>Differenzia i rifiuti: carta, plastica, vetro e umido vanno separati</div>
-        <div class="rule-item"><span class="ri">🚭</span>In appartamento non si fuma</div>
-        <div class="rule-item"><span class="ri">💡</span>Quando esci, spegni luci e riscaldamento</div>
-        <div class="rule-item"><span class="ri">🛠</span>Se qualcosa si rompe o non funziona, scrivici subito. Nessun problema, ci pensiamo noi</div>
-        <div class="rule-item"><span class="ri">🧊</span>Prima di partire svuota il frigo e i cassetti</div>
-        <div class="rule-item"><span class="ri">🧹</span>Lascia l'appartamento in ordine. In caso di sporco eccessivo possono essere applicati costi aggiuntivi di pulizia</div>
-      </div>
-      <p style="font-size:12px;color:var(--muted);margin-top:10px">Una copia stampata è disponibile in appartamento.</p>
+    <p style="font-size:12px;color:var(--muted);margin-top:10px">Una copia stampata è disponibile in appartamento.</p>
+  </div>
+  <div data-l="en">
+    <div class="rlist">
+      <div class="ritem"><span class="ri">✅</span>Sort your waste: paper, plastic, glass and organic in separate bins</div>
+      <div class="ritem"><span class="ri">🚭</span>No smoking inside</div>
+      <div class="ritem"><span class="ri">💡</span>Turn off lights and heating when you go out</div>
+      <div class="ritem"><span class="ri">🛠</span>If something breaks or stops working, just message us. No stress, we will sort it out</div>
+      <div class="ritem"><span class="ri">🧊</span>Empty the fridge and drawers before you leave</div>
+      <div class="ritem"><span class="ri">🧹</span>Leave the apartment tidy. Excessive mess may result in additional cleaning costs</div>
     </div>
-    <div data-l="en">
-      <div class="rule-list">
-        <div class="rule-item"><span class="ri">✅</span>Sort your waste: paper, plastic, glass and organic in separate bins</div>
-        <div class="rule-item"><span class="ri">🚭</span>No smoking inside</div>
-        <div class="rule-item"><span class="ri">💡</span>Turn off lights and heating when you go out</div>
-        <div class="rule-item"><span class="ri">🛠</span>If something breaks or stops working, just message us. No stress, we'll sort it out</div>
-        <div class="rule-item"><span class="ri">🧊</span>Empty the fridge and drawers before you leave</div>
-        <div class="rule-item"><span class="ri">🧹</span>Leave the apartment tidy. Excessive mess may result in additional cleaning costs</div>
-      </div>
-      <p style="font-size:12px;color:var(--muted);margin-top:10px">A printed copy is available inside the apartment.</p>
+    <p style="font-size:12px;color:var(--muted);margin-top:10px">A printed copy is available inside the apartment.</p>
+  </div>
+  <div data-l="de">
+    <div class="rlist">
+      <div class="ritem"><span class="ri">✅</span>Müll trennen: Papier, Plastik, Glas und Biomüll separat</div>
+      <div class="ritem"><span class="ri">🚭</span>Rauchen in der Wohnung ist nicht gestattet</div>
+      <div class="ritem"><span class="ri">💡</span>Beim Verlassen Licht und Heizung ausschalten</div>
+      <div class="ritem"><span class="ri">🛠</span>Falls etwas kaputt geht oder nicht funktioniert, einfach schreiben. Kein Problem, wir kümmern uns</div>
+      <div class="ritem"><span class="ri">🧊</span>Kühlschrank und Schubladen vor der Abreise leeren</div>
+      <div class="ritem"><span class="ri">🧹</span>Wohnung ordentlich hinterlassen. Bei starker Verschmutzung können zusätzliche Reinigungskosten anfallen</div>
     </div>
-    <div data-l="de">
-      <div class="rule-list">
-        <div class="rule-item"><span class="ri">✅</span>Müll trennen: Papier, Plastik, Glas und Biomüll separat</div>
-        <div class="rule-item"><span class="ri">🚭</span>Rauchen in der Wohnung ist nicht gestattet</div>
-        <div class="rule-item"><span class="ri">💡</span>Beim Verlassen Licht und Heizung ausschalten</div>
-        <div class="rule-item"><span class="ri">🛠</span>Falls etwas kaputt geht oder nicht funktioniert, einfach schreiben. Kein Problem, wir kümmern uns</div>
-        <div class="rule-item"><span class="ri">🧊</span>Kühlschrank und Schubladen vor der Abreise leeren</div>
-        <div class="rule-item"><span class="ri">🧹</span>Wohnung ordentlich hinterlassen. Bei starker Verschmutzung können zusätzliche Reinigungskosten anfallen</div>
-      </div>
-      <p style="font-size:12px;color:var(--muted);margin-top:10px">Eine gedruckte Version liegt in der Wohnung aus.</p>
+    <p style="font-size:12px;color:var(--muted);margin-top:10px">Eine gedruckte Version liegt in der Wohnung aus.</p>
+  </div>
+  <div style="margin-top:22px">
+    <div class="clabel" style="margin-bottom:9px">🛏 <span data-li="it" class="on">Biancheria extra (su richiesta)</span><span data-li="en">Extra linen (on request)</span><span data-li="de">Zusätzliche Wäsche (auf Anfrage)</span></div>
+    <div class="g3">
+      <div class="lcard"><div class="lname"><span data-li="it" class="on">Solo lenzuola</span><span data-li="en">Sheets only</span><span data-li="de">Nur Bettwäsche</span></div><div class="lprice">€8</div></div>
+      <div class="lcard"><div class="lname"><span data-li="it" class="on">Solo asciugamani</span><span data-li="en">Towels only</span><span data-li="de">Nur Handtücher</span></div><div class="lprice">€7</div></div>
+      <div class="lcard"><div class="lname"><span data-li="it" class="on">Set completo</span><span data-li="en">Full set</span><span data-li="de">Komplettes Set</span></div><div class="lprice">€15</div></div>
     </div>
-    <div style="margin-top:22px">
-      <div class="clabel" style="margin-bottom:9px">🛏 <span data-li="it" class="on">Biancheria extra (su richiesta)</span><span data-li="en">Extra linen (on request)</span><span data-li="de">Zusätzliche Wäsche (auf Anfrage)</span></div>
-      <div class="g3">
-        <div class="linen-card"><div class="linen-name"><span data-li="it" class="on">Solo lenzuola</span><span data-li="en">Sheets only</span><span data-li="de">Nur Bettwäsche</span></div><div class="linen-price">€8</div></div>
-        <div class="linen-card"><div class="linen-name"><span data-li="it" class="on">Solo asciugamani</span><span data-li="en">Towels only</span><span data-li="de">Nur Handtücher</span></div><div class="linen-price">€7</div></div>
-        <div class="linen-card"><div class="linen-name"><span data-li="it" class="on">Set completo</span><span data-li="en">Full set</span><span data-li="de">Komplettes Set</span></div><div class="linen-price">€15</div></div>
-      </div>
-    </div>
-  </section>
+  </div>
+</section>
 
-  <!-- WIFI -->
-  <section class="section" id="sec-wifi">
-    <div class="sec-head"><span class="sec-icon">📶</span><h2 class="sec-title">Wi-Fi</h2></div>
-    <div class="g2">
-      <div class="card">
-        <div class="clabel"><span data-li="it" class="on">Rete</span><span data-li="en">Network</span><span data-li="de">Netzwerk</span></div>
-        <div class="wifi-val">Via Dante</div>
-        <button class="copy-btn" onclick="copyText('Via Dante',this)">📋 <span data-li="it" class="on">Copia</span><span data-li="en">Copy</span><span data-li="de">Kopieren</span></button>
-      </div>
-      <div class="card">
-        <div class="clabel">Password</div>
-        <div class="wifi-val">Viadante47</div>
-        <button class="copy-btn" onclick="copyText('Viadante47',this)">📋 <span data-li="it" class="on">Copia</span><span data-li="en">Copy</span><span data-li="de">Kopieren</span></button>
-      </div>
+<!-- WIFI -->
+<section class="sec" id="sec-wifi">
+  <div class="sec-head"><span class="sec-icon">📶</span><h2 class="sec-title">Wi-Fi</h2></div>
+  <div class="g2">
+    <div class="card">
+      <div class="clabel"><span data-li="it" class="on">Rete</span><span data-li="en">Network</span><span data-li="de">Netzwerk</span></div>
+      <div class="wval">Via Dante</div>
+      <button class="cpbtn" onclick="cpText('Via Dante',this)">📋 <span data-li="it" class="on">Copia</span><span data-li="en">Copy</span><span data-li="de">Kopieren</span></button>
     </div>
-  </section>
-
-
-  <!-- LA CASA -->
-  <section class="section" id="sec-casa">
-    <div class="sec-head"><span class="sec-icon">🏠</span>
-      <h2 class="sec-title"><span data-li="it" class="on">Vivere la casa</span><span data-li="en">Around the apartment</span><span data-li="de">In der Wohnung</span></h2>
+    <div class="card">
+      <div class="clabel">Password</div>
+      <div class="wval">Viadante47</div>
+      <button class="cpbtn" onclick="cpText('Viadante47',this)">📋 <span data-li="it" class="on">Copia</span><span data-li="en">Copy</span><span data-li="de">Kopieren</span></button>
     </div>
+  </div>
+</section>
 
-    <div style="margin-bottom:16px">
-      <a class="btn btn-out" href="https://v4m-vps5.juniper-xs.it/v4web/file?RefOwner=60A7C1BB8B7C4CC69FA07E352EA1FA2C&UUID=F62152996DB24395B3F4DFF060AFEF29" target="_blank" style="width:100%;justify-content:center">
-        🗑️ <span data-li="it" class="on">Guida raccolta differenziata di Predazzo</span><span data-li="en">Predazzo waste sorting guide</span><span data-li="de">Abfalltrennung Predazzo</span>
-      </a>
-    </div>
+<!-- LA CASA -->
+<section class="sec" id="sec-casa">
+  <div class="sec-head"><span class="sec-icon">🏠</span>
+    <h2 class="sec-title"><span data-li="it" class="on">Vivere la casa</span><span data-li="en">Around the apartment</span><span data-li="de">In der Wohnung</span></h2>
+  </div>
+  <div style="margin-bottom:16px">
+    <a class="btn btn-out" href="https://v4m-vps5.juniper-xs.it/v4web/file?RefOwner=60A7C1BB8B7C4CC69FA07E352EA1FA2C&UUID=F62152996DB24395B3F4DFF060AFEF29" target="_blank" style="width:100%;justify-content:center">
+      🗑️ <span data-li="it" class="on">Guida raccolta differenziata di Predazzo</span><span data-li="en">Predazzo waste sorting guide</span><span data-li="de">Abfalltrennung Predazzo</span>
+    </a>
+  </div>
+  <div class="acc-item">
+    <button class="acc-trig" onclick="accToggle(this)"><span class="acc-left"><span style="font-size:18px">💧</span><span data-li="it" class="on">Acqua del rubinetto</span><span data-li="en">Tap water</span><span data-li="de">Leitungswasser</span></span><span class="acc-chev">▼</span></button>
+    <div class="acc-body"><div class="acc-inner">
+      <div data-l="it" class="on">È acqua di montagna: <strong>potabile, fresca e buonissima</strong>. Nessun bisogno di comprare bottiglie.</div>
+      <div data-l="en">Mountain spring water: <strong>safe to drink, fresh and delicious</strong>. No need to buy bottles.</div>
+      <div data-l="de">Bergquellwasser: <strong>trinkbar, frisch und sehr gut</strong>. Keine Flaschen nötig.</div>
+    </div></div>
+  </div>
+  <div class="acc-item">
+    <button class="acc-trig" onclick="accToggle(this)"><span class="acc-left"><span style="font-size:18px">🌡️</span><span data-li="it" class="on">Riscaldamento</span><span data-li="en">Heating</span><span data-li="de">Heizung</span></span><span class="acc-chev">▼</span></button>
+    <div class="acc-body"><div class="acc-inner">
+      <div data-l="it" class="on">Il termostato è <strong>sopra il modem, a destra della porta del soggiorno</strong>. Di default è impostato a 20°C.<br><br><strong>Come regolarlo:</strong> premi al centro, appariranno le frecce ↑↓. Ricordati di abbassarlo o spegnerlo quando esci.</div>
+      <div data-l="en">The thermostat is <strong>above the modem, to the right of the living room door</strong>. Default is 20°C.<br><br><strong>To adjust:</strong> press the centre — arrows ↑↓ will appear. Please turn it down or off when you go out.</div>
+      <div data-l="de">Der Thermostat ist <strong>über dem Modem, rechts von der Wohnzimmertür</strong>. Standard: 20°C.<br><br><strong>Regulieren:</strong> Mitte drücken — Pfeile ↑↓ erscheinen. Beim Verlassen bitte herunterregeln oder ausschalten.</div>
+    </div></div>
+  </div>
+  <div class="acc-item">
+    <button class="acc-trig" onclick="accToggle(this)"><span class="acc-left"><span style="font-size:18px">🫧</span><span data-li="it" class="on">Lavatrice</span><span data-li="en">Washing machine</span><span data-li="de">Waschmaschine</span></span><span class="acc-chev">▼</span></button>
+    <div class="acc-body"><div class="acc-inner">
+      <div data-l="it" class="on">La lavatrice è in <strong>bagno</strong>. Le pods le trovi nel <strong>mobiletto sopra la lavatrice</strong>.</div>
+      <div data-l="en">The washing machine is in the <strong>bathroom</strong>. Pods are in the <strong>cabinet above the machine</strong>.</div>
+      <div data-l="de">Die Waschmaschine ist im <strong>Badezimmer</strong>. Die Pods befinden sich im <strong>Schrank über der Waschmaschine</strong>.</div>
+    </div></div>
+  </div>
+  <div class="acc-item">
+    <button class="acc-trig" onclick="accToggle(this)"><span class="acc-left"><span style="font-size:18px">☕</span><span data-li="it" class="on">Macchina del caffè</span><span data-li="en">Coffee machine</span><span data-li="de">Kaffeemaschine</span></span><span class="acc-chev">▼</span></button>
+    <div class="acc-body"><div class="acc-inner">
+      <div data-l="it" class="on">È una <strong>Lavazza A Modo Mio</strong>. Inserisci la capsula nel vano in cima, abbassa il coperchio fino al click, metti la tazza e premi il pulsante. Le capsule di scorta sono nel pensile sopra la macchinetta.</div>
+      <div data-l="en">It is a <strong>Lavazza A Modo Mio</strong>. Insert a capsule in the top compartment, close the lid until it clicks, place your cup and press the button. Spare capsules are in the cabinet above the machine.</div>
+      <div data-l="de">Es ist eine <strong>Lavazza A Modo Mio</strong>. Kapsel oben einlegen, Deckel bis zum Klick schließen, Tasse hinstellen, Knopf drücken. Ersatzkapseln im Schrank über der Maschine.</div>
+    </div></div>
+  </div>
+</section>
 
-    <div class="accordion">
+<!-- SKI / ESTATE -->
+<section class="sec" id="sec-ski">
+  <div class="sec-head">
+    <span class="sec-icon winter-only">⛷</span><span class="sec-icon summer-only">🌿</span>
+    <h2 class="sec-title">
+      <span class="winter-only"><span data-li="it" class="on">Sci & Attività Invernali</span><span data-li="en">Ski & Winter Activities</span><span data-li="de">Ski & Winteraktivitäten</span></span>
+      <span class="summer-only"><span data-li="it" class="on">Attività Estive</span><span data-li="en">Summer Activities</span><span data-li="de">Sommeraktivitäten</span></span>
+    </h2>
+  </div>
+  <!-- WINTER -->
+  <div data-l="it" class="on winter-only">
+    <div class="card" style="margin-bottom:9px"><div class="clabel">🏔 Comprensori sciistici</div><div style="font-size:13.5px;margin-top:8px;display:flex;flex-direction:column;gap:10px">
+      <div><strong>Ski Center Latemar</strong> — Il più grande della Val di Fiemme con 48 km di piste. Raggiungibile in SkiBus. Attenzione: il rientro è su <em>pista rossa</em>.</div>
+      <div><strong>Alpe Lusia Bellamonte</strong> — Perfetto per imparare, rientro su pista blu. Percorso "Giro d'Ali" per famiglie.</div>
+      <div><strong>Alpe Cermis</strong> — A Cavalese, in auto. Cabinovia panoramica e Cermislandia per i bambini.</div>
+    </div></div>
+    <div class="card" style="margin-bottom:9px"><div class="clabel">🚌 SkiBus</div><div style="font-size:13.5px;margin-top:5px">Fermate in <strong>Piazza</strong> e all'<strong>Hotel Ancora</strong>, visibili sulla mappa. Meno di 5 minuti a piedi.</div><a class="btn btn-out" style="margin-top:10px" href="https://www.visitfiemme.it/it/territorio/mobilita/skibus" target="_blank">🚌 Orari SkiBus</a></div>
+    <div class="card"><div class="clabel">❄️ Fiemme Cembra Guest Card</div><div style="font-size:13.5px;margin-top:5px">Ciaspole, degustazioni locali, passeggiate guidate. Con la Guest Card hai anche il <strong>10% di sconto</strong> da Local Motion Rent.</div><a class="btn btn-out" style="margin-top:10px" href="https://www.visitfiemme.it/it" target="_blank">🏔 Scopri le esperienze</a></div>
+  </div>
+  <div data-l="en" class="winter-only">
+    <div class="card" style="margin-bottom:9px"><div class="clabel">🏔 Ski areas</div><div style="font-size:13.5px;margin-top:8px;display:flex;flex-direction:column;gap:10px">
+      <div><strong>Ski Center Latemar</strong> — 48 km, the largest in the valley. SkiBus from home. Return run is <em>red</em> — heads up.</div>
+      <div><strong>Alpe Lusia Bellamonte</strong> — Great for beginners, blue return run. "Giro d'Ali" family trail.</div>
+      <div><strong>Alpe Cermis</strong> — Cavalese, by car. Panoramic gondola and Cermislandia for kids.</div>
+    </div></div>
+    <div class="card" style="margin-bottom:9px"><div class="clabel">🚌 SkiBus</div><div style="font-size:13.5px;margin-top:5px">Stops at <strong>Piazza</strong> and <strong>Hotel Ancora</strong>, visible on the map. Under 5 minutes on foot.</div><a class="btn btn-out" style="margin-top:10px" href="https://www.visitfiemme.it/it/territorio/mobilita/skibus" target="_blank">🚌 SkiBus Timetables</a></div>
+    <div class="card"><div class="clabel">❄️ Fiemme Cembra Guest Card</div><div style="font-size:13.5px;margin-top:5px">Snowshoe hikes, local tastings, guided walks. Guest Card also gives you <strong>10% off</strong> at Local Motion Rent.</div><a class="btn btn-out" style="margin-top:10px" href="https://www.visitfiemme.it/en" target="_blank">🏔 Explore experiences</a></div>
+  </div>
+  <div data-l="de" class="winter-only">
+    <div class="card" style="margin-bottom:9px"><div class="clabel">🏔 Skigebiete</div><div style="font-size:13.5px;margin-top:8px;display:flex;flex-direction:column;gap:10px">
+      <div><strong>Ski Center Latemar</strong> — 48 km, größtes Skigebiet im Tal. SkiBus ab Haus. Heimfahrtspiste ist <em>rot</em> — bitte beachten.</div>
+      <div><strong>Alpe Lusia Bellamonte</strong> — Ideal für Anfänger, blaue Heimfahrtspiste. Familienweg "Giro d'Ali".</div>
+      <div><strong>Alpe Cermis</strong> — Cavalese, mit dem Auto. Panorama-Gondelbahn und Cermislandia für Kinder.</div>
+    </div></div>
+    <div class="card" style="margin-bottom:9px"><div class="clabel">🚌 SkiBus</div><div style="font-size:13.5px;margin-top:5px">Haltestellen am <strong>Piazza</strong> und <strong>Hotel Ancora</strong>, auf der Karte sichtbar. Unter 5 Gehminuten.</div><a class="btn btn-out" style="margin-top:10px" href="https://www.visitfiemme.it/it/territorio/mobilita/skibus" target="_blank">🚌 SkiBus Fahrpläne</a></div>
+    <div class="card"><div class="clabel">❄️ Fiemme Cembra Guest Card</div><div style="font-size:13.5px;margin-top:5px">Schneeschuhtouren, Verkostungen, Naturführungen. Mit der Guest Card auch <strong>10% Rabatt</strong> bei Local Motion Rent.</div><a class="btn btn-out" style="margin-top:10px" href="https://www.visitfiemme.it/de" target="_blank">🏔 Erlebnisse entdecken</a></div>
+  </div>
+  <!-- SUMMER -->
+  <div data-l="it" class="on summer-only">
+    <div class="card" style="margin-bottom:9px"><div class="clabel">🚵 Bike & E-Bike</div><div style="font-size:13.5px;margin-top:5px">La Val di Fiemme è percorsa dalla <strong>Ciclovia dell'Avisio</strong>, pista ciclabile che attraversa tutta la valle, perfetta per tutti i livelli. Noleggio bici ed e-bike da <strong>Local Motion Rent</strong> (10% sconto con Guest Card).</div></div>
+    <div class="card" style="margin-bottom:9px"><div class="clabel">🥾 Escursioni</div><div style="font-size:13.5px;margin-top:5px">Gli impianti di <strong>Alpe Lusia</strong> e <strong>Alpe Cermis</strong> sono aperti anche d'estate e portano direttamente in quota tra sentieri, rifugi e panorami sulle Dolomiti. Malga Venegia è una tappa imperdibile.</div></div>
+    <div class="card"><div class="clabel">🌿 Fiemme Cembra Guest Card</div><div style="font-size:13.5px;margin-top:5px">Escursioni guidate, degustazioni di prodotti locali, ingresso agli impianti e molto altro, tutto incluso o scontato con la Guest Card.</div><a class="btn btn-out" style="margin-top:10px" href="https://www.visitfiemme.it/it" target="_blank">🏔 Scopri le esperienze estive</a></div>
+  </div>
+  <div data-l="en" class="summer-only">
+    <div class="card" style="margin-bottom:9px"><div class="clabel">🚵 Bike & E-Bike</div><div style="font-size:13.5px;margin-top:5px">Val di Fiemme is crossed by the <strong>Ciclovia dell'Avisio</strong>, a cycle path through the entire valley, suitable for all levels. Bike and e-bike rental at <strong>Local Motion Rent</strong> (10% off with Guest Card).</div></div>
+    <div class="card" style="margin-bottom:9px"><div class="clabel">🥾 Hiking</div><div style="font-size:13.5px;margin-top:5px"><strong>Alpe Lusia</strong> and <strong>Alpe Cermis</strong> lifts run in summer too, taking you straight up to trails, mountain huts and Dolomite views. Malga Venegia is a must.</div></div>
+    <div class="card"><div class="clabel">🌿 Fiemme Cembra Guest Card</div><div style="font-size:13.5px;margin-top:5px">Guided hikes, local tastings, lift access and much more, all included or discounted with the Guest Card.</div><a class="btn btn-out" style="margin-top:10px" href="https://www.visitfiemme.it/en" target="_blank">🏔 Summer experiences</a></div>
+  </div>
+  <div data-l="de" class="summer-only">
+    <div class="card" style="margin-bottom:9px"><div class="clabel">🚵 Bike & E-Bike</div><div style="font-size:13.5px;margin-top:5px">Das Val di Fiemme wird von der <strong>Ciclovia dell'Avisio</strong> durchquert, ein Radweg durch das gesamte Tal, für alle Niveaus geeignet. Fahrrad- und E-Bike-Verleih bei <strong>Local Motion Rent</strong> (10% Rabatt mit Guest Card).</div></div>
+    <div class="card" style="margin-bottom:9px"><div class="clabel">🥾 Wandern</div><div style="font-size:13.5px;margin-top:5px">Die Lifte von <strong>Alpe Lusia</strong> und <strong>Alpe Cermis</strong> fahren auch im Sommer direkt hinauf zu Wanderwegen, Hütten und Dolomitenblick. Malga Venegia ist ein Muss.</div></div>
+    <div class="card"><div class="clabel">🌿 Fiemme Cembra Guest Card</div><div style="font-size:13.5px;margin-top:5px">Geführte Wanderungen, lokale Verkostungen, Liftnutzung und mehr, alles inklusive oder vergünstigt mit der Guest Card.</div><a class="btn btn-out" style="margin-top:10px" href="https://www.visitfiemme.it/de" target="_blank">🏔 Sommererlebnisse</a></div>
+  </div>
+</section>
 
-      <div class="acc-item">
-        <button class="acc-trigger" onclick="toggleAcc(this)">
-          <span class="acc-left"><span class="acc-icon">💧</span><span data-li="it" class="on">Acqua del rubinetto</span><span data-li="en">Tap water</span><span data-li="de">Leitungswasser</span></span>
-          <span class="acc-chevron">▼</span>
-        </button>
-        <div class="acc-body"><div class="acc-inner">
-          <div data-l="it" class="on">È acqua di montagna: <strong>potabile, fresca e buonissima</strong>. Nessun bisogno di comprare bottiglie.</div>
-          <div data-l="en">Mountain spring water: <strong>safe to drink, fresh and delicious</strong>. No need to buy bottles.</div>
-          <div data-l="de">Bergquellwasser: <strong>trinkbar, frisch und sehr gut</strong>. Keine Flaschen nötig.</div>
-        </div></div>
-      </div>
+<!-- CONTACTS -->
+<section class="sec" id="sec-contacts">
+  <div class="sec-head"><span class="sec-icon">📞</span>
+    <h2 class="sec-title"><span data-li="it" class="on">Contatti utili</span><span data-li="en">Useful contacts</span><span data-li="de">Nützliche Kontakte</span></h2>
+  </div>
+  <div class="ci-exp">
+    <div class="ci-hd" onclick="ciToggle('mattia')">
+      <span class="ci-icon">👤</span>
+      <div style="flex:1"><div class="ci-label">Mattia</div><div class="ci-val">+39 349 136 8343</div><div class="ci-note"><span data-li="it" class="on">Tocca per contattare</span><span data-li="en">Tap to contact</span><span data-li="de">Antippen</span></div></div>
+      <span class="ci-arr" id="mattia-arr">▼</span>
+    </div>
+    <div class="ci-actions" id="mattia-actions">
+      <a class="ci-btn" href="tel:+393491368343">📞 <span data-li="it" class="on">Chiama</span><span data-li="en">Call</span><span data-li="de">Anrufen</span></a>
+      <a class="ci-btn" href="https://wa.me/393491368343" target="_blank">💬 WhatsApp</a>
+    </div>
+  </div>
+  <div class="ci-exp">
+    <div class="ci-hd" onclick="ciToggle('andrea')">
+      <span class="ci-icon">👤</span>
+      <div style="flex:1"><div class="ci-label">Andrea</div><div class="ci-val">+39 348 760 0318</div><div class="ci-note"><span data-li="it" class="on">Tocca per contattare</span><span data-li="en">WhatsApp only — he will translate 🙂</span><span data-li="de">Nur WhatsApp — er übersetzt 🙂</span></div></div>
+      <span class="ci-arr" id="andrea-arr">▼</span>
+    </div>
+    <div class="ci-actions" id="andrea-actions">
+      <span data-l="it" class="on"><a class="ci-btn" href="tel:+393487600318">📞 Chiama</a></span>
+      <a class="ci-btn" href="https://wa.me/393487600318" target="_blank">💬 WhatsApp</a>
+    </div>
+  </div>
+  <div class="ci-em"><a href="tel:112"><span class="ci-icon">🚨</span><div><div class="ci-label"><span data-li="it" class="on">Emergenze</span><span data-li="en">Emergency</span><span data-li="de">Notruf</span></div><div class="ci-val">112</div></div></a></div>
+  <div class="ci-em"><a href="tel:116117"><span class="ci-icon">🏥</span><div><div class="ci-label"><span data-li="it" class="on">Guardia Medica</span><span data-li="en">Medical Guard</span><span data-li="de">Ärztl. Bereitschaft</span></div><div class="ci-val">116 117</div></div></a></div>
+</section>
 
-      <div class="acc-item">
-        <button class="acc-trigger" onclick="toggleAcc(this)">
-          <span class="acc-left"><span class="acc-icon">🌡️</span><span data-li="it" class="on">Riscaldamento</span><span data-li="en">Heating</span><span data-li="de">Heizung</span></span>
-          <span class="acc-chevron">▼</span>
-        </button>
-        <div class="acc-body"><div class="acc-inner">
-          <div data-l="it" class="on">Il termostato è <strong>sopra il modem, a destra della porta del soggiorno</strong>. Di default è impostato a 20°C.<br><br><strong>Come regolarlo:</strong> premi al centro appariranno le frecce ↑↓. Usale per alzare o abbassare. Ricordati di abbassarlo o spegnerlo quando esci.</div>
-          <div data-l="en">The thermostat is <strong>above the modem, to the right of the living room door</strong>. Default is 20°C.<br><br><strong>How to adjust:</strong> press the centre arrows ↑↓ will appear. Please turn it down or off when you go out.</div>
-          <div data-l="de">Der Thermostat ist <strong>über dem Modem, rechts von der Wohnzimmertür</strong>. Standard: 20°C.<br><br><strong>Regulieren:</strong> Mitte drücken Pfeile ↑↓ erscheinen. Beim Verlassen bitte herunterregeln oder ausschalten.</div>
-        </div></div>
-      </div>
-
-      <div class="acc-item">
-        <button class="acc-trigger" onclick="toggleAcc(this)">
-          <span class="acc-left"><span class="acc-icon">🫧</span><span data-li="it" class="on">Lavatrice</span><span data-li="en">Washing machine</span><span data-li="de">Waschmaschine</span></span>
-          <span class="acc-chevron">▼</span>
-        </button>
-        <div class="acc-body"><div class="acc-inner">
-          <div data-l="it" class="on">La lavatrice è in <strong>bagno</strong>. Le pods le trovi nel <strong>mobiletto sopra la lavatrice</strong>.</div>
-          <div data-l="en">The washing machine is in the <strong>bathroom</strong>. Pods are in the <strong>cabinet above the machine</strong>.</div>
-          <div data-l="de">Die Waschmaschine ist im <strong>Badezimmer</strong>. Die Pods befinden sich im <strong>Schrank über der Waschmaschine</strong>.</div>
-        </div></div>
-      </div>
-
-      <div class="acc-item">
-        <button class="acc-trigger" onclick="toggleAcc(this)">
-          <span class="acc-left"><span class="acc-icon">☕</span><span data-li="it" class="on">Macchina del caffè</span><span data-li="en">Coffee machine</span><span data-li="de">Kaffeemaschine</span></span>
-          <span class="acc-chevron">▼</span>
-        </button>
-        <div class="acc-body"><div class="acc-inner">
-          <div data-l="it" class="on">È una <strong>Lavazza A Modo Mio</strong>. Inserisci la capsula nel vano in cima, abbassa il coperchio fino al click, metti la tazza e premi il pulsante. Le capsule di scorta le trovi nel pensile sopra la macchinetta.</div>
-          <div data-l="en">It&#39;s a <strong>Lavazza A Modo Mio</strong>. Insert a capsule in the top compartment, close the lid until it clicks, place your cup and press the button. Spare capsules are in the cabinet above the machine.</div>
-          <div data-l="de">Es ist eine <strong>Lavazza A Modo Mio</strong>. Kapsel oben einlegen, Deckel bis zum Klick schließen, Tasse hinstellen, Knopf drücken. Ersatzkapseln im Schrank über der Maschine.</div>
-        </div></div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- SKI / SUMMER -->
-  <section class="section" id="sec-ski">
-    <div class="sec-head"><span class="sec-icon winter-only">⛷</span><span class="sec-icon summer-only">🌿</span>
-      <h2 class="sec-title">
-        <span class="winter-only"><span data-li="it" class="on">Sci & Attività Invernali</span><span data-li="en">Ski & Winter Activities</span><span data-li="de">Ski & Winteraktivitäten</span></span>
-        <span class="summer-only"><span data-li="it" class="on">Attività Estive</span><span data-li="en">Summer Activities</span><span data-li="de">Sommeraktivitäten</span></span>
-      </h2>
-    </div>
-
-    <!-- WINTER IT -->
-    <div data-l="it" class="on winter-only">
-      <div class="card" style="margin-bottom:9px"><div class="clabel">🏔 Comprensori sciistici</div><div style="font-size:13.5px;margin-top:8px;display:flex;flex-direction:column;gap:10px"><div><strong>Ski Center Latemar</strong> Il più grande della Val di Fiemme con 48 km di piste. Raggiungibile in SkiBus. Attenzione: il rientro è su <em>pista rossa</em>.</div><div><strong>Alpe Lusia Bellamonte</strong> Perfetto per imparare, rientro su pista blu. Percorso "Giro d'Ali" per famiglie.</div><div><strong>Alpe Cermis</strong> A Cavalese, in auto. Cabinovia panoramica e Cermislandia per i bambini.</div></div></div>
-      <div class="card" style="margin-bottom:9px"><div class="clabel">🚌 SkiBus</div><div style="font-size:13.5px;margin-top:5px">Fermate in <strong>Piazza</strong> e all'<strong>Hotel Ancora</strong> visibili sulla mappa, meno di 5 minuti a piedi.</div><a class="btn btn-out" style="margin-top:10px" href="https://www.visitfiemme.it/it/territorio/mobilita/skibus" target="_blank">🚌 Orari SkiBus</a></div>
-      <div class="card"><div class="clabel">❄️ Fiemme Cembra Guest Card</div><div style="font-size:13.5px;margin-top:5px">Ciaspole, degustazioni locali, passeggiate guidate. Con la Guest Card hai anche il <strong>10% di sconto</strong> da Local Motion Rent.</div><a class="btn btn-out" style="margin-top:10px" href="https://www.visitfiemme.it/it" target="_blank">🏔 Scopri le esperienze</a></div>
-    </div>
-    <!-- WINTER EN -->
-    <div data-l="en" class="winter-only">
-      <div class="card" style="margin-bottom:9px"><div class="clabel">🏔 Ski areas</div><div style="font-size:13.5px;margin-top:8px;display:flex;flex-direction:column;gap:10px"><div><strong>Ski Center Latemar</strong> 48 km, the largest in the valley. SkiBus from home. Return run is <em>red</em> heads up.</div><div><strong>Alpe Lusia Bellamonte</strong> Great for beginners, blue return run. "Giro d'Ali" family trail.</div><div><strong>Alpe Cermis</strong> Cavalese, by car. Panoramic gondola and Cermislandia for kids.</div></div></div>
-      <div class="card" style="margin-bottom:9px"><div class="clabel">🚌 SkiBus</div><div style="font-size:13.5px;margin-top:5px">Stops at <strong>Piazza</strong> and <strong>Hotel Ancora</strong> visible on the map, under 5 minutes on foot.</div><a class="btn btn-out" style="margin-top:10px" href="https://www.visitfiemme.it/it/territorio/mobilita/skibus" target="_blank">🚌 SkiBus Timetables</a></div>
-      <div class="card"><div class="clabel">❄️ Fiemme Cembra Guest Card</div><div style="font-size:13.5px;margin-top:5px">Snowshoe hikes, local tastings, guided walks. Guest Card also gives you <strong>10% off</strong> at Local Motion Rent.</div><a class="btn btn-out" style="margin-top:10px" href="https://www.visitfiemme.it/en" target="_blank">🏔 Explore experiences</a></div>
-    </div>
-    <!-- WINTER DE -->
-    <div data-l="de" class="winter-only">
-      <div class="card" style="margin-bottom:9px"><div class="clabel">🏔 Skigebiete</div><div style="font-size:13.5px;margin-top:8px;display:flex;flex-direction:column;gap:10px"><div><strong>Ski Center Latemar</strong> 48 km, größtes Skigebiet im Tal. SkiBus ab Haus. Heimfahrtspiste ist <em>rot</em> bitte beachten.</div><div><strong>Alpe Lusia Bellamonte</strong> Ideal für Anfänger, blaue Heimfahrtspiste. Familienweg "Giro d'Ali".</div><div><strong>Alpe Cermis</strong> Cavalese, mit dem Auto. Panorama-Gondelbahn und Cermislandia für Kinder.</div></div></div>
-      <div class="card" style="margin-bottom:9px"><div class="clabel">🚌 SkiBus</div><div style="font-size:13.5px;margin-top:5px">Haltestellen am <strong>Piazza</strong> und <strong>Hotel Ancora</strong> auf der Karte, unter 5 Gehminuten.</div><a class="btn btn-out" style="margin-top:10px" href="https://www.visitfiemme.it/it/territorio/mobilita/skibus" target="_blank">🚌 SkiBus Fahrpläne</a></div>
-      <div class="card"><div class="clabel">❄️ Fiemme Cembra Guest Card</div><div style="font-size:13.5px;margin-top:5px">Schneeschuhtouren, Verkostungen, Naturführungen. Mit der Guest Card auch <strong>10% Rabatt</strong> bei Local Motion Rent.</div><a class="btn btn-out" style="margin-top:10px" href="https://www.visitfiemme.it/de" target="_blank">🏔 Erlebnisse entdecken</a></div>
-    </div>
-
-    <!-- SUMMER IT -->
-    <div data-l="it" class="on summer-only">
-      <div class="card" style="margin-bottom:9px"><div class="clabel">🚵 Bike & E-Bike</div><div style="font-size:13.5px;margin-top:5px">La Val di Fiemme è percorsa dalla <strong>Ciclovia dell'Avisio</strong> pista ciclabile che attraversa tutta la valle, perfetta per tutti i livelli. Noleggio bici ed e-bike da <strong>Local Motion Rent</strong> (10% sconto con Guest Card).</div></div>
-      <div class="card" style="margin-bottom:9px"><div class="clabel">🥾 Escursioni</div><div style="font-size:13.5px;margin-top:5px">Gli impianti di <strong>Alpe Lusia</strong> e <strong>Alpe Cermis</strong> sono aperti anche d'estate e portano direttamente in quota tra sentieri, rifugi e panorami sulle Dolomiti. Malga Venegia è una tappa imperdibile.</div></div>
-      <div class="card"><div class="clabel">🌿 Fiemme Cembra Guest Card</div><div style="font-size:13.5px;margin-top:5px">Escursioni guidate, degustazioni di prodotti locali, ingresso agli impianti e molto altro tutto incluso o scontato con la Guest Card.</div><a class="btn btn-out" style="margin-top:10px" href="https://www.visitfiemme.it/it" target="_blank">🏔 Scopri le esperienze estive</a></div>
-    </div>
-    <!-- SUMMER EN -->
-    <div data-l="en" class="summer-only">
-      <div class="card" style="margin-bottom:9px"><div class="clabel">🚵 Bike & E-Bike</div><div style="font-size:13.5px;margin-top:5px">Val di Fiemme is crossed by the <strong>Ciclovia dell'Avisio</strong> a cycle path through the entire valley, suitable for all levels. Bike and e-bike rental at <strong>Local Motion Rent</strong> (10% off with Guest Card).</div></div>
-      <div class="card" style="margin-bottom:9px"><div class="clabel">🥾 Hiking</div><div style="font-size:13.5px;margin-top:5px"><strong>Alpe Lusia</strong> and <strong>Alpe Cermis</strong> lifts run in summer too, taking you straight up to trails, mountain huts and Dolomite views. Malga Venegia is a must.</div></div>
-      <div class="card"><div class="clabel">🌿 Fiemme Cembra Guest Card</div><div style="font-size:13.5px;margin-top:5px">Guided hikes, local tastings, lift access and much more all included or discounted with the Guest Card.</div><a class="btn btn-out" style="margin-top:10px" href="https://www.visitfiemme.it/en" target="_blank">🏔 Summer experiences</a></div>
-    </div>
-    <!-- SUMMER DE -->
-    <div data-l="de" class="summer-only">
-      <div class="card" style="margin-bottom:9px"><div class="clabel">🚵 Bike & E-Bike</div><div style="font-size:13.5px;margin-top:5px">Das Val di Fiemme wird von der <strong>Ciclovia dell'Avisio</strong> durchquert ein Radweg durch das gesamte Tal, für alle Niveaus geeignet. Fahrrad- und E-Bike-Verleih bei <strong>Local Motion Rent</strong> (10% Rabatt mit Guest Card).</div></div>
-      <div class="card" style="margin-bottom:9px"><div class="clabel">🥾 Wandern</div><div style="font-size:13.5px;margin-top:5px">Die Lifte von <strong>Alpe Lusia</strong> und <strong>Alpe Cermis</strong> fahren auch im Sommer direkt hinauf zu Wanderwegen, Hütten und Dolomitenblick. Malga Venegia ist ein Muss.</div></div>
-      <div class="card"><div class="clabel">🌿 Fiemme Cembra Guest Card</div><div style="font-size:13.5px;margin-top:5px">Geführte Wanderungen, lokale Verkostungen, Liftnutzung und mehr alles inklusive oder vergünstigt mit der Guest Card.</div><a class="btn btn-out" style="margin-top:10px" href="https://www.visitfiemme.it/de" target="_blank">🏔 Sommererlebnisse</a></div>
-    </div>
-  </section>
-
-  <!-- CONTACTS -->
-  <section class="section" id="sec-contacts">
-    <div class="sec-head"><span class="sec-icon">📞</span>
-      <h2 class="sec-title"><span data-li="it" class="on">Contatti utili</span><span data-li="en">Useful contacts</span><span data-li="de">Nützliche Kontakte</span></h2>
-    </div>
-    <div class="contact-list">
-      <!-- Mattia - always call -->
-      <a class="ci" href="tel:+393491368343">
-        <span class="ci-icon">👤</span>
-        <div>
-          <div class="ci-label">Mattia</div>
-          <div class="ci-val">+39 349 136 8343</div>
-          <div class="ci-note"><span data-li="it" class="on">Chiamata o WhatsApp</span><span data-li="en">Call or WhatsApp</span><span data-li="de">Anruf oder WhatsApp</span></div>
-        </div>
-      </a>
-      <!-- Andrea - IT only call, EN/DE WhatsApp note -->
-      <a class="ci" id="andreaContact" href="tel:+393487600318">
-        <span class="ci-icon">👤</span>
-        <div>
-          <div class="ci-label">Andrea</div>
-          <div class="ci-val">+39 348 760 0318</div>
-          <div class="ci-note" id="andreaNote">
-            <span data-li="it" class="on">Chiamata o WhatsApp</span>
-            <span data-li="en">WhatsApp only he'll translate 🙂</span>
-            <span data-li="de">Nur WhatsApp er übersetzt 🙂</span>
-          </div>
-        </div>
-      </a>
-      <a class="ci emergency" href="tel:112"><span class="ci-icon">🚨</span><div><div class="ci-label"><span data-li="it" class="on">Emergenze</span><span data-li="en">Emergency</span><span data-li="de">Notruf</span></div><div class="ci-val">112</div></div></a>
-      <a class="ci" href="tel:116117"><span class="ci-icon">🏥</span><div><div class="ci-label"><span data-li="it" class="on">Guardia Medica</span><span data-li="en">Medical Guard</span><span data-li="de">Ärztl. Bereitschaft</span></div><div class="ci-val">116 117</div></div></a>
-    </div>
-  </section>
-
-  <!-- REVIEW -->
-  <section class="section" id="sec-review">
-    <div class="sec-head"><span class="sec-icon">⭐</span><h2 class="sec-title">Review</h2></div>
-    <div class="review-box">
-      <div class="stars">★★★★★</div>
-      <div data-l="it" class="on"><p>Se vi siete trovati bene qui, una <strong>5 stelle</strong> su Airbnb o un <strong>10/10</strong> su Booking fa davvero la differenza per noi e per i prossimi ospiti.</p><div class="review-note">💡 Lo sappiamo, sembra assurdo ma anche 4 stelle o 8/10 vengono penalizzati dagli algoritmi. Se siete soddisfatti, il massimo è davvero il massimo 💛</div></div>
-      <div data-l="en"><p>If you had a good time here, a <strong>5-star</strong> review on Airbnb or <strong>10/10</strong> on Booking makes a real difference for us and for the next guests.</p><div class="review-note">💡 We know it sounds odd but even 4 stars or 8/10 get penalised by the algorithms. The full score is the one that truly counts 💛</div></div>
-      <div data-l="de"><p>Wenn Sie sich wohlgefühlt haben, macht eine <strong>5-Sterne</strong>-Bewertung auf Airbnb oder <strong>10/10</strong> auf Booking wirklich einen Unterschied für uns und die nächsten Gäste.</p><div class="review-note">💡 Klingt seltsam, aber auch 4 Sterne oder 8/10 werden von den Algorithmen abgewertet. Nur die Höchstnote zählt wirklich 💛</div></div>
-      <div class="review-sign"> Famiglia Brigadoi</div>
-    </div>
-  </section>
+<!-- REVIEW -->
+<section class="sec" id="sec-review">
+  <div class="sec-head"><span class="sec-icon">⭐</span><h2 class="sec-title">Review</h2></div>
+  <div class="rev-box">
+    <div class="stars">★★★★★</div>
+    <div data-l="it" class="on"><p>Se vi siete trovati bene qui, il modo più bello per dircelo è una recensione. Una <strong>5 stelle</strong> su Airbnb o un <strong>10/10</strong> su Booking non è solo un numero: aiuta chi cerca un posto come questo a trovarci, e ci dà la spinta a continuare ad accogliere con cura ogni ospite.</p></div>
+    <div data-l="en"><p>If you enjoyed your time here, the nicest way to let us know is with a review. A <strong>5-star</strong> rating on Airbnb or <strong>10/10</strong> on Booking is more than a score: it helps future guests find us, and it keeps us motivated to welcome everyone with the same care.</p></div>
+    <div data-l="de"><p>Wenn Sie sich bei uns wohlgefühlt haben, ist eine Bewertung die schönste Art, es uns zu sagen. Eine <strong>5-Sterne</strong>-Bewertung auf Airbnb oder <strong>10/10</strong> auf Booking ist mehr als eine Zahl: Sie hilft künftigen Gästen, uns zu finden, und motiviert uns, jeden Gast mit derselben Sorgfalt zu empfangen.</p></div>
+    <div class="rev-sign">— Grazie, Famiglia Brigadoi</div>
+  </div>
+</section>
 
 </div>
 
 <!-- FAB -->
 <div class="fab">
-  <div class="fab-options" id="fabOptions">
-    <a class="fab-option" href="https://wa.me/393491368343" target="_blank">
-      <span class="fab-option-icon">💬</span>
-      WhatsApp Mattia
-    </a>
-    <a class="fab-option" href="tel:+393491368343">
-      <span class="fab-option-icon">📞</span>
-      <span data-li="it" class="on">Chiama Mattia</span><span data-li="en">Call Mattia</span><span data-li="de">Mattia anrufen</span>
-    </a>
+  <div class="fab-opts" id="fabOpts">
+    <a class="fab-opt" href="https://wa.me/393491368343" target="_blank"><span style="font-size:18px">💬</span> WhatsApp Mattia</a>
+    <a class="fab-opt" href="tel:+393491368343"><span style="font-size:18px">📞</span> <span data-li="it" class="on">Chiama Mattia</span><span data-li="en">Call Mattia</span><span data-li="de">Mattia anrufen</span></a>
   </div>
-  <button class="fab-main" onclick="toggleFab()" id="fabBtn">📞</button>
+  <button class="fab-main" onclick="fabToggle()" id="fabBtn">📞</button>
 </div>
 
 <script src="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"></script>
 <script>
-// ── DARK MODE (auto after 20:00, before 7:00) ─────────────────────────────
-(function(){
-  const h=new Date().getHours();
-  if(h>=20||h<7) document.documentElement.setAttribute('data-theme','dark');
-})();
+// DARK MODE
+(function(){const h=new Date().getHours();if(h>=20||h<7)document.documentElement.setAttribute('data-theme','dark');})();
 
-// ── LANG ─────────────────────────────────────────────────────────────────────
-let currentLang='it';
+// LANG
+let lang='it';
 function setLang(l){
-  currentLang=l;
-  document.querySelectorAll('[data-l]').forEach(el=>el.classList.toggle('on',el.dataset.l===l));
-  document.querySelectorAll('[data-li]').forEach(el=>el.classList.toggle('on',el.dataset.li===l));
-  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.textContent.trim().toLowerCase()===l));
+  lang=l;
+  document.querySelectorAll('[data-l]').forEach(e=>e.classList.toggle('on',e.dataset.l===l));
+  document.querySelectorAll('[data-li]').forEach(e=>e.classList.toggle('on',e.dataset.li===l));
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('on',b.textContent.trim().toLowerCase()===l));
   document.documentElement.lang=l;
-  // Andrea link: IT = call, EN/DE = WhatsApp
-  const andrea=document.getElementById('andreaContact');
-  if(andrea) andrea.href = l==='it' ? 'tel:+393487600318' : 'https://wa.me/393487600318';
-  updateOpenPopup();
+  if(openPopup&&openPlace) openPopup.setHTML(popHtml(openPlace));
 }
 
-// ── SEASON TOGGLE ─────────────────────────────────────────────────────────────
-// Auto-detect season: May 1 – Oct 31 = summer, Nov 1 – Apr 30 = winter
-function detectSeason(){
-  const m = new Date().getMonth() + 1; // 1-12
-  return (m >= 5 && m <= 10) ? 'summer' : 'winter';
-}
-let season = detectSeason();
-
+// SEASON
+function getSeason(){const m=new Date().getMonth()+1;return(m>=5&&m<=10)?'summer':'winter';}
+let season=getSeason();
 function applySeason(){
-  document.body.classList.toggle('winter', season==='winter');
-  document.body.classList.toggle('summer', season==='summer');
-  // update map markers after map loads
-  if(markers.length){
-    markers.forEach(m=>{
-      // only skibus hidden in summer, impianti always visible
-      if(m._cat==='skibus'){
-        m.getElement().style.display=season==='winter'?'':'none';
-      }
-    });
-  }
+  document.body.classList.toggle('winter',season==='winter');
+  document.body.classList.toggle('summer',season==='summer');
+  markers.forEach(m=>{if(m._cat==='skibus')m.getElement().style.display=season==='winter'?'':'none';});
 }
-
-function toggleSeason(){
-  season = season==='winter' ? 'summer' : 'winter';
-  applySeason();
-}
-
-// Apply on load
+function toggleSeason(){season=season==='winter'?'summer':'winter';applySeason();}
 applySeason();
 
-// ── NAV ──────────────────────────────────────────────────────────────────────
-const sids=['sec-arrival','sec-checkin','sec-rules','sec-wifi','sec-casa','sec-ski','sec-contacts','sec-review'];
-const tabs=document.querySelectorAll('.nav-tab');
-function goTo(id){
-  const el=document.getElementById(id);if(!el)return;
-  window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-58-46-12,behavior:'smooth'});
-}
-window.addEventListener('scroll',()=>{
-  const off=58+46+50;let cur=0;
-  sids.forEach((id,i)=>{const el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<=off)cur=i;});
-  tabs.forEach((t,i)=>t.classList.toggle('active',i===cur));
-},{passive:true});
+// NAV
+const SIDS=['sec-arrival','sec-checkin','sec-rules','sec-wifi','sec-casa','sec-ski','sec-contacts','sec-review'];
+const NTS=document.querySelectorAll('.nt');
+function goTo(id){const e=document.getElementById(id);if(!e)return;window.scrollTo({top:e.getBoundingClientRect().top+window.scrollY-58-46-12,behavior:'smooth'});}
+window.addEventListener('scroll',()=>{const o=58+46+50;let c=0;SIDS.forEach((id,i)=>{const e=document.getElementById(id);if(e&&e.getBoundingClientRect().top<=o)c=i;});NTS.forEach((t,i)=>t.classList.toggle('on',i===c));},{passive:true});
 
-// ── COPY ─────────────────────────────────────────────────────────────────────
-function copyText(text,btn){
-  navigator.clipboard.writeText(text).then(()=>{
-    const o=btn.innerHTML;btn.innerHTML='✅ OK!';
-    setTimeout(()=>btn.innerHTML=o,1800);
-  });
-}
+// COPY
+function cpText(t,b){navigator.clipboard.writeText(t).then(()=>{const o=b.innerHTML;b.innerHTML='✅ OK!';setTimeout(()=>b.innerHTML=o,1800);});}
 
-// ── FAB ──────────────────────────────────────────────────────────────────────
+// FAB
 let fabOpen=false;
-function toggleFab(){
-  fabOpen=!fabOpen;
-  document.getElementById('fabOptions').classList.toggle('open',fabOpen);
-  document.getElementById('fabBtn').textContent=fabOpen?'✕':'📞';
-}
-document.addEventListener('click',e=>{
-  if(fabOpen && !e.target.closest('.fab')) toggleFab();
-});
+function fabToggle(){fabOpen=!fabOpen;document.getElementById('fabOpts').classList.toggle('on',fabOpen);document.getElementById('fabBtn').textContent=fabOpen?'✕':'📞';}
+document.addEventListener('click',e=>{if(fabOpen&&!e.target.closest('.fab'))fabToggle();});
 
-// ── WEATHER (Open-Meteo, no key needed) ──────────────────────────────────────
-const WX_ICONS={0:'☀️',1:'🌤',2:'⛅',3:'☁️',45:'🌫',48:'🌫',51:'🌦',53:'🌦',55:'🌧',61:'🌧',63:'🌧',65:'🌧',71:'🌨',73:'🌨',75:'❄️',77:'🌨',80:'🌦',81:'🌧',82:'⛈',85:'🌨',86:'❄️',95:'⛈',96:'⛈',99:'⛈'};
+// CONTACTS
+function ciToggle(id){const a=document.getElementById(id+'-actions'),r=document.getElementById(id+'-arr'),o=a.classList.contains('on');a.classList.toggle('on',!o);r.style.transform=o?'':'rotate(180deg)';}
+
+// ACCORDION
+function accToggle(b){const d=b.nextElementSibling,o=d.classList.contains('on');b.classList.toggle('on',!o);d.classList.toggle('on',!o);}
+
+// WEATHER
+const WXI={0:'☀️',1:'🌤',2:'⛅',3:'☁️',45:'🌫',51:'🌦',53:'🌦',55:'🌧',61:'🌧',63:'🌧',65:'🌧',71:'🌨',73:'🌨',75:'❄️',80:'🌦',81:'🌧',82:'⛈',85:'🌨',86:'❄️',95:'⛈'};
 fetch('https://api.open-meteo.com/v1/forecast?latitude=46.314&longitude=11.601&current=temperature_2m,windspeed_10m,weathercode,snowfall&timezone=Europe%2FRome')
   .then(r=>r.json()).then(d=>{
     const c=d.current;
     document.getElementById('wxTemp').textContent=Math.round(c.temperature_2m);
-    document.getElementById('wxIcon').textContent=WX_ICONS[c.weathercode]||'🌡';
-    document.getElementById('wxDesc').textContent='Predazzo';
+    document.getElementById('wxIcon').textContent=WXI[c.weathercode]||'🌡';
     document.getElementById('wxWind').textContent=Math.round(c.windspeed_10m);
-    const snow=Math.round((c.snowfall||0)*10)/10;
-    document.getElementById('wxSnow').textContent=snow>0?snow+'cm':'';
+    const s=c.snowfall||0;document.getElementById('wxSnow').textContent=s>0?Math.round(s*10)/10+'cm':'';
   }).catch(()=>{});
 
-// ── MAP ──────────────────────────────────────────────────────────────────────
+// MAP
 mapboxgl.accessToken='pk.eyJ1IjoibWF0dGlhcGludGVyIiwiYSI6ImNtbmJwMHR6MTB0a2oycHF5MHZwcmJ5N3IifQ.9D1PjZmFj61y2rr3B_mJeg';
-const map=new mapboxgl.Map({
-  container:'map',style:'mapbox://styles/mapbox/outdoors-v12',
-  center:[11.6017,46.3137],zoom:13,attributionControl:false
-});
+const map=new mapboxgl.Map({container:'map',style:'mapbox://styles/mapbox/outdoors-v12',center:[11.6017,46.3137],zoom:13,attributionControl:false});
 map.addControl(new mapboxgl.NavigationControl({showCompass:false}),'top-right');
 map.addControl(new mapboxgl.AttributionControl({compact:true}));
 
-const catColors={casa:'#e74c3c',ristoranti:'#e67e22',bar:'#8e44ad',negozi:'#2980b9',supermercato:'#0097a7',impianti:'#6aaa3a',skibus:'#7f8c00',parcheggi:'#546e7a',noleggio:'#00838f',info:'#ff6f00'};
-const catEmoji={casa:'🏠',ristoranti:'🍽',bar:'🍸',negozi:'🛒',supermercato:'🏪',impianti:'⛷',skibus:'🚌',parcheggi:'🅿',noleggio:'🎿',info:'ℹ️'};
-const catLabel={
-  it:{casa:'casa',ristoranti:'ristorante',bar:'bar',negozi:'negozio',supermercato:'supermercato',impianti:'impianto ski',skibus:'skibus',parcheggi:'parcheggio',noleggio:'noleggio',info:'info'},
-  en:{casa:'home',ristoranti:'restaurant',bar:'bar',negozi:'shop',supermercato:'supermarket',impianti:'ski area',skibus:'skibus',parcheggi:'parking',noleggio:'rental',info:'info'},
-  de:{casa:'zuhause',ristoranti:'restaurant',bar:'bar',negozi:'geschäft',supermercato:'supermarkt',impianti:'skigebiet',skibus:'skibus',parcheggi:'parkplatz',noleggio:'verleih',info:'info'},
-};
+const CC={casa:'#e74c3c',ristoranti:'#e67e22',bar:'#8e44ad',negozi:'#2980b9',supermercato:'#0097a7',impianti:'#6aaa3a',skibus:'#7f8c00',parcheggi:'#546e7a',noleggio:'#00838f',info:'#ff6f00'};
+const CE={casa:'🏠',ristoranti:'🍽',bar:'🍸',negozi:'🛒',supermercato:'🏪',impianti:'⛷',skibus:'🚌',parcheggi:'🅿',noleggio:'🎿',info:'ℹ️'};
+const CL={it:{casa:'casa',ristoranti:'ristorante',bar:'bar',negozi:'negozio',supermercato:'supermercato',impianti:'impianti',skibus:'skibus',parcheggi:'parcheggio',noleggio:'noleggio',info:'info'},en:{casa:'home',ristoranti:'restaurant',bar:'bar',negozi:'shop',supermercato:'supermarket',impianti:'ski area / lift',skibus:'skibus',parcheggi:'parking',noleggio:'rental',info:'info'},de:{casa:'zuhause',ristoranti:'restaurant',bar:'bar',negozi:'geschäft',supermercato:'supermarkt',impianti:'skigebiet / lift',skibus:'skibus',parcheggi:'parkplatz',noleggio:'verleih',info:'info'}};
 
-const places=[
-  {cat:'casa',lng:11.6017093,lat:46.3137803,it:{name:'Casa ❤️ Tone',desc:'Via Dante 47 casa vostra per questi giorni.'},en:{name:'Casa ❤️ Tone',desc:'Via Dante 47 your home for the next few days.'},de:{name:'Casa ❤️ Tone',desc:'Via Dante 47 Ihr Zuhause für die nächsten Tage.'}},
-  {cat:'ristoranti',lng:11.598915,lat:46.3166098,it:{name:'Poldo Pub',desc:'Cucina aperta fino a mezzanotte. Hamburger, piadine e birre artigianali. Perfetto dopo una giornata sulle piste.'},en:{name:'Poldo Pub',desc:'Kitchen open until midnight. Burgers, piadine and craft beers. Perfect after a day on the slopes.'},de:{name:'Poldo Pub',desc:'Küche bis Mitternacht. Burger, Piadine und Craft-Bier. Perfekt nach einem langen Skitag.'}},
-  {cat:'ristoranti',lng:11.6065943,lat:46.2979202,it:{name:'Ristorante Bar Miola',desc:'Cucina tipica trentina in un locale moderno e accogliente.'},en:{name:'Ristorante Bar Miola',desc:'Traditional Trentino cuisine in a modern, welcoming setting.'},de:{name:'Ristorante Bar Miola',desc:'Trentiner Küche in modernem, gemütlichem Ambiente.'}},
-  {cat:'ristoranti',lng:11.7960606,lat:46.322073,it:{name:'Malga Venegia',desc:'Vale il viaggio. Panorama sulle Pale di San Martino, tosela alla piastra da non perdere. Meglio prima del tramonto.'},en:{name:'Malga Venegia',desc:'Worth the drive. Stunning views of the Pale di San Martino, grilled tosela cheese is a must. Best at sunset.'},de:{name:'Malga Venegia',desc:'Den Ausflug wert. Blick auf die Pale di San Martino, gegrillte Tosela nicht verpassen. Am schönsten bei Sonnenuntergang.'}},
+const PLACES=[
+  {cat:'casa',lng:11.6017093,lat:46.3137803,it:{name:'Casa \u2764\ufe0f Tone',desc:'Via Dante 47 \u2014 casa vostra per questi giorni.'},en:{name:'Casa \u2764\ufe0f Tone',desc:'Via Dante 47 \u2014 your home for the next few days.'},de:{name:'Casa \u2764\ufe0f Tone',desc:'Via Dante 47 \u2014 Ihr Zuhause f\u00fcr die n\u00e4chsten Tage.'}},
+  {cat:'ristoranti',lng:11.598915,lat:46.3166098,it:{name:'Poldo Pub',desc:'Cucina aperta fino a mezzanotte. Hamburger, piadine e birre artigianali. Perfetto dopo una giornata sulle piste.'},en:{name:'Poldo Pub',desc:'Kitchen open until midnight. Burgers, piadine and craft beers. Perfect after a day on the slopes.'},de:{name:'Poldo Pub',desc:'K\u00fcche bis Mitternacht. Burger, Piadine und Craft-Bier. Perfekt nach einem langen Skitag.'}},
+  {cat:'ristoranti',lng:11.6065943,lat:46.2979202,it:{name:'Ristorante Bar Miola',desc:'Cucina tipica trentina in un locale moderno e accogliente.'},en:{name:'Ristorante Bar Miola',desc:'Traditional Trentino cuisine in a modern, welcoming setting.'},de:{name:'Ristorante Bar Miola',desc:'Trentiner K\u00fcche in modernem, gem\u00fctlichem Ambiente.'}},
+  {cat:'ristoranti',lng:11.7960606,lat:46.322073,it:{name:'Malga Venegia',desc:'Vale il viaggio. Panorama sulle Pale di San Martino, tosela alla piastra da non perdere. Meglio prima del tramonto.'},en:{name:'Malga Venegia',desc:'Worth the drive. Stunning views of the Pale di San Martino, grilled tosela cheese is a must. Best at sunset.'},de:{name:'Malga Venegia',desc:'Den Ausflug wert. Blick auf die Pale di San Martino, gegrillte Tosela nicht verpassen. Am sch\u00f6nsten bei Sonnenuntergang.'}},
   {cat:'ristoranti',lng:11.5574972,lat:46.3312877,it:{name:'In.Treska',desc:'Chalet direttamente sulle piste del Latemar. Ottima carne e atmosfera da rifugio.'},en:{name:'In.Treska',desc:'Chalet right on the Latemar slopes. Great meat dishes and alpine refuge atmosphere.'},de:{name:'In.Treska',desc:'Chalet direkt an den Latemar-Pisten. Gutes Fleisch und Schutzhütten-Feeling.'}},
-  {cat:'ristoranti',lng:11.6013091,lat:46.314244,it:{name:"Pizzeria L'Incontro",desc:'A due passi da casa. Pizza in un antico vólto storico restaurato. Molto caratteristica.'},en:{name:"Pizzeria L'Incontro",desc:'A short walk from home. Pizza in a restored historic stone vault. Full of character.'},de:{name:"Pizzeria L'Incontro",desc:'Fußläufig. Pizza in einem restaurierten historischen Gewölbekeller. Sehr stimmungsvoll.'}},
-  {cat:'ristoranti',lng:11.665027,lat:46.3128297,it:{name:'Terrazza Lagorai Pizzeria',desc:'La nostra pizzeria preferita. Stile napoletano impasto leggero e ingredienti freschi.'},en:{name:'Terrazza Lagorai Pizzeria',desc:"Our favourite pizzeria. Neapolitan-style light dough and fresh toppings. Highly recommended."},de:{name:'Terrazza Lagorai Pizzeria',desc:'Unsere Lieblingspizzeria. Neapolitanischer Stil leichter Teig, frische Zutaten.'}},
-  {cat:'bar',lng:11.6028879,lat:46.3111842,it:{name:'Bar Ristorante Ancora',desc:"Il bar storico del centro di Predazzo. Colazione, aperitivo e tutto quello che sta in mezzo."},en:{name:'Bar Ristorante Ancora',desc:'The classic bar in central Predazzo. Good for breakfast, aperitivo, and everything in between.'},de:{name:'Bar Ristorante Ancora',desc:'Die klassische Bar im Zentrum von Predazzo. Frühstück, Aperitivo und alles dazwischen.'}},
-  {cat:'bar',lng:11.6025547,lat:46.3117551,it:{name:'CAMPANIL spirits&food',desc:"Ottimo per l'aperitivo, a due passi dalla piazza. Cocktail curati."},en:{name:'CAMPANIL spirits&food',desc:'Great for aperitivo, right next to the main square. Curated cocktail list.'},de:{name:'CAMPANIL spirits&food',desc:'Perfekt für Aperitivo, direkt neben dem Hauptplatz. Ausgewählte Cocktailkarte.'}},
+  {cat:'ristoranti',lng:11.6013091,lat:46.314244,it:{name:"Pizzeria L'Incontro",desc:'A due passi da casa. Pizza in un antico v\u00f3lto storico restaurato. Molto caratteristica.'},en:{name:"Pizzeria L'Incontro",desc:'A short walk from home. Pizza in a restored historic stone vault. Full of character.'},de:{name:"Pizzeria L'Incontro",desc:'Fu\u00dfl\u00e4ufig. Pizza in einem restaurierten historischen Gew\u00f6lbekeller. Sehr stimmungsvoll.'}},
+  {cat:'ristoranti',lng:11.665027,lat:46.3128297,it:{name:'Terrazza Lagorai Pizzeria',desc:'La nostra pizzeria preferita. Stile napoletano, impasto leggero e ingredienti freschi.'},en:{name:'Terrazza Lagorai Pizzeria',desc:'Our favourite pizzeria. Neapolitan-style, light dough and fresh toppings. Highly recommended.'},de:{name:'Terrazza Lagorai Pizzeria',desc:'Unsere Lieblingspizzeria. Neapolitanischer Stil, leichter Teig, frische Zutaten.'}},
+  {cat:'ristoranti',lng:11.597757,lat:46.317861,it:{name:'Eat&Roll Street Food',desc:'Street food di qualit\u00e0 dentro l\'Hotel Montanara. Panzerotti pugliesi, pucce, burger e poke. Cucina aperta la sera, sabato e domenica anche a pranzo.'},en:{name:'Eat&Roll Street Food',desc:'Quality street food inside Hotel Montanara. Pugliese panzerotti, pucce, burgers and poke. Open for dinner, also lunch on weekends.'},de:{name:'Eat&Roll Street Food',desc:'Hochwertiges Street Food im Hotel Montanara. Panzerotti, Pucce, Burger und Poke. Abends ge\u00f6ffnet, am Wochenende auch mittags.'}},
+  {cat:'ristoranti',lng:11.6317916,lat:46.3105177,it:{name:'Pizzeria Campeggio Valleverde',desc:'Una delle migliori pizze della Val di Fiemme, servita dentro il camping. Impasto perfetto. Aperta principalmente in estate.'},en:{name:'Pizzeria Campeggio Valleverde',desc:'One of the best pizzas in Val di Fiemme, served inside the campsite. Perfect dough. Open mainly in summer.'},de:{name:'Pizzeria Campeggio Valleverde',desc:'Eine der besten Pizzen im Val di Fiemme, im Campingplatz serviert. Perfekter Teig. Haupts\u00e4chlich im Sommer ge\u00f6ffnet.'}},
+  {cat:'ristoranti',lng:11.5676282,lat:46.2882427,it:{name:'Le Rais \u2013 I Sapori della Diversit\u00e0',desc:'Un ristorante diverso dagli altri: gestito da una cooperativa sociale, dentro la splendida Villa Flora a Ziano. Cucina autentica, accoglienza vera. Vale il viaggio. Chiuso il luned\u00ec. <a href="https://lerais.it/it/ristorante" target="_blank">Scopri di pi\u00f9</a>'},en:{name:'Le Rais \u2013 I Sapori della Diversit\u00e0',desc:'A restaurant like no other: run by a social cooperative, inside the beautiful Villa Flora in Ziano. Genuine food, genuine welcome. Worth the drive. Closed Mondays. <a href="https://lerais.it/it/ristorante" target="_blank">Learn more</a>'},de:{name:'Le Rais \u2013 I Sapori della Diversit\u00e0',desc:'Ein besonderes Restaurant: von einer Sozialgenossenschaft betrieben, in der sch\u00f6nen Villa Flora in Ziano. Ehrliche K\u00fcche, echte Gastfreundschaft. Den Ausflug wert. Montags geschlossen. <a href="https://lerais.it/it/ristorante" target="_blank">Mehr erfahren</a>'}},
+  {cat:'ristoranti',lng:11.5987234,lat:46.3140425,it:{name:'HERO La Casa del Burger',desc:'I burger migliori di Predazzo, a due passi da casa. Ingredienti di qualit\u00e0, anche opzioni senza glutine. Sempre meglio prenotare: \u00e8 piccolo e va a ruba. Aperto la sera, chiuso il luned\u00ec.'},en:{name:'HERO La Casa del Burger',desc:'The best burgers in Predazzo, a short walk away. Quality ingredients, gluten-free options available. Book ahead: it\'s small and fills up fast. Open evenings, closed Mondays.'},de:{name:'HERO La Casa del Burger',desc:'Die besten Burger in Predazzo, fu\u00dfl\u00e4ufig. Hochwertige Zutaten, auch glutenfreie Optionen. Besser reservieren: klein und immer voll. Abends ge\u00f6ffnet, montags geschlossen.'}},
+  {cat:'ristoranti',lng:11.6162184,lat:46.311012,it:{name:'Minigolf Predazzo',desc:'18 buche in un bel contesto naturale. Ottimo per famiglie e bambini. C\'\u00e8 anche un bar sul posto.'},en:{name:'Minigolf Predazzo',desc:'18 holes in a lovely natural setting. Great for families and kids. There\'s also a bar on site.'},de:{name:'Minigolf Predazzo',desc:'18 Bahnen in sch\u00f6ner Naturkulisse. Ideal f\u00fcr Familien und Kinder. Auch eine Bar vor Ort.'}},
+  {cat:'bar',lng:11.6028879,lat:46.3111842,it:{name:'Bar Ristorante Ancora',desc:"Il bar storico del centro di Predazzo. Colazione, aperitivo e tutto quello che sta in mezzo."},en:{name:'Bar Ristorante Ancora',desc:'The classic bar in central Predazzo. Good for breakfast, aperitivo, and everything in between.'},de:{name:'Bar Ristorante Ancora',desc:'Die klassische Bar im Zentrum von Predazzo. Fr\u00fchst\u00fcck, Aperitivo und alles dazwischen.'}},
+  {cat:'bar',lng:11.6025547,lat:46.3117551,it:{name:'CAMPANIL spirits&food',desc:"Ottimo per l'aperitivo, a due passi dalla piazza. Cocktail curati."},en:{name:'CAMPANIL spirits&food',desc:'Great for aperitivo, right next to the main square. Curated cocktail list.'},de:{name:'CAMPANIL spirits&food',desc:'Perfekt f\u00fcr Aperitivo, direkt neben dem Hauptplatz. Ausgew\u00e4hlte Cocktailkarte.'}},
+  {cat:'bar',lng:11.601225,lat:46.3128694,it:{name:'Black Out',desc:'Bar nel centro di Predazzo, ottimo per aperitivi e serate. Atmosfera giovane.'},en:{name:'Black Out',desc:'Bar in the centre of Predazzo, great for aperitivo and evening drinks. Young atmosphere.'},de:{name:'Black Out',desc:'Bar im Zentrum von Predazzo, ideal f\u00fcr Aperitivo und Abendgetr\u00e4nke. Junges Flair.'}},
+  {cat:'bar',lng:11.6011596,lat:46.3018901,it:{name:'Biolago Predazzo',desc:"Lago balneabile naturale con acqua cristallina, prato per il sole e un bel bar per l'aperitivo. Perfetto d'estate. Si possono noleggiare SUP e materassini."},en:{name:'Biolago Predazzo',desc:"Natural swimming lake with crystal-clear water, sunbathing lawn and a lovely bar for aperitivo. Perfect in summer. SUP and inflatables for hire."},de:{name:'Biolago Predazzo',desc:"Nat\u00fcrlicher Badesee mit klarem Wasser, Liegewiese und einer sch\u00f6nen Bar f\u00fcr den Aperitivo. Im Sommer perfekt. SUP und Luftmatratzen zum Ausleihen."}},
+  {cat:'bar',lng:11.4773115,lat:46.2817407,it:{name:'Birrificio di Fiemme',desc:'Birrificio artigianale immerso nella natura a Masi di Cavalese. Birre prodotte in loco, ambiente rustico e panorama bellissimo. Aperto da marted\u00ec a domenica.'},en:{name:'Birrificio di Fiemme',desc:'Craft brewery nestled in nature in Masi di Cavalese. Beers brewed on site, rustic setting and beautiful views. Open Tuesday to Sunday.'},de:{name:'Birrificio di Fiemme',desc:'Handwerksbrauerei in Masi di Cavalese. Vor Ort gebraute Biere, rustikales Ambiente und sch\u00f6ne Aussicht. Di bis So ge\u00f6ffnet.'}},
   {cat:'negozi',lng:11.5539256,lat:46.2829562,it:{name:'La Sportiva Factory Store',desc:"Outlet ufficiale a Ziano. Scarponi, abbigliamento tecnico e accessori a prezzi scontati."},en:{name:'La Sportiva Factory Store',desc:'Official outlet in Ziano. Boots, technical clothing and accessories at discounted prices.'},de:{name:'La Sportiva Factory Store',desc:'Offizieller Outlet in Ziano. Bergschuhe, Technobekleidung zu reduzierten Preisen.'}},
-  {cat:'negozi',lng:11.5946479,lat:46.3044741,it:{name:'Spaccio Caseificio (storico)',desc:'Formaggi freschi direttamente dal luogo di produzione.'},en:{name:'Spaccio Caseificio (storico)',desc:'Fresh cheeses bought right where they\'re made.'},de:{name:'Spaccio Caseificio (storico)',desc:'Frische Käse direkt vom Produktionsort.'}},
+  {cat:'negozi',lng:11.5946479,lat:46.3044741,it:{name:'Spaccio Caseificio (storico)',desc:'Formaggi freschi direttamente dal luogo di produzione.'},en:{name:'Spaccio Caseificio (storico)',desc:"Fresh cheeses bought right where they're made."},de:{name:'Spaccio Caseificio (storico)',desc:'Frische K\u00e4se direkt vom Produktionsort.'}},
   {cat:'negozi',lng:11.6019792,lat:46.3126327,it:{name:'Macelleria Dellantonio',desc:'Ottima macelleria locale. Carni fresche e affettati tipici trentini.'},en:{name:'Macelleria Dellantonio',desc:'Excellent local butcher. Fresh meats and typical Trentino cold cuts.'},de:{name:'Macelleria Dellantonio',desc:'Ausgezeichnete Metzgerei. Frisches Fleisch und Trentiner Aufschnitte.'}},
-  {cat:'negozi',lng:11.6023528,lat:46.3135303,it:{name:'Negozio Curioso',desc:'Il negozio di famiglia souvenir fatti a mano, nastri e idee regalo uniche. Vale una visita.'},en:{name:'Negozio Curioso',desc:'Our family shop handmade souvenirs, ribbons and unique gift ideas. Worth a visit.'},de:{name:'Negozio Curioso',desc:'Unser Familienladen handgemachte Souvenirs und einzigartige Geschenkideen. Einen Besuch wert.'}},
-  {cat:'negozi',lng:11.5854841,lat:46.2981968,it:{name:'Shop & Bistrot Caseificio',desc:'Nuovo punto vendita con formaggi e prodotti tipici.'},en:{name:'Shop & Bistrot Caseificio',desc:'New dairy shop with cheeses and local specialty products.'},de:{name:'Shop & Bistrot Caseificio',desc:'Neuer Laden mit Käse und lokalen Spezialitäten.'}},
-  {cat:'supermercato',lng:11.6010848,lat:46.312982,it:{name:'Coop',desc:"5 minuti a piedi. Ben fornito per la spesa quotidiana."},en:{name:'Coop',desc:'5 minutes on foot. Well stocked for everyday shopping.'},de:{name:'Coop',desc:'5 Gehminuten. Gut sortiert für den täglichen Einkauf.'}},
-  {cat:'supermercato',lng:11.5930762,lat:46.3034772,it:{name:'Supermercato Poli',desc:'Il più grande della zona, pochi minuti in auto.'},en:{name:'Supermercato Poli',desc:'The largest in the area, a few minutes by car.'},de:{name:'Supermercato Poli',desc:'Der größte Supermarkt der Gegend, wenige Autominuten.'}},
-  {cat:'impianti',lng:11.602024,lat:46.32767,it:{name:'Ski Center Latemar',desc:'<b>Inverno:</b> 48 km di piste, il più grande della Val di Fiemme. SkiBus da casa. Rientro su pista rossa.<br><b>Estate:</b> La telecabina sale a Gardonè (1650 m): trekking sul Latemarium, Geotrekking geologico, sentieri tematici e Giro del Latemar in MTB.'},en:{name:'Ski Center Latemar',desc:'<b>Winter:</b> 48 km of slopes, the largest in Val di Fiemme. SkiBus from home. Return run is red.<br><b>Summer:</b> Cable car up to Gardonè (1650 m): Latemarium hikes, geological Geotrekking, themed family trails and MTB Giro del Latemar.'},de:{name:'Ski Center Latemar',desc:'<b>Winter:</b> 48 km Pisten, das größte Skigebiet im Val di Fiemme. SkiBus ab Haus. Heimfahrtspiste rot.<br><b>Sommer:</b> Gondel bis Gardonè (1650 m): Latemarium-Wanderungen, Geotrekking, Familienwege und MTB Giro del Latemar.'}},
-  {cat:'impianti',lng:11.6872782,lat:46.3124948,
-    it:{name:'Alpe Lusia Bellamonte',desc:'<b>Inverno:</b> Perfetto per principianti e famiglie. Rientro su pista blu.<br><b>Estate:</b> La cabinovia Bellamonte 3.0 porta al parco Giro d\'Ali, sentiero Frainus (agibile col passeggino) e Sentiero Naturalistico fino a Malga Bocche (4,5 km). Panorama sulle Pale di San Martino. A 10 minuti da Predazzo.'},
-    en:{name:'Alpe Lusia Bellamonte',desc:'<b>Winter:</b> Perfect for beginners and families. Blue return run.<br><b>Summer:</b> Bellamonte 3.0 gondola up to Giro d\'Ali park, stroller-friendly Frainus trail and Nature Trail to Malga Bocche (4.5 km). Views over the Pale di San Martino. 10 min from Predazzo.'},
-    de:{name:'Alpe Lusia Bellamonte',desc:'<b>Winter:</b> Ideal für Anfänger und Familien. Blaue Heimfahrtspiste.<br><b>Sommer:</b> Gondelbahn Bellamonte 3.0 zum Themenpark Giro d\'Ali, Frainus-Weg (kinderwagentauglich) und Naturweg Malga Bocche (4,5 km). Panorama auf die Pale di San Martino. 10 Min. von Predazzo.'}
-
-  {cat:'bar',lng:11.601225,lat:46.3128694,
-    it:{name:'Black Out',desc:'Bar nel centro di Predazzo, ottimo per aperitivi e serate. Atmosfera giovane.'},
-    en:{name:'Black Out',desc:'Bar in the centre of Predazzo, great for aperitivo and evening drinks. Young atmosphere.'},
-    de:{name:'Black Out',desc:'Bar im Zentrum von Predazzo, ideal für Aperitivo und Abendgetränke. Junges Flair.'}},
-
-  {cat:'ristoranti',lng:11.6317916,lat:46.3105177,
-    it:{name:'Pizzeria Campeggio Valleverde',desc:'Una delle migliori pizze della Val di Fiemme, servita dentro il camping. Impasto perfetto e ingredienti di qualità. Aperta principalmente in estate.'},
-    en:{name:'Pizzeria Campeggio Valleverde',desc:'One of the best pizzas in Val di Fiemme, served inside the campsite. Perfect dough and quality ingredients. Open mainly in summer.'},
-    de:{name:'Pizzeria Campeggio Valleverde',desc:'Eine der besten Pizzen im Val di Fiemme, im Campingplatz serviert. Perfekter Teig und hochwertige Zutaten. Hauptsächlich im Sommer geöffnet.'}},
-
-  {cat:'ristoranti',lng:11.6162184,lat:46.311012,
-    it:{name:'Minigolf Predazzo',desc:'18 buche in un bel contesto naturale. Ottimo per famiglie e bambini. C\'è anche un bar sul posto.'},
-    en:{name:'Minigolf Predazzo',desc:'18 holes in a lovely natural setting. Great for families and kids. There\'s also a bar on site.'},
-    de:{name:'Minigolf Predazzo',desc:'18 Bahnen in schöner Naturkulisse. Ideal für Familien und Kinder. Auch eine Bar vor Ort.'}},
-
-  {cat:'bar',lng:11.6011596,lat:46.3018901,
-    it:{name:'Biolago Predazzo',desc:'Lago balneabile naturale con acqua cristallina, prato per il sole e un bel bar per l\'aperitivo. Perfetto d\'estate. Si possono noleggiare SUP e materassini.'},
-    en:{name:'Biolago Predazzo',desc:'Natural swimming lake with crystal-clear water, sunbathing lawn and a lovely bar for aperitivo. Perfect in summer. SUP and inflatables for hire.'},
-    de:{name:'Biolago Predazzo',desc:'Natürlicher Badesee mit klarem Wasser, Liegewiese und einer schönen Bar für den Aperitivo. Im Sommer perfekt. SUP und Luftmatratzen zum Ausleihen.'}},
-
-  {cat:'negozi',lng:11.6001522,lat:46.3135314,
-    it:{name:'Altrea Gelateria',desc:'Gelateria artigianale con gusti creativi e materie prime di qualità. Il gusto Sachertorte è leggendario. Aperta dal pomeriggio.'},
-    en:{name:'Altrea Gelateria',desc:'Artisan ice cream shop with creative flavours and top-quality ingredients. The Sachertorte flavour is legendary. Open from the afternoon.'},
-    de:{name:'Altrea Gelateria',desc:'Handwerkliche Eisdiele mit kreativen Sorten und hochwertigen Zutaten. Der Sachertorten-Geschmack ist legendär. Ab dem Nachmittag geöffnet.'}},
-
-  {cat:'info',lng:11.601623,lat:46.3128348,
-    it:{name:'APT Val di Fiemme', desc:'Ufficio informazioni turistiche di Predazzo. Mappe, consigli su escursioni, eventi e attività in valle. Aperto tutti i giorni.'},
-    en:{name:'APT Val di Fiemme', desc:'Tourist information office in Predazzo. Maps, hiking tips, events and activities in the valley. Open every day.'},
-    de:{name:'APT Val di Fiemme', desc:'Touristisches Informationsbüro in Predazzo. Karten, Wandertipps, Veranstaltungen und Aktivitäten im Tal. Täglich geöffnet.'}},
-
-  {cat:'ristoranti',lng:11.5676282,lat:46.2882427,
-    it:{name:'Le Rais – I Sapori della Diversità',desc:'Un ristorante diverso dagli altri: gestito da una cooperativa sociale, dentro la splendida Villa Flora a Ziano. Cucina autentica, accoglienza vera. Un posto che vale il viaggio. Chiuso il lunedì. <a href="https://lerais.it/it/ristorante" target="_blank">Scopri di più</a>'},
-    en:{name:'Le Rais – I Sapori della Diversità',desc:'A restaurant like no other: run by a social cooperative, set inside the beautiful Villa Flora in Ziano. Genuine food, genuine welcome. Worth the short drive. Closed Mondays. <a href="https://lerais.it/it/ristorante" target="_blank">Learn more</a>'},
-    de:{name:'Le Rais – I Sapori della Diversità',desc:'Ein besonderes Restaurant: von einer Sozialgenossenschaft betrieben, in der wunderschönen Villa Flora in Ziano. Ehrliche Küche, echte Gastfreundschaft. Den Ausflug wert. Montags geschlossen. <a href="https://lerais.it/it/ristorante" target="_blank">Mehr erfahren</a>'}},
-
-  {cat:'bar',lng:11.4773115,lat:46.2817407,
-    it:{name:'Birrificio di Fiemme',desc:'Birrificio artigianale immerso nella natura a Masi di Cavalese. Birre prodotte in loco, ambiente rustico e panorama bellissimo. Aperto da martedì a domenica. Chiuso il lunedì.'},
-    en:{name:'Birrificio di Fiemme',desc:'Craft brewery nestled in nature in Masi di Cavalese. Beers brewed on site, rustic setting and beautiful views. Open Tuesday to Sunday. Closed Mondays.'},
-    de:{name:'Birrificio di Fiemme',desc:'Handwerksbrauerei inmitten der Natur in Masi di Cavalese. Vor Ort gebraute Biere, rustikales Ambiente und schöne Aussicht. Di bis So geöffnet. Montags geschlossen.'}},
-
-  {cat:'ristoranti',lng:11.5987234,lat:46.3140425,
-    it:{name:'HERO La Casa del Burger',desc:'I burger migliori di Predazzo, a due passi da casa. Ingredienti di qualità, anche opzioni senza glutine. Sempre meglio prenotare: è piccolo e va a ruba. Aperto la sera, chiuso il lunedì.'},
-    en:{name:'HERO La Casa del Burger',desc:'The best burgers in Predazzo, a short walk away. Quality ingredients, gluten-free options available. Book ahead: it\'s small and fills up fast. Open evenings, closed Mondays.'},
-    de:{name:'HERO La Casa del Burger',desc:'Die besten Burger in Predazzo, fußläufig. Hochwertige Zutaten, auch glutenfreie Optionen. Besser reservieren: klein und immer voll. Abends geöffnet, montags geschlossen.'}},
-
+  {cat:'negozi',lng:11.6023528,lat:46.3135303,it:{name:'Negozio Curioso',desc:"Il negozio di casa nostra. La mamma crea a mano nastri, decorazioni e idee regalo che non troverai da nessun'altra parte. Entra, vale la pena."},en:{name:'Negozio Curioso',desc:"Our family shop, run by Mattia's mum. Handmade ribbons, decorations and gift ideas you won't find anywhere else. Worth every minute."},de:{name:'Negozio Curioso',desc:"Unser Familienladen, gef\u00fchrt von Mattias Mutter. Handgemachte B\u00e4nder, Dekorationen und Geschenkideen, die es nirgendwo sonst gibt. Unbedingt reinschauen."}},
+  {cat:'negozi',lng:11.5854841,lat:46.2981968,it:{name:'Shop & Bistrot Caseificio',desc:'Nuovo punto vendita con formaggi e prodotti tipici.'},en:{name:'Shop & Bistrot Caseificio',desc:'New dairy shop with cheeses and local specialty products.'},de:{name:'Shop & Bistrot Caseificio',desc:'Neuer Laden mit K\u00e4se und lokalen Spezialit\u00e4ten.'}},
+  {cat:'negozi',lng:11.6001522,lat:46.3135314,it:{name:'Altrea Gelateria',desc:'Gelateria artigianale con gusti creativi e materie prime di qualit\u00e0. Il gusto Sachertorte \u00e8 leggendario. Aperta dal pomeriggio.'},en:{name:'Altrea Gelateria',desc:'Artisan ice cream shop with creative flavours and top-quality ingredients. The Sachertorte flavour is legendary. Open from the afternoon.'},de:{name:'Altrea Gelateria',desc:'Handwerkliche Eisdiele mit kreativen Sorten und hochwertigen Zutaten. Der Sachertorten-Geschmack ist legend\u00e4r. Ab dem Nachmittag ge\u00f6ffnet.'}},
+  {cat:'supermercato',lng:11.6010848,lat:46.312982,it:{name:'Coop',desc:"5 minuti a piedi. Ben fornito per la spesa quotidiana."},en:{name:'Coop',desc:'5 minutes on foot. Well stocked for everyday shopping.'},de:{name:'Coop',desc:'5 Gehminuten. Gut sortiert f\u00fcr den t\u00e4glichen Einkauf.'}},
+  {cat:'supermercato',lng:11.5930762,lat:46.3034772,it:{name:'Supermercato Poli',desc:'Il pi\u00f9 grande della zona, pochi minuti in auto.'},en:{name:'Supermercato Poli',desc:'The largest in the area, a few minutes by car.'},de:{name:'Supermercato Poli',desc:'Der gr\u00f6\u00dfte Supermarkt der Gegend, wenige Autominuten.'}},
+  {cat:'impianti',lng:11.602024,lat:46.32767,it:{name:'Ski Center Latemar',desc:'<b>Inverno:</b> 48 km di piste, il pi\u00f9 grande della Val di Fiemme. SkiBus da casa. Rientro su pista rossa.<br><b>Estate:</b> La telecabina sale a Gardon\u00e8 (1650 m): trekking sul Latemarium, Geotrekking geologico, sentieri tematici e Giro del Latemar in MTB.'},en:{name:'Ski Center Latemar',desc:'<b>Winter:</b> 48 km of slopes, the largest in Val di Fiemme. SkiBus from home. Return run is red.<br><b>Summer:</b> Cable car up to Gardon\u00e8 (1650 m): Latemarium hikes, geological Geotrekking, themed family trails and MTB Giro del Latemar.'},de:{name:'Ski Center Latemar',desc:'<b>Winter:</b> 48 km Pisten, das gr\u00f6\u00dfte Skigebiet im Val di Fiemme. SkiBus ab Haus. Heimfahrtspiste rot.<br><b>Sommer:</b> Gondel bis Gardon\u00e8 (1650 m): Latemarium-Wanderungen, Geotrekking, Familienwege und MTB Giro del Latemar.'}},
+  {cat:'impianti',lng:11.6872782,lat:46.3124948,it:{name:'Alpe Lusia Bellamonte',desc:'<b>Inverno:</b> Perfetto per principianti e famiglie. Rientro su pista blu.<br><b>Estate:</b> La cabinovia Bellamonte 3.0 porta al parco Giro d\'Ali, sentiero Frainus (agibile col passeggino) e Sentiero Naturalistico fino a Malga Bocche (4,5 km). A 10 minuti da Predazzo verso Passo Rolle.'},en:{name:'Alpe Lusia Bellamonte',desc:'<b>Winter:</b> Perfect for beginners and families. Blue return run.<br><b>Summer:</b> Bellamonte 3.0 gondola up to Giro d\'Ali park, stroller-friendly Frainus trail and Nature Trail to Malga Bocche (4.5 km). 10 min from Predazzo towards Passo Rolle.'},de:{name:'Alpe Lusia Bellamonte',desc:'<b>Winter:</b> Ideal f\u00fcr Anf\u00e4nger und Familien. Blaue Heimfahrtspiste.<br><b>Sommer:</b> Gondelbahn Bellamonte 3.0 zum Themenpark Giro d\'Ali, Frainus-Weg (kinderwagentauglich) und Naturweg Malga Bocche (4,5 km). 10 Min. von Predazzo.'}},
+  {cat:'impianti',lng:11.4716853,lat:46.2833298,it:{name:'Alpe Cermis',desc:'<b>Inverno:</b> Cabinovia panoramica a Cavalese, Cermislandia per i bambini.<br><b>Estate:</b> Cabinovia aperta anche d\'estate per raggiungere i lariceti e i sentieri in quota. Cermislandia resta operativa.'},en:{name:'Alpe Cermis',desc:'<b>Winter:</b> Panoramic gondola in Cavalese, Cermislandia for kids.<br><b>Summer:</b> The gondola also runs in summer to reach the larch forests and mountain trails. Cermislandia stays open.'},de:{name:'Alpe Cermis',desc:'<b>Winter:</b> Panorama-Gondelbahn in Cavalese, Cermislandia f\u00fcr Kinder.<br><b>Sommer:</b> Gondelbahn f\u00e4hrt auch im Sommer zu L\u00e4rchenwäldern und Bergwegen. Cermislandia bleibt offen.'}},
+  {cat:'skibus',lng:11.6023684,lat:46.3123822,it:{name:'SkiBus \u2013 Piazza',desc:'Fermata principale. <a href="https://www.visitfiemme.it/it/territorio/mobilita/skibus" target="_blank">Orari SkiBus</a>'},en:{name:'SkiBus \u2013 Piazza',desc:'Main stop. <a href="https://www.visitfiemme.it/it/territorio/mobilita/skibus" target="_blank">SkiBus timetables</a>'},de:{name:'SkiBus \u2013 Piazza',desc:'Haupthaltestelle. <a href="https://www.visitfiemme.it/it/territorio/mobilita/skibus" target="_blank">SkiBus Fahrpl\u00e4ne</a>'}},
+  {cat:'skibus',lng:11.5988509,lat:46.3097618,it:{name:'SkiBus \u2013 Hotel Bellaria',desc:'Fermata SkiBus. <a href="https://www.visitfiemme.it/it/territorio/mobilita/skibus" target="_blank">Orari SkiBus</a>'},en:{name:'SkiBus \u2013 Hotel Bellaria',desc:'SkiBus stop. <a href="https://www.visitfiemme.it/it/territorio/mobilita/skibus" target="_blank">Timetables</a>'},de:{name:'SkiBus \u2013 Hotel Bellaria',desc:'Haltestelle. <a href="https://www.visitfiemme.it/it/territorio/mobilita/skibus" target="_blank">Fahrpl\u00e4ne</a>'}},
+  {cat:'skibus',lng:11.6030043,lat:46.3110777,it:{name:'SkiBus \u2013 Hotel Ancora',desc:'Fermata SkiBus. <a href="https://www.visitfiemme.it/it/territorio/mobilita/skibus" target="_blank">Orari SkiBus</a>'},en:{name:'SkiBus \u2013 Hotel Ancora',desc:'SkiBus stop. <a href="https://www.visitfiemme.it/it/territorio/mobilita/skibus" target="_blank">Timetables</a>'},de:{name:'SkiBus \u2013 Hotel Ancora',desc:'Haltestelle. <a href="https://www.visitfiemme.it/it/territorio/mobilita/skibus" target="_blank">Fahrpl\u00e4ne</a>'}},
+  {cat:'noleggio',lng:11.5922464,lat:46.3030472,it:{name:'Local Motion Rent',desc:"Sci e snowboard d'inverno, bici ed e-bike d'estate. Con la Fiemme Cembra Guest Card hai il 10% di sconto."},en:{name:'Local Motion Rent',desc:"Ski and snowboard in winter, bikes and e-bikes in summer. Fiemme Cembra Guest Card: 10% discount."},de:{name:'Local Motion Rent',desc:"Ski und Snowboard im Winter, Fahrr\u00e4der und E-Bikes im Sommer. Fiemme Cembra Guest Card: 10% Rabatt."}},
+  {cat:'parcheggi',lng:11.60218,lat:46.314007,it:{name:'Parcheggio 1',desc:'Disco orario 5h (8\u201320). Dalle 20 alle 8 libero e gratuito.'},en:{name:'Parking 1',desc:'5h disc zone (8am\u20138pm). Free and unlimited from 8pm to 8am.'},de:{name:'Parkplatz 1',desc:'Parkscheibe 5h (8\u201320 Uhr). Ab 20 Uhr kostenlos und unbegrenzt.'}},
+  {cat:'parcheggi',lng:11.600847,lat:46.313401,it:{name:'Parcheggio 2',desc:'A pagamento 8\u201318. Dalle 18 alle 8 gratuito.'},en:{name:'Parking 2',desc:'Paid 8am\u20136pm. Free from 6pm to 8am.'},de:{name:'Parkplatz 2',desc:'Kostenpflichtig 8\u201318 Uhr. Ab 18 Uhr kostenlos.'}},
+  {cat:'parcheggi',lng:11.607785,lat:46.311293,it:{name:'Parcheggio 3',desc:"Completamente gratuito, sempre. Circa 10 minuti a piedi dall'appartamento."},en:{name:'Parking 3',desc:'Completely free, always. About a 10-minute walk from the apartment.'},de:{name:'Parkplatz 3',desc:'Komplett kostenlos, immer. Ca. 10 Gehminuten von der Wohnung.'}},
+  {cat:'info',lng:11.601623,lat:46.3128348,it:{name:'APT Val di Fiemme',desc:'Ufficio informazioni turistiche di Predazzo. Mappe, consigli su escursioni, eventi e attivit\u00e0 in valle. Aperto tutti i giorni.'},en:{name:'APT Val di Fiemme',desc:'Tourist information office in Predazzo. Maps, hiking tips, events and activities in the valley. Open every day.'},de:{name:'APT Val di Fiemme',desc:'Touristisches Informationsb\u00fcro in Predazzo. Karten, Wandertipps, Veranstaltungen und Aktivit\u00e4ten im Tal. T\u00e4glich ge\u00f6ffnet.'}},
 ];
 
 let markers=[],openPopup=null,openPlace=null;
 
-function popupHtml(p,l){
-  const d=p[l]||p.it;
-  return `<div class="popup-name">${d.name}</div><div class="popup-cat">${(catLabel[l]||catLabel.it)[p.cat]||p.cat}</div><div class="popup-desc">${d.desc}</div>`;
+function popHtml(p){
+  const d=p[lang]||p.it;
+  return `<div class="pname">${d.name}</div><div class="pcat">${(CL[lang]||CL.it)[p.cat]||p.cat}</div><div class="pdesc">${d.desc}</div>`;
 }
-function updateOpenPopup(){
-  if(openPopup&&openPlace) openPopup.setHTML(popupHtml(openPlace,currentLang));
-}
-function makeMarker(p){
+function updateOpenPopup(){if(openPopup&&openPlace)openPopup.setHTML(popHtml(openPlace));}
+
+function mkMarker(p){
   const el=document.createElement('div');
-  const c=catColors[p.cat]||'#666';
-  el.innerHTML=`<div style="width:34px;height:34px;background:${c};border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:2.5px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center;cursor:pointer;"><span style="transform:rotate(45deg);font-size:14px;line-height:1">${catEmoji[p.cat]||'📍'}</span></div>`;
+  const c=CC[p.cat]||'#666';
+  el.innerHTML=`<div style="width:34px;height:34px;background:${c};border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:2.5px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center;cursor:pointer;"><span style="transform:rotate(45deg);font-size:14px;line-height:1">${CE[p.cat]||'📍'}</span></div>`;
   el.style.cssText='width:34px;height:34px';
-  const popup=new mapboxgl.Popup({offset:30,closeButton:true,maxWidth:'230px'}).setHTML(popupHtml(p,currentLang));
-  popup.on('open',()=>{openPopup=popup;openPlace=p;});
-  popup.on('close',()=>{if(openPlace===p){openPopup=null;openPlace=null;}});
-  const m=new mapboxgl.Marker({element:el,anchor:'bottom'}).setLngLat([p.lng,p.lat]).setPopup(popup).addTo(map);
+  const pop=new mapboxgl.Popup({offset:30,closeButton:true,maxWidth:'240px'}).setHTML(popHtml(p));
+  pop.on('open',()=>{openPopup=pop;openPlace=p;});
+  pop.on('close',()=>{if(openPlace===p){openPopup=null;openPlace=null;}});
+  const m=new mapboxgl.Marker({element:el,anchor:'bottom'}).setLngLat([p.lng,p.lat]).setPopup(pop).addTo(map);
   m._cat=p.cat;
   return m;
 }
-map.on('load',()=>{ places.forEach(p=>markers.push(makeMarker(p))); applySeason(); });
+
+map.on('load',()=>{
+  PLACES.forEach(p=>markers.push(mkMarker(p)));
+  applySeason();
+});
 
 function filterMap(cat,btn){
-  document.querySelectorAll('.mf-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
+  document.querySelectorAll('.mf').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
   markers.forEach(m=>{
-    const winterHidden=season==='summer'&&(m._cat==='impianti'||m._cat==='skibus');
-    const catMatch=cat==='all'||m._cat===cat;
-    m.getElement().style.display=(catMatch&&!winterHidden)?'':'none';
+    const hidden=season==='summer'&&m._cat==='skibus';
+    const match=cat==='all'||m._cat===cat;
+    m.getElement().style.display=(match&&!hidden)?'':'none';
   });
-}
-
-
-function toggleContact(id){
-  const actions=document.getElementById(id+'-actions');
-  const arr=document.getElementById(id+'-arr');
-  const isOpen=actions.classList.contains('open');
-  actions.classList.toggle('open',!isOpen);
-  arr.style.transform=isOpen?'':'rotate(180deg)';
-}
-
-function toggleAcc(btn){
-  const body=btn.nextElementSibling;
-  const isOpen=body.classList.contains('open');
-  btn.classList.toggle('open',!isOpen);
-  body.classList.toggle('open',!isOpen);
 }
 </script>
 </body>
