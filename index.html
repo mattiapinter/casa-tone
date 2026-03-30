@@ -528,7 +528,6 @@ function applySeason(){
   markers.forEach(m=>{if(m._cat==='skibus')m.getElement().style.display=season==='winter'?'':'none';});
 }
 function toggleSeason(){season=season==='winter'?'summer':'winter';applySeason();}
-applySeason();
 
 // NAV
 const SIDS=['sec-arrival','sec-checkin','sec-rules','sec-wifi','sec-casa','sec-ski','sec-contacts','sec-review'];
@@ -611,6 +610,7 @@ const PLACES=[
 ];
 
 let markers=[],openPopup=null,openPlace=null;
+applySeason();
 
 function popHtml(p){
   const d=p[lang]||p.it;
