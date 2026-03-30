@@ -22,7 +22,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-
 
 /* TOP BAR */
 .topbar{position:fixed;top:0;left:0;right:0;z-index:300;height:var(--bar-h);display:flex;align-items:center;justify-content:space-between;padding:0 16px;background:var(--navy);}
-.brand{font-family:'Fraunces',serif;font-size:.95rem;font-weight:300;color:#fff;letter-spacing:.02em;line-height:1.2}
+.brand{font-family:'Fraunces',serif;font-size:.9rem;font-weight:300;color:#fff;letter-spacing:.02em;line-height:1.2;min-width:0;overflow:hidden}
 .brand small{display:block;font-family:'Inter',sans-serif;font-size:10px;font-weight:400;opacity:.6;letter-spacing:.08em;text-transform:uppercase;margin-top:1px}
 .topbar-right{display:flex;align-items:center;gap:8px}
 .lang-btns{display:flex;gap:3px}
@@ -42,9 +42,9 @@ body.summer .s-icon:first-child{opacity:.4}
 body.summer .s-icon:last-child{opacity:1}
 
 /* MAP HERO */
-.map-hero{margin-top:var(--bar-h);position:relative;height:calc(100svh - var(--bar-h) - var(--tab-h));min-height:340px;max-height:600px;}
+.map-hero{margin-top:var(--bar-h);position:relative;height:52vmax;min-height:280px;max-height:420px;}
 #map{position:absolute;inset:0;width:100%;height:100%}
-.map-filters{position:absolute;top:12px;left:50%;transform:translateX(-50%);z-index:10;display:flex;gap:6px;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-radius:30px;padding:6px 10px;box-shadow:0 2px 12px rgba(0,0,0,.12);overflow-x:auto;max-width:94vw;scrollbar-width:none;}
+.map-filters{position:absolute;top:10px;left:50%;transform:translateX(-50%);z-index:10;display:flex;gap:5px;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-radius:30px;padding:5px 8px;box-shadow:0 2px 12px rgba(0,0,0,.12);overflow-x:auto;max-width:96vw;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
 .map-filters::-webkit-scrollbar{display:none}
 .mf{padding:4px 11px;font-size:11.5px;font-weight:500;border-radius:20px;border:1px solid transparent;background:transparent;color:#555;cursor:pointer;transition:all .15s;white-space:nowrap;}
 .mf.on{color:#fff}
@@ -61,7 +61,7 @@ body.summer .s-icon:last-child{opacity:1}
 .mf[data-c="info"].on{background:#ff6f00}
 .mf[data-c="svago"].on{background:#c0392b}
 .mf[data-c="attivita"].on{background:#16a085}
-.map-card{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);z-index:10;background:var(--surface);border-radius:12px;padding:14px 18px;box-shadow:0 4px 24px rgba(0,0,0,.18);display:flex;align-items:center;gap:14px;min-width:260px;max-width:90vw;border-top:3px solid var(--green);}
+.map-card{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);z-index:10;background:var(--surface);border-radius:12px;padding:12px 14px;box-shadow:0 4px 24px rgba(0,0,0,.18);display:flex;align-items:center;gap:10px;min-width:0;width:calc(100% - 32px);max-width:420px;border-top:3px solid var(--green);}
 .mc-name{font-family:'Fraunces',serif;font-size:1rem;font-weight:400;color:var(--navy)}
 .mc-addr{font-size:12px;color:var(--muted);margin-top:1px}
 .mc-btn{margin-left:auto;padding:7px 13px;background:var(--green);color:#fff;border-radius:6px;font-size:12px;font-weight:500;text-decoration:none;white-space:nowrap;flex-shrink:0;}
@@ -82,7 +82,7 @@ body.summer .s-icon:last-child{opacity:1}
 .nt.on{color:var(--navy);border-bottom-color:var(--green)}
 
 /* CONTENT */
-.content{max-width:680px;margin:0 auto;padding:0 20px 100px}
+.content{max-width:680px;margin:0 auto;padding:0 16px 100px}
 .sec{padding:32px 0 28px;border-bottom:1px solid var(--border)}
 .sec:last-child{border-bottom:none}
 .sec-head{display:flex;align-items:center;gap:9px;margin-bottom:16px}
@@ -93,8 +93,9 @@ body.summer .s-icon:last-child{opacity:1}
 .card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:15px 17px;margin-bottom:9px}
 .clabel{font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-@media(max-width:400px){.g2{grid-template-columns:1fr}.g3{grid-template-columns:1fr 1fr}}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;min-width:0}
+@media(max-width:400px){.g2{grid-template-columns:1fr}}
+@media(max-width:360px){.g3{gap:4px}.lcard{padding:8px 4px}.lname{font-size:9px}.lprice{font-size:1.1rem}}
 
 /* HIGHLIGHT */
 .hl{background:var(--green-bg);border-left:3px solid var(--green);border-radius:0 8px 8px 0;padding:13px 16px;margin:13px 0;font-size:13.5px;line-height:1.6;}
@@ -102,7 +103,7 @@ body.summer .s-icon:last-child{opacity:1}
 
 /* RULES */
 .rlist{display:flex;flex-direction:column;gap:6px}
-.ritem{display:flex;align-items:flex-start;gap:10px;font-size:13.5px;padding:10px 13px;background:var(--surface);border:1px solid var(--border);border-radius:6px;}
+.ritem{display:flex;align-items:flex-start;gap:8px;font-size:13px;padding:10px 12px;background:var(--surface);border:1px solid var(--border);border-radius:6px;}
 .ri{font-size:14px;flex-shrink:0;margin-top:1px}
 
 /* WIFI */
@@ -110,9 +111,9 @@ body.summer .s-icon:last-child{opacity:1}
 .cpbtn{display:inline-flex;align-items:center;gap:4px;margin-top:7px;font-size:11px;font-weight:500;color:var(--green);cursor:pointer;background:none;border:none;padding:0;}
 
 /* LINEN */
-.lcard{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 8px;text-align:center}
-.lprice{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:400;color:var(--navy);margin-top:3px}
-.lname{font-size:10px;color:var(--muted)}
+.lcard{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 6px;text-align:center;min-width:0}
+.lprice{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:400;color:var(--navy);margin-top:3px}
+.lname{font-size:10px;color:var(--muted);line-height:1.3}
 
 /* CONTACTS */
 .ci-exp{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:7px}
@@ -137,10 +138,9 @@ body.summer .s-icon:last-child{opacity:1}
 .btn-out:hover{border-color:var(--green);color:var(--green)}
 
 /* REVIEW */
-.rev-box{background:var(--navy);border-radius:12px;padding:28px 24px;text-align:center;color:#fff}
-.stars{font-size:22px;letter-spacing:4px;margin-bottom:10px}
-.rev-box p{font-size:13.5px;opacity:.82;line-height:1.75;max-width:460px;margin:0 auto}
-.rev-sign{font-family:'Fraunces',serif;font-style:italic;font-size:1.05rem;color:rgba(255,255,255,.85);margin-top:20px}
+.rev-box{text-align:center;padding:8px 0}
+.rev-box p{font-size:13.5px;line-height:1.75;max-width:460px;margin:0 auto;color:var(--text)}
+.rev-sign{font-family:'Fraunces',serif;font-style:italic;font-size:1.05rem;color:var(--navy);margin-top:20px}
 
 /* FAB */
 .fab{position:fixed;bottom:24px;right:20px;z-index:400;display:flex;flex-direction:column;align-items:flex-end;gap:10px;}
@@ -160,7 +160,7 @@ body.summer .s-icon:last-child{opacity:1}
 .acc-trig.on .acc-chev{transform:rotate(180deg)}
 .acc-body{max-height:0;overflow:hidden;transition:max-height .35s ease;}
 .acc-body.on{max-height:600px}
-.acc-inner{padding:0 16px 16px;font-size:13.5px;line-height:1.7;color:var(--text)}
+.acc-inner{padding:0 14px 14px;font-size:13px;line-height:1.7;color:var(--text)}
 
 /* SEASON CLASSES */
 body.summer .winter-only{display:none}
@@ -386,6 +386,7 @@ body.winter .summer-only{display:none}
       <div data-l="en">It is a <strong>Lavazza A Modo Mio</strong>. Pull out the drawer, insert a capsule and close it. Place your cup underneath and press the top button: wait for it to stop blinking. When the light stays solid, press again to start the coffee — press once more to stop it at your preferred level. Spare capsules are in the cabinet above the machine.</div>
       <div data-l="de">Es ist eine <strong>Lavazza A Modo Mio</strong>. Schublade herausziehen, Kapsel einlegen, schließen. Tasse hinstellen und den Knopf oben drücken: warten bis er aufhört zu blinken. Wenn das Licht dauerhaft leuchtet, erneut drücken um den Kaffee zu starten — nochmals drücken um ihn nach Wunsch zu stoppen. Ersatzkapseln im Schrank über der Maschine.</div>
     </div></div>
+  </div>
   <div class="acc-item">
     <button class="acc-trig" onclick="accToggle(this)"><span class="acc-left"><span style="font-size:18px">🍳</span><span data-li="it" class="on">Piastra elettrica</span><span data-li="en">Electric hob</span><span data-li="de">Elektroherd</span></span><span class="acc-chev">▼</span></button>
     <div class="acc-body"><div class="acc-inner">
@@ -485,16 +486,44 @@ body.winter .summer-only{display:none}
 
 <!-- REVIEW -->
 <section class="sec" id="sec-review">
-  <div class="sec-head"><span class="sec-icon">⭐</span><h2 class="sec-title">Review</h2></div>
+  
   <div class="rev-box">
-    <div class="stars">★★★★★</div>
-    <div data-l="it" class="on"><p>Se vi siete trovati bene qui, il modo più bello per dircelo è una recensione. Una <strong>5 stelle</strong> su Airbnb o un <strong>10/10</strong> su Booking non è solo un numero: aiuta chi cerca un posto come questo a trovarci, e ci dà la spinta a continuare ad accogliere con cura ogni ospite.</p></div>
+    <div style="display:flex;justify-content:center;gap:6px;margin-bottom:16px">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="#FFD700" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="#FFD700" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="#FFD700" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="#FFD700" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="#FFD700" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+</div>
+    <div data-l="it" class="on"><p>Se vi siete trovati bene qui, il modo più bello per dircelo è una recensione. <strong>5 stelle</strong> su Airbnb o <strong>10/10</strong> su Booking non è solo un numero: aiuta chi cerca un posto come questo a trovarci, e ci dà la spinta a continuare ad accogliere con cura ogni ospite.</p></div>
     <div data-l="en"><p>If you enjoyed your time here, the nicest way to let us know is with a review. A <strong>5-star</strong> rating on Airbnb or <strong>10/10</strong> on Booking is more than a score: it helps future guests find us, and it keeps us motivated to welcome everyone with the same care.</p></div>
     <div data-l="de"><p>Wenn Sie sich bei uns wohlgefühlt haben, ist eine Bewertung die schönste Art, es uns zu sagen. Eine <strong>5-Sterne</strong>-Bewertung auf Airbnb oder <strong>10/10</strong> auf Booking ist mehr als eine Zahl: Sie hilft künftigen Gästen, uns zu finden, und motiviert uns, jeden Gast mit derselben Sorgfalt zu empfangen.</p></div>
-    <div class="rev-sign">— Grazie, Famiglia Brigadoi</div>
+    <div class="rev-sign" style="color:var(--navy)">— Grazie, Famiglia Brigadoi</div>
   </div>
 </section>
 
+
+<!-- FOOTER -->
+<div style="margin-top:40px;background:var(--navy);border-radius:12px;padding:32px 24px;text-align:center;color:#fff">
+  <div style="font-size:28px;margin-bottom:12px">🏠</div>
+  <h3 style="font-family:'Fraunces',serif;font-size:1.3rem;font-weight:400;color:#fff;margin-bottom:8px">Appartamenti Brigadoi</h3>
+  <p style="font-size:13.5px;opacity:.8;line-height:1.7;max-width:420px;margin:0 auto 20px">
+    <span data-li="it" class="on">Siamo una famiglia di Predazzo con appartamenti anche in Sardegna. Se stai cercando il posto giusto per la prossima vacanza, dai un'occhiata.</span>
+    <span data-li="en">We are a family from Predazzo with apartments also in Sardinia. If you are looking for the perfect place for your next holiday, take a look.</span>
+    <span data-li="de">Wir sind eine Familie aus Predazzo mit Ferienwohnungen auch auf Sardinien. Wenn Sie den richtigen Ort für Ihren nächsten Urlaub suchen, schauen Sie rein.</span>
+  </p>
+  <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:16px">
+    <span style="background:rgba(255,255,255,.12);padding:4px 12px;border-radius:20px;font-size:12px">⛰️ Val di Fiemme</span>
+    <span style="background:rgba(255,255,255,.12);padding:4px 12px;border-radius:20px;font-size:12px">🏖️ <span data-li="it" class="on">Sardegna</span><span data-li="en">Sardinia</span><span data-li="de">Sardinien</span></span>
+  </div>
+  <a href="https://appartamentibrigadoi.kross.travel" target="_blank"
+     style="display:inline-flex;align-items:center;gap:8px;padding:13px 28px;background:var(--green);color:#fff;border-radius:8px;text-decoration:none;font-size:14px;font-weight:600;letter-spacing:.02em;">
+    <span data-li="it" class="on">Scopri tutti gli appartamenti</span>
+    <span data-li="en">Discover all apartments</span>
+    <span data-li="de">Alle Wohnungen entdecken</span>
+    →
+  </a>
+</div>
 </div>
 
 <!-- FAB -->
