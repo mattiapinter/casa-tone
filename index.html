@@ -17,12 +17,8 @@
   --text:#1a1a1a;--muted:#7a756e;
   --bar-h:58px;--tab-h:46px;
 }
-[data-theme="dark"]{
-  --bg:#111418;--surface:#1c2128;--border:#2d333b;
-  --text:#e6edf3;--muted:#8b949e;--green-bg:#162012;
-}
 html{scroll-behavior:smooth;font-size:15px}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.65;transition:background .3s,color .3s}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.65}
 
 /* TOP BAR */
 .topbar{position:fixed;top:0;left:0;right:0;z-index:300;height:var(--bar-h);display:flex;align-items:center;justify-content:space-between;padding:0 16px;background:var(--navy);}
@@ -84,7 +80,6 @@ body.summer .s-icon:last-child{opacity:1}
 .nt{padding:0 14px;font-size:12px;font-weight:500;color:var(--muted);border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;transition:all .15s;background:none;border-top:none;border-left:none;border-right:none;display:flex;align-items:center;}
 .nt:hover{color:var(--text)}
 .nt.on{color:var(--navy);border-bottom-color:var(--green)}
-[data-theme="dark"] .nt.on{color:var(--green)}
 
 /* CONTENT */
 .content{max-width:680px;margin:0 auto;padding:0 20px 100px}
@@ -93,7 +88,6 @@ body.summer .s-icon:last-child{opacity:1}
 .sec-head{display:flex;align-items:center;gap:9px;margin-bottom:16px}
 .sec-icon{font-size:17px}
 .sec-title{font-family:'Fraunces',serif;font-size:1.15rem;font-weight:400;color:var(--navy)}
-[data-theme="dark"] .sec-title{color:var(--green)}
 
 /* CARDS */
 .card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:15px 17px;margin-bottom:9px}
@@ -113,13 +107,11 @@ body.summer .s-icon:last-child{opacity:1}
 
 /* WIFI */
 .wval{font-size:1.1rem;font-weight:700;font-family:monospace;color:var(--navy);margin-top:4px;word-break:break-all}
-[data-theme="dark"] .wval{color:var(--green)}
 .cpbtn{display:inline-flex;align-items:center;gap:4px;margin-top:7px;font-size:11px;font-weight:500;color:var(--green);cursor:pointer;background:none;border:none;padding:0;}
 
 /* LINEN */
 .lcard{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 8px;text-align:center}
 .lprice{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:400;color:var(--navy);margin-top:3px}
-[data-theme="dark"] .lprice{color:var(--green)}
 .lname{font-size:10px;color:var(--muted)}
 
 /* CONTACTS */
@@ -138,7 +130,6 @@ body.summer .s-icon:last-child{opacity:1}
 .ci-em{background:var(--surface);border:1px solid #fca5a5;border-radius:8px;margin-bottom:7px}
 .ci-em a{display:flex;align-items:center;gap:12px;padding:12px 14px;text-decoration:none;color:var(--text);}
 .ci-em .ci-val{color:#c0392b}
-[data-theme="dark"] .ci-em{border-color:#7f3434;background:#2d1515}
 
 /* BUTTONS */
 .btn{display:inline-flex;align-items:center;gap:6px;padding:10px 17px;border-radius:6px;font-size:13px;font-weight:500;text-decoration:none;cursor:pointer;border:none;transition:all .15s;}
@@ -395,6 +386,14 @@ body.winter .summer-only{display:none}
       <div data-l="en">It is a <strong>Lavazza A Modo Mio</strong>. Pull out the drawer, insert a capsule and close it. Place your cup underneath and press the top button: wait for it to stop blinking. When the light stays solid, press again to start the coffee — press once more to stop it at your preferred level. Spare capsules are in the cabinet above the machine.</div>
       <div data-l="de">Es ist eine <strong>Lavazza A Modo Mio</strong>. Schublade herausziehen, Kapsel einlegen, schließen. Tasse hinstellen und den Knopf oben drücken: warten bis er aufhört zu blinken. Wenn das Licht dauerhaft leuchtet, erneut drücken um den Kaffee zu starten — nochmals drücken um ihn nach Wunsch zu stoppen. Ersatzkapseln im Schrank über der Maschine.</div>
     </div></div>
+  <div class="acc-item">
+    <button class="acc-trig" onclick="accToggle(this)"><span class="acc-left"><span style="font-size:18px">🍳</span><span data-li="it" class="on">Piastra elettrica</span><span data-li="en">Electric hob</span><span data-li="de">Elektroherd</span></span><span class="acc-chev">▼</span></button>
+    <div class="acc-body"><div class="acc-inner">
+      <div data-l="it" class="on">Premi il pulsante di accensione per avviare la piastra. Con il <strong>pulsante a croce</strong> selezioni quale fuoco vuoi usare. Poi usa <strong>+ e –</strong> per regolare la potenza. Se vuoi espandere un fuoco al cerchio doppio (utile per padelle grandi), premi il <strong>pulsante con la chiave</strong>.</div>
+      <div data-l="en">Press the power button to turn the hob on. Use the <strong>cross button</strong> to select which ring you want. Then use <strong>+ and –</strong> to adjust the heat. To expand a ring to the double circle (useful for large pans), press the <strong>key button</strong>.</div>
+      <div data-l="de">Einschaltknopf drücken um den Herd zu starten. Mit dem <strong>Kreuzknopf</strong> den gewünschten Kochring auswählen. Dann mit <strong>+ und –</strong> die Leistung regulieren. Um einen Ring auf den Doppelkreis zu erweitern (nützlich für große Pfannen), den <strong>Schlüsselknopf</strong> drücken.</div>
+    </div></div>
+  </div>
   </div>
 </section>
 
@@ -509,9 +508,6 @@ body.winter .summer-only{display:none}
 
 <script src="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"></script>
 <script>
-// DARK MODE
-(function(){const h=new Date().getHours();if(h>=20||h<7)document.documentElement.setAttribute('data-theme','dark');})();
-
 let markers=[],openPopup=null,openPlace=null;
 
 // LANG
