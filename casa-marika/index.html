@@ -353,9 +353,9 @@ html.has-pet .pet-only{display:block}
   <div class="acc-item">
     <button class="acc-trig" onclick="accToggle(this)"><span class="acc-left"><span style="font-size:18px">❄️</span><span data-li="it" class="on">Aria condizionata</span><span data-li="en">Air conditioning</span><span data-li="de">Klimaanlage</span></span><span class="acc-chev">▼</span></button>
     <div class="acc-body"><div class="acc-inner">
-      <div data-l="it" class="on">Ogni stanza ha il suo split. Ti chiediamo di <strong>spegnerlo quando esci</strong>, ci aiuta a tenere i consumi sotto controllo.</div>
-      <div data-l="en">Every room has its own unit. Please <strong>turn it off when you go out</strong>, helps keep energy costs down.</div>
-      <div data-l="de">Jedes Zimmer hat eine eigene Einheit. Bitte beim Verlassen <strong>ausschalten</strong>, hilft, den Energieverbrauch niedrig zu halten.</div>
+      <div data-l="it" class="on">Ogni stanza ha il suo condizionatore. Ti chiediamo di <strong>spegnerlo quando esci</strong>, ci aiuta a tenere i consumi sotto controllo.</div>
+      <div data-l="en">Every room has its own air conditioner. Please <strong>turn it off when you go out</strong>, helps keep energy costs down.</div>
+      <div data-l="de">Jedes Zimmer hat eine eigene Klimaanlage. Bitte beim Verlassen <strong>ausschalten</strong>, hilft, den Energieverbrauch niedrig zu halten.</div>
     </div></div>
   </div>
   <div class="acc-item">
@@ -369,9 +369,9 @@ html.has-pet .pet-only{display:block}
   <div class="acc-item">
     <button class="acc-trig" onclick="accToggle(this)"><span class="acc-left"><span style="font-size:18px">🌅</span><span data-li="it" class="on">Terrazza</span><span data-li="en">Terrace</span><span data-li="de">Terrasse</span></span><span class="acc-chev">▼</span></button>
     <div class="acc-body"><div class="acc-inner">
-      <div data-l="it" class="on"><strong>Completamente arredata</strong>, perfetta per mangiare fuori. I tramonti da lì sono qualcosa: non perderli.</div>
-      <div data-l="en"><strong>Fully furnished</strong> and great for dining outside. The sunsets from up there are something special. Don't miss them.</div>
-      <div data-l="de"><strong>Vollständig möbliert</strong>, ideal fürs Essen im Freien. Die Sonnenuntergänge von dort sind sehenswert. Nicht verpassen.</div>
+      <div data-l="it" class="on"><strong>Completamente arredata</strong>, perfetta per mangiare fuori. I tramonti da lassù sono spettacolari. Non perderli.</div>
+      <div data-l="en"><strong>Fully furnished</strong> and great for dining outside. The sunsets from up there are spectacular. Don't miss them.</div>
+      <div data-l="de"><strong>Vollständig möbliert</strong>, ideal fürs Essen im Freien. Die Sonnenuntergänge von dort oben sind spektakulär. Nicht verpassen.</div>
     </div></div>
   </div>
 </section>
@@ -465,22 +465,22 @@ html.has-pet .pet-only{display:block}
   <div class="ci-exp">
     <div class="ci-hd" onclick="ciToggle('andrea')">
       <span class="ci-icon">👤</span>
-      <div style="flex:1"><div class="ci-label">Andrea</div><div class="ci-val">+39 348 760 0318</div><div class="ci-note"><span data-li="it" class="on">Tocca per contattare</span><span data-li="en">Tap to contact</span><span data-li="de">Antippen</span></div></div>
+      <div style="flex:1"><div class="ci-label">Andrea</div><div class="ci-val">+39 348 760 0318</div><div class="ci-note"><span data-li="it" class="on">Tocca per contattare</span><span data-li="en">WhatsApp only — he will translate 🙂</span><span data-li="de">Nur WhatsApp — er übersetzt 🙂</span></div></div>
       <span class="ci-arr" id="andrea-arr">▼</span>
     </div>
     <div class="ci-actions" id="andrea-actions">
-      <a class="ci-btn" href="tel:+393487600318">📞 <span data-li="it" class="on">Chiama</span><span data-li="en">Call</span><span data-li="de">Anrufen</span></a>
+      <span data-l="it" class="on"><a class="ci-btn" href="tel:+393487600318">📞 Chiama</a></span>
       <a class="ci-btn" href="https://wa.me/393487600318" target="_blank">💬 WhatsApp</a>
     </div>
   </div>
   <div class="ci-exp">
     <div class="ci-hd" onclick="ciToggle('paola')">
       <span class="ci-icon">👩</span>
-      <div style="flex:1"><div class="ci-label">Paola</div><div class="ci-val">+39 349 284 1605</div><div class="ci-note"><span data-li="it" class="on">Tocca per contattare</span><span data-li="en">Tap to contact</span><span data-li="de">Antippen</span></div></div>
+      <div style="flex:1"><div class="ci-label">Paola</div><div class="ci-val">+39 349 284 1605</div><div class="ci-note"><span data-li="it" class="on">Tocca per contattare</span><span data-li="en">WhatsApp only — she will translate 🙂</span><span data-li="de">Nur WhatsApp — sie übersetzt 🙂</span></div></div>
       <span class="ci-arr" id="paola-arr">▼</span>
     </div>
     <div class="ci-actions" id="paola-actions">
-      <a class="ci-btn" href="tel:+393492841605">📞 <span data-li="it" class="on">Chiama</span><span data-li="en">Call</span><span data-li="de">Anrufen</span></a>
+      <span data-l="it" class="on"><a class="ci-btn" href="tel:+393492841605">📞 Chiama</a></span>
       <a class="ci-btn" href="https://wa.me/393492841605" target="_blank">💬 WhatsApp</a>
     </div>
   </div>
@@ -747,7 +747,9 @@ function popHtml(p){
   const mapsUrl=`https://maps.google.com/?q=${p.lat},${p.lng}`;
   const mapsLabel={it:'Apri in Maps',en:'Open in Maps',de:'In Maps öffnen'};
   const mapsLink=`<a href="${mapsUrl}" target="_blank" style="display:inline-block;margin-top:7px;font-size:11px;color:var(--green);text-decoration:none;font-weight:500">🧭 ${mapsLabel[lang]||mapsLabel.it} →</a>`;
-  return `<div class="pname">${d.name}</div><div class="pcat">${(CL[lang]||CL.it)[p.cat]||p.cat}</div><div class="pdesc">${desc}</div>${mapsLink}`;
+  const ssLabel={it:'Guida spiaggia',en:'Beach guide',de:'Strand-Info'};
+  const ssLink=p.cat==='spiagge'?`<a href="http://spiaggesardegna.eu/?s=${encodeURIComponent(p.it.name)}" target="_blank" style="display:inline-block;margin-top:4px;font-size:11px;color:var(--green);text-decoration:none;font-weight:500">🏖 ${ssLabel[lang]||ssLabel.it} →</a>`:'';
+  return `<div class="pname">${d.name}</div><div class="pcat">${(CL[lang]||CL.it)[p.cat]||p.cat}</div><div class="pdesc">${desc}</div>${mapsLink}${ssLink?'<br>'+ssLink:''}`;
 }
 
 function mkMarker(p){
