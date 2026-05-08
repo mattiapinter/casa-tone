@@ -247,9 +247,6 @@ html.has-pet .pet-only{display:block}
       <div class="clabel">🗑️ Al check-out</div>
       <div style="font-size:.9rem;margin-top:4px">La spazzatura va portata al <strong>punto di raccolta alla rotonda di Murta Maria</strong>, aperto dalle 6:00 alle 24:00. Serve il codice fiscale della proprietaria per conferire: <strong>VAIPLA64B56L378B</strong></div>
       <div style="font-size:.85rem;margin-top:6px;color:#c0392b">⚠️ Se la spazzatura resta in appartamento, chiediamo un contributo di 20€ per lo smaltimento.</div>
-      <div class="pet-only" style="margin-top:8px;padding-top:8px;border-top:1px solid var(--border)">
-        <div style="font-size:.9rem;color:#6d28d9">🐾 Prima di partire: passate l'aspirapolvere su divani e tappeti. Grazie.</div>
-      </div>
     </div>
   </div>
   <div data-l="en">
@@ -258,9 +255,6 @@ html.has-pet .pet-only{display:block}
       <div class="clabel">🗑️ On check-out</div>
       <div style="font-size:.9rem;margin-top:4px">Rubbish goes to the <strong>collection point at the Murta Maria roundabout</strong>, open from 6:00 to midnight. You'll need the owner's fiscal code to drop it off: <strong>VAIPLA64B56L378B</strong></div>
       <div style="font-size:.85rem;margin-top:6px;color:#c0392b">⚠️ If rubbish is left in the apartment, we'll ask for a €20 disposal contribution.</div>
-      <div class="pet-only" style="margin-top:8px;padding-top:8px;border-top:1px solid var(--border)">
-        <div style="font-size:.9rem;color:#6d28d9">🐾 Before you leave: please vacuum sofas and rugs. Thank you.</div>
-      </div>
     </div>
   </div>
   <div data-l="de">
@@ -269,9 +263,6 @@ html.has-pet .pet-only{display:block}
       <div class="clabel">🗑️ Beim Check-out</div>
       <div style="font-size:.9rem;margin-top:4px">Den Müll bitte zum <strong>Sammelplatz am Kreisverkehr Murta Maria</strong> bringen, geöffnet von 6:00 bis 24:00 Uhr. Zum Entsorgen wird die Steuernummer der Eigentümerin benötigt: <strong>VAIPLA64B56L378B</strong></div>
       <div style="font-size:.85rem;margin-top:6px;color:#c0392b">⚠️ Bleibt der Müll in der Wohnung, bitten wir um einen Beitrag von 20€ für die Entsorgung.</div>
-      <div class="pet-only" style="margin-top:8px;padding-top:8px;border-top:1px solid var(--border)">
-        <div style="font-size:.9rem;color:#6d28d9">🐾 Vor der Abreise: Sofas und Teppiche staubsaugen. Danke.</div>
-      </div>
     </div>
   </div>
 </section>
@@ -376,9 +367,9 @@ html.has-pet .pet-only{display:block}
   <div class="acc-item">
     <button class="acc-trig" onclick="accToggle(this)"><span class="acc-left"><span style="font-size:18px">💧</span><span data-li="it" class="on">Acqua del rubinetto</span><span data-li="en">Tap water</span><span data-li="de">Leitungswasser</span></span><span class="acc-chev">▼</span></button>
     <div class="acc-body"><div class="acc-inner">
-      <div data-l="it" class="on">L'acqua del rubinetto <strong>non è consigliata per bere</strong>. Per bere e cucinare usa acqua in bottiglia. Per tutto il resto (doccia, lavarsi i denti, lavare i piatti) va benissimo. In caso di carenza d'acqua, la casa dispone di una cisterna da <strong>2.000 litri</strong> che garantisce la continuità dell'erogazione.</div>
-      <div data-l="en"><strong>Tap water is not recommended for drinking.</strong> Use bottled water for drinking and cooking. For everything else (showers, brushing teeth, washing up) it's perfectly fine. In case of a water shortage, the house has a <strong>2,000-litre cistern</strong> that keeps the supply running.</div>
-      <div data-l="de"><strong>Leitungswasser wird nicht zum Trinken empfohlen.</strong> Zum Trinken und Kochen bitte Flaschenwasser verwenden. Für alles andere (Duschen, Zähneputzen, Abwasch) ist es völlig in Ordnung. Bei Wasserknappheit verfügt das Haus über eine <strong>2.000-Liter-Zisterne</strong>, die die Versorgung sicherstellt.</div>
+      <div data-l="it" class="on">Non è consigliato bere l'acqua del rubinetto. Per bere usa acqua in bottiglia — per il resto (doccia, denti, piatti) va benissimo.</div>
+      <div data-l="en">Tap water is not recommended for drinking. Use bottled water — for everything else (shower, brushing teeth, dishes) it's perfectly fine.</div>
+      <div data-l="de">Leitungswasser nicht zum Trinken empfohlen. Zum Trinken Flaschenwasser verwenden — für alles andere (Duschen, Zähneputzen, Abwasch) völlig in Ordnung.</div>
     </div></div>
   </div>
   <div class="acc-item">
@@ -742,9 +733,9 @@ const PLACES=[
     de:{name:'Ristorante La Tavernetta',desc:'Rustikales Ambiente, sardische Küche und tolle Pizza. Freundliches Personal, üppige Pasta.'}},
   // NEGOZI
   {cat:'negozi',lng:9.5896774,lat:40.8889225,
-    it:{name:'Lu Tricu',desc:'Prodotti sardi, salumi, formaggi e vini locali. Ottima per un aperitivo o per panini da spiaggia.'},
-    en:{name:'Lu Tricu',desc:'Sardinian products, cured meats, cheeses and local wines. Great for aperitivo or beach sandwiches.'},
-    de:{name:'Lu Tricu',desc:'Sardische Produkte, Aufschnitt, Käse und lokale Weine. Ideal für Aperitivo oder Strand-Sandwiches.'}},
+    it:{name:'Lu Tricu',desc:'Panificio con pane fresco, pane carasau, guttiau e panini imbottiti da portare in spiaggia.'},
+    en:{name:'Lu Tricu',desc:'Bakery with fresh bread, carasau, guttiau and packed sandwiches — perfect for the beach.'},
+    de:{name:'Lu Tricu',desc:'Bäckerei mit frischem Brot, Carasau, Guttiau und belegten Brötchen für den Strand.'}},
   {cat:'negozi',lng:9.5896227,lat:40.8889671,
     it:{name:'Ortofrutta',desc:'Frutta e verdura fresche ogni giorno, accanto a Lu Tricu. Ideale per fare scorta prima della spiaggia.'},
     en:{name:'Fruit & Vegetable Shop',desc:'Fresh fruit and vegetables every day, next to Lu Tricu. Perfect for stocking up before the beach.'},
