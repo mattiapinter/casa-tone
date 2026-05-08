@@ -117,6 +117,13 @@ html.has-pet .pet-only{display:block}
 .ci-label{font-size:10.5px;color:var(--muted);font-weight:600;letter-spacing:.06em;text-transform:uppercase}
 .ci-val{font-size:.92rem;font-weight:500;margin-top:1px}
 .ci-note{font-size:11px;color:var(--muted);margin-top:2px}
+.ci-others{margin-bottom:7px}
+.ci-others-trig{width:100%;display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--surface);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:12.5px;font-weight:500;color:var(--muted);-webkit-tap-highlight-color:transparent}
+.ci-others-trig:hover{background:var(--green-bg);color:var(--text)}
+.ci-others-body{max-height:0;overflow:hidden;transition:max-height .3s ease}
+.ci-others-body.on{max-height:400px}
+.ci-others-chev{font-size:11px;transition:transform .2s}
+.ci-others-trig.on .ci-others-chev{transform:rotate(180deg)}
 .ci-em{background:var(--surface);border:1px solid #fca5a5;border-radius:8px;margin-bottom:7px}
 .ci-em a{display:flex;align-items:center;gap:12px;padding:12px 14px;text-decoration:none;color:var(--text);}
 .ci-em .ci-val{color:#c0392b}
@@ -312,32 +319,32 @@ html.has-pet .pet-only{display:block}
   </div>
   <div data-l="it" class="on">
     <div class="rlist">
-      <div class="ritem"><span class="ri">✅</span>Differenzia i rifiuti: carta, plastica, vetro e umido separati. Le istruzioni sono sul cartello nella porta interna del frigo</div>
-      <div class="ritem"><span class="ri">🚭</span>Niente fumo all'interno</div>
-      <div class="ritem"><span class="ri">💡</span>Quando esci, spegni luci e aria condizionata</div>
-      <div class="ritem"><span class="ri">🛠️</span>Qualcosa si è rotto? Scrivici subito. Nessun problema, ci pensiamo noi</div>
-      <div class="ritem"><span class="ri">🧊</span>Prima di partire svuota il frigo e i cassetti</div>
-      <div class="ritem"><span class="ri">🧹</span>Lascia l'appartamento in ordine. Se c'è sporco eccessivo aggiungiamo un costo</div>
+      <div class="ritem"><span class="ri">✅</span>Differenzia i rifiuti: carta, plastica, vetro e umido separati. Le istruzioni sono sul cartello nella porta interna del frigo.</div>
+      <div class="ritem"><span class="ri">🚭</span>Niente fumo all'interno.</div>
+      <div class="ritem"><span class="ri">💡</span>Quando esci, spegni luci e aria condizionata.</div>
+      <div class="ritem"><span class="ri">🛠️</span>Qualcosa si è rotto? Scrivici subito. Nessun problema, ci pensiamo noi.</div>
+      <div class="ritem"><span class="ri">🧊</span>Prima di partire svuota il frigo e i cassetti.</div>
+      <div class="ritem"><span class="ri">🧹</span>Lascia l'appartamento pulito e in ordine. Se così non dovesse essere, potremo chiedere un contributo extra per le pulizie.</div>
     </div>
   </div>
   <div data-l="en">
     <div class="rlist">
-      <div class="ritem"><span class="ri">✅</span>Sort your waste: paper, plastic, glass and organic in separate bins. Instructions on the sign inside the fridge door</div>
-      <div class="ritem"><span class="ri">🚭</span>No smoking inside</div>
-      <div class="ritem"><span class="ri">💡</span>Turn off lights and air conditioning when you go out</div>
-      <div class="ritem"><span class="ri">🛠️</span>Something broke? Message us right away. No stress, we'll sort it</div>
-      <div class="ritem"><span class="ri">🧊</span>Empty the fridge and drawers before you leave</div>
-      <div class="ritem"><span class="ri">🧹</span>Leave the apartment tidy. Excessive mess may result in extra cleaning costs</div>
+      <div class="ritem"><span class="ri">✅</span>Sort your waste: paper, plastic, glass and organic in separate bins. Instructions on the sign inside the fridge door.</div>
+      <div class="ritem"><span class="ri">🚭</span>No smoking inside.</div>
+      <div class="ritem"><span class="ri">💡</span>Turn off lights and air conditioning when you go out.</div>
+      <div class="ritem"><span class="ri">🛠️</span>Something broke? Message us right away. No stress, we'll sort it.</div>
+      <div class="ritem"><span class="ri">🧊</span>Empty the fridge and drawers before you leave.</div>
+      <div class="ritem"><span class="ri">🧹</span>Leave the apartment clean and tidy. If that's not the case, we may ask for an extra cleaning contribution.</div>
     </div>
   </div>
   <div data-l="de">
     <div class="rlist">
-      <div class="ritem"><span class="ri">✅</span>Müll trennen: Papier, Plastik, Glas und Biomüll separat. Anleitung auf dem Schild an der Innenseite der Kühlschranktür</div>
-      <div class="ritem"><span class="ri">🚭</span>Rauchen in der Wohnung ist nicht gestattet</div>
-      <div class="ritem"><span class="ri">💡</span>Licht und Klimaanlage beim Verlassen ausschalten</div>
-      <div class="ritem"><span class="ri">🛠️</span>Etwas kaputt? Sofort schreiben. Kein Problem, wir kümmern uns</div>
-      <div class="ritem"><span class="ri">🧊</span>Kühlschrank und Schubladen vor der Abreise leeren</div>
-      <div class="ritem"><span class="ri">🧹</span>Wohnung ordentlich hinterlassen. Bei starker Verschmutzung Reinigungskosten möglich</div>
+      <div class="ritem"><span class="ri">✅</span>Müll trennen: Papier, Plastik, Glas und Biomüll separat. Anleitung auf dem Schild an der Innenseite der Kühlschranktür.</div>
+      <div class="ritem"><span class="ri">🚭</span>Rauchen in der Wohnung ist nicht gestattet.</div>
+      <div class="ritem"><span class="ri">💡</span>Licht und Klimaanlage beim Verlassen ausschalten.</div>
+      <div class="ritem"><span class="ri">🛠️</span>Etwas kaputt? Sofort schreiben. Kein Problem, wir kümmern uns.</div>
+      <div class="ritem"><span class="ri">🧊</span>Kühlschrank und Schubladen vor der Abreise leeren.</div>
+      <div class="ritem"><span class="ri">🧹</span>Wohnung sauber und ordentlich hinterlassen. Falls nötig, bitten wir um einen kleinen Reinigungsbeitrag.</div>
     </div>
   </div>
 </section>
@@ -362,39 +369,19 @@ html.has-pet .pet-only{display:block}
 <!-- LA CASA -->
 <section class="sec" id="sec-casa">
   <div class="sec-head"><span class="sec-icon">🏠</span>
-    <h2 class="sec-title"><span data-li="it" class="on">Vivere la casa</span><span data-li="en">Around the apartment</span><span data-li="de">In der Wohnung</span></h2>
+    <h2 class="sec-title"><span data-li="it" class="on">Info appartamento</span><span data-li="en">Apartment info</span><span data-li="de">Apartment-Infos</span></h2>
   </div>
-  <div class="acc-item">
-    <button class="acc-trig" onclick="accToggle(this)"><span class="acc-left"><span style="font-size:18px">💧</span><span data-li="it" class="on">Acqua del rubinetto</span><span data-li="en">Tap water</span><span data-li="de">Leitungswasser</span></span><span class="acc-chev">▼</span></button>
-    <div class="acc-body"><div class="acc-inner">
-      <div data-l="it" class="on">Non è consigliato bere l'acqua del rubinetto. Per bere usa acqua in bottiglia — per il resto (doccia, denti, piatti) va benissimo.</div>
-      <div data-l="en">Tap water is not recommended for drinking. Use bottled water — for everything else (shower, brushing teeth, dishes) it's perfectly fine.</div>
-      <div data-l="de">Leitungswasser nicht zum Trinken empfohlen. Zum Trinken Flaschenwasser verwenden — für alles andere (Duschen, Zähneputzen, Abwasch) völlig in Ordnung.</div>
-    </div></div>
+  <div class="card" style="margin-bottom:9px">
+    <div class="clabel">💧 <span data-li="it" class="on">Acqua del rubinetto</span><span data-li="en">Tap water</span><span data-li="de">Leitungswasser</span></div>
+    <div data-l="it" class="on" style="font-size:13px;margin-top:6px;line-height:1.6">L'acqua del rubinetto non è consigliata per bere. Usa acqua in bottiglia. Per tutto il resto (doccia, denti, piatti) va benissimo.</div>
+    <div data-l="en" style="font-size:13px;margin-top:6px;line-height:1.6">Tap water is not recommended for drinking. Use bottled water. For everything else (shower, brushing teeth, dishes) it's perfectly fine.</div>
+    <div data-l="de" style="font-size:13px;margin-top:6px;line-height:1.6">Leitungswasser nicht zum Trinken empfohlen. Zum Trinken bitte Flaschenwasser verwenden. Für alles andere (Duschen, Zähneputzen, Abwasch) völlig in Ordnung.</div>
   </div>
-  <div class="acc-item">
-    <button class="acc-trig" onclick="accToggle(this)"><span class="acc-left"><span style="font-size:18px">❄️</span><span data-li="it" class="on">Aria condizionata</span><span data-li="en">Air conditioning</span><span data-li="de">Klimaanlage</span></span><span class="acc-chev">▼</span></button>
-    <div class="acc-body"><div class="acc-inner">
-      <div data-l="it" class="on">Ogni stanza ha il suo condizionatore. Ti chiediamo di <strong>spegnerlo quando esci</strong>, ci aiuta a tenere i consumi sotto controllo.</div>
-      <div data-l="en">Every room has its own air conditioner. Please <strong>turn it off when you go out</strong>, helps keep energy costs down.</div>
-      <div data-l="de">Jedes Zimmer hat eine eigene Klimaanlage. Bitte beim Verlassen <strong>ausschalten</strong>, hilft, den Energieverbrauch niedrig zu halten.</div>
-    </div></div>
-  </div>
-  <div class="acc-item">
-    <button class="acc-trig" onclick="accToggle(this)"><span class="acc-left"><span style="font-size:18px">🦟</span><span data-li="it" class="on">Zanzariere</span><span data-li="en">Mosquito nets</span><span data-li="de">Fliegengitter</span></span><span class="acc-chev">▼</span></button>
-    <div class="acc-body"><div class="acc-inner">
-      <div data-l="it" class="on">Tutte le finestre le hanno, puoi <strong>lasciarle aperte senza problemi</strong>, anche di notte.</div>
-      <div data-l="en">All windows are fitted, feel free to <strong>leave them open</strong>, even at night.</div>
-      <div data-l="de">Alle Fenster sind ausgestattet, du kannst sie <strong>bedenkenlos offen lassen</strong>, auch nachts.</div>
-    </div></div>
-  </div>
-  <div class="acc-item">
-    <button class="acc-trig" onclick="accToggle(this)"><span class="acc-left"><span style="font-size:18px">🌅</span><span data-li="it" class="on">Terrazza</span><span data-li="en">Terrace</span><span data-li="de">Terrasse</span></span><span class="acc-chev">▼</span></button>
-    <div class="acc-body"><div class="acc-inner">
-      <div data-l="it" class="on"><strong>Completamente arredata</strong>, perfetta per mangiare fuori. I tramonti da lassù sono spettacolari. Non perderli.</div>
-      <div data-l="en"><strong>Fully furnished</strong> and great for dining outside. The sunsets from up there are spectacular. Don't miss them.</div>
-      <div data-l="de"><strong>Vollständig möbliert</strong>, ideal fürs Essen im Freien. Die Sonnenuntergänge von dort oben sind spektakulär. Nicht verpassen.</div>
-    </div></div>
+  <div class="card">
+    <div class="clabel">❄️ <span data-li="it" class="on">Aria condizionata</span><span data-li="en">Air conditioning</span><span data-li="de">Klimaanlage</span></div>
+    <div data-l="it" class="on" style="font-size:13px;margin-top:6px;line-height:1.6">Presente in ogni stanza, usatela a piacimento. Vi chiediamo solo di spegnerla quando uscite di casa.</div>
+    <div data-l="en" style="font-size:13px;margin-top:6px;line-height:1.6">There's one in every room, use it as much as you like. Just please turn it off when you go out.</div>
+    <div data-l="de" style="font-size:13px;margin-top:6px;line-height:1.6">In jedem Zimmer vorhanden, gerne nach Belieben nutzen. Beim Verlassen bitte ausschalten.</div>
   </div>
 </section>
 
@@ -485,30 +472,8 @@ html.has-pet .pet-only{display:block}
   <div data-l="de"><p style="font-size:13px;margin-bottom:12px;color:var(--muted)">Brauchen Sie etwas? Schreiben Sie uns einfach.</p></div>
 
   <div class="ci-exp">
-    <div class="ci-hd" onclick="ciToggle('andrea')">
-      <span class="ci-icon">👤</span>
-      <div style="flex:1"><div class="ci-label">Andrea</div><div class="ci-val">+39 348 760 0318</div><div class="ci-note"><span data-li="it" class="on">Tocca per contattare</span><span data-li="en">WhatsApp only — he will translate 🙂</span><span data-li="de">Nur WhatsApp — er übersetzt 🙂</span></div></div>
-      <span class="ci-arr" id="andrea-arr">▼</span>
-    </div>
-    <div class="ci-actions" id="andrea-actions">
-      <span data-l="it" class="on"><a class="ci-btn" href="tel:+393487600318">📞 Chiama</a></span>
-      <a class="ci-btn" href="https://wa.me/393487600318" target="_blank">💬 WhatsApp</a>
-    </div>
-  </div>
-  <div class="ci-exp">
-    <div class="ci-hd" onclick="ciToggle('paola')">
-      <span class="ci-icon">👩</span>
-      <div style="flex:1"><div class="ci-label">Paola</div><div class="ci-val">+39 349 284 1605</div><div class="ci-note"><span data-li="it" class="on">Tocca per contattare</span><span data-li="en">WhatsApp only — she will translate 🙂</span><span data-li="de">Nur WhatsApp — sie übersetzt 🙂</span></div></div>
-      <span class="ci-arr" id="paola-arr">▼</span>
-    </div>
-    <div class="ci-actions" id="paola-actions">
-      <span data-l="it" class="on"><a class="ci-btn" href="tel:+393492841605">📞 Chiama</a></span>
-      <a class="ci-btn" href="https://wa.me/393492841605" target="_blank">💬 WhatsApp</a>
-    </div>
-  </div>
-  <div class="ci-exp">
     <div class="ci-hd" onclick="ciToggle('mattia')">
-      <span class="ci-icon">👤</span>
+      <span class="ci-icon">👦</span>
       <div style="flex:1"><div class="ci-label">Mattia</div><div class="ci-val">+39 349 136 8343</div><div class="ci-note"><span data-li="it" class="on">Tocca per contattare</span><span data-li="en">Tap to contact</span><span data-li="de">Antippen</span></div></div>
       <span class="ci-arr" id="mattia-arr">▼</span>
     </div>
@@ -519,13 +484,45 @@ html.has-pet .pet-only{display:block}
   </div>
   <div class="ci-exp">
     <div class="ci-hd" onclick="ciToggle('debora')">
-      <span class="ci-icon">🔑</span>
-      <div style="flex:1"><div class="ci-label">Debora</div><div class="ci-val">+39 340 352 1832</div><div class="ci-note"><span data-li="it" class="on">Solo check-in & check-out</span><span data-li="en">Check-in & check-out only</span><span data-li="de">Nur check-in & check-out</span></div></div>
+      <span class="ci-icon">👩</span>
+      <div style="flex:1"><div class="ci-label">Debora</div><div class="ci-val">+39 340 352 1832</div><div class="ci-note"><span data-li="it" class="on">Solo check-in &amp; check-out</span><span data-li="en">Check-in &amp; check-out only</span><span data-li="de">Nur check-in &amp; check-out</span></div></div>
       <span class="ci-arr" id="debora-arr">▼</span>
     </div>
     <div class="ci-actions" id="debora-actions">
       <a class="ci-btn" href="tel:+393403521832">📞 <span data-li="it" class="on">Chiama</span><span data-li="en">Call</span><span data-li="de">Anrufen</span></a>
       <a class="ci-btn" href="https://wa.me/393403521832" target="_blank">💬 WhatsApp</a>
+    </div>
+  </div>
+  <div class="ci-others">
+    <button class="ci-others-trig" id="others-trig" onclick="othersToggle()">
+      <span>👨 Andrea &amp; 👩‍🦳 Paola</span>
+      <span class="ci-others-chev">▼</span>
+    </button>
+    <div class="ci-others-body" id="others-body">
+      <div style="padding-top:6px">
+        <div class="ci-exp" style="margin-bottom:7px">
+          <div class="ci-hd" onclick="ciToggle('andrea')">
+            <span class="ci-icon">👨</span>
+            <div style="flex:1"><div class="ci-label">Andrea</div><div class="ci-val">+39 348 760 0318</div><div class="ci-note"><span data-li="it" class="on">Tocca per contattare</span><span data-li="en">WhatsApp only — he will translate 🙂</span><span data-li="de">Nur WhatsApp — er übersetzt 🙂</span></div></div>
+            <span class="ci-arr" id="andrea-arr">▼</span>
+          </div>
+          <div class="ci-actions" id="andrea-actions">
+            <span data-l="it" class="on"><a class="ci-btn" href="tel:+393487600318">📞 Chiama</a></span>
+            <a class="ci-btn" href="https://wa.me/393487600318" target="_blank">💬 WhatsApp</a>
+          </div>
+        </div>
+        <div class="ci-exp">
+          <div class="ci-hd" onclick="ciToggle('paola')">
+            <span class="ci-icon">👩‍🦳</span>
+            <div style="flex:1"><div class="ci-label">Paola</div><div class="ci-val">+39 349 284 1605</div><div class="ci-note"><span data-li="it" class="on">Tocca per contattare</span><span data-li="en">WhatsApp only — she will translate 🙂</span><span data-li="de">Nur WhatsApp — sie übersetzt 🙂</span></div></div>
+            <span class="ci-arr" id="paola-arr">▼</span>
+          </div>
+          <div class="ci-actions" id="paola-actions">
+            <span data-l="it" class="on"><a class="ci-btn" href="tel:+393492841605">📞 Chiama</a></span>
+            <a class="ci-btn" href="https://wa.me/393492841605" target="_blank">💬 WhatsApp</a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="ci-em"><a href="tel:112"><span class="ci-icon">🚨</span><div><div class="ci-label"><span data-li="it" class="on">Emergenze</span><span data-li="en">Emergency</span><span data-li="de">Notruf</span></div><div class="ci-val">112</div></div></a></div>
@@ -621,6 +618,7 @@ function ciToggle(id){const a=document.getElementById(id+'-actions'),r=document.
 // ACCORDION
 function accToggle(b){const d=b.nextElementSibling,o=d.classList.contains('on');b.classList.toggle('on',!o);d.classList.toggle('on',!o);}
 function petToggle(c){c.classList.toggle('open')}
+function othersToggle(){const t=document.getElementById('others-trig'),b=document.getElementById('others-body');t.classList.toggle('on');b.classList.toggle('on');}
 
 // WEATHER — Olbia coordinates
 const WXI={0:'☀️',1:'🌤',2:'⛅',3:'☁️',45:'🌫',51:'🌦',53:'🌦',55:'🌧',61:'🌧',63:'🌧',65:'🌧',80:'🌦',81:'🌧',82:'⛈',95:'⛈'};
