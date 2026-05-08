@@ -85,6 +85,20 @@ html.has-pet .pet-only{display:block}
 .ritem{display:flex;align-items:flex-start;gap:8px;font-size:13px;padding:10px 12px;background:var(--surface);border:1px solid var(--border);border-radius:6px;}
 .ri{font-size:14px;flex-shrink:0;margin-top:1px}
 
+/* PET CARD */
+.pet-card{background:#fffbf0;border:1px solid #e8c96a;border-radius:10px;overflow:hidden;margin-bottom:16px}
+.pet-card-head{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;transition:background .15s;-webkit-tap-highlight-color:transparent}
+.pet-card-head:hover{background:#fef9ec}
+.pet-card-icon{font-size:22px;flex-shrink:0}
+.pet-card-title{font-size:14px;font-weight:600;color:#92400e;line-height:1.3}
+.pet-card-sub{font-size:11.5px;color:#b45309;margin-top:2px;opacity:.85}
+.pet-chev{font-size:11px;color:#b45309;transition:transform .2s;flex-shrink:0;margin-left:auto}
+.pet-card.open .pet-chev{transform:rotate(180deg)}
+.pet-body{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.pet-card.open .pet-body{max-height:300px}
+.pet-inner{padding:0 14px 14px}
+.pet-intro{font-size:12.5px;margin-bottom:8px;color:#7c3500;opacity:.8}
+
 
 /* WIFI */
 .wval{font-size:1.1rem;font-weight:700;font-family:monospace;color:var(--navy);margin-top:4px;word-break:break-all}
@@ -267,6 +281,44 @@ html.has-pet .pet-only{display:block}
   <div class="sec-head"><span class="sec-icon">📋</span>
     <h2 class="sec-title"><span data-li="it" class="on">Regole della casa</span><span data-li="en">House rules</span><span data-li="de">Hausregeln</span></h2>
   </div>
+  <div class="pet-only pet-card">
+    <div class="pet-card-head" onclick="petToggle(this.closest('.pet-card'))">
+      <span class="pet-card-icon">🐾</span>
+      <div style="min-width:0;flex:1">
+        <div class="pet-card-title"><span data-li="it" class="on">Il vostro animale è il benvenuto!</span><span data-li="en">Your pet is very welcome here!</span><span data-li="de">Ihr Tier ist herzlich willkommen!</span></div>
+        <div class="pet-card-sub"><span data-li="it" class="on">Qualche piccola accortezza &mdash; tocca per scoprire</span><span data-li="en">A few small things to keep in mind &mdash; tap to expand</span><span data-li="de">Ein paar kleine Hinweise &mdash; Tippen zum Öffnen</span></div>
+      </div>
+      <span class="pet-chev">▼</span>
+    </div>
+    <div class="pet-body">
+      <div class="pet-inner">
+        <div data-l="it" class="on">
+          <p class="pet-intro">Siamo felici di averlo qui con voi. Vi chiediamo solo:</p>
+          <div class="rlist">
+            <div class="ritem"><span class="ri">🛋️</span>Tenetelo lontano da divani e letti</div>
+            <div class="ritem"><span class="ri">🍽️</span>Non usate stoviglie o pentole della cucina come ciotola</div>
+            <div class="ritem"><span class="ri">🏠</span>Non lasciatelo solo in casa</div>
+          </div>
+        </div>
+        <div data-l="en">
+          <p class="pet-intro">We're so glad to have them with you. We just ask:</p>
+          <div class="rlist">
+            <div class="ritem"><span class="ri">🛋️</span>Please keep them off sofas and beds</div>
+            <div class="ritem"><span class="ri">🍽️</span>Don't use kitchen dishes or pots as food or water bowls</div>
+            <div class="ritem"><span class="ri">🏠</span>Don't leave your pet alone in the apartment</div>
+          </div>
+        </div>
+        <div data-l="de">
+          <p class="pet-intro">Wir freuen uns, es bei euch zu haben. Nur ein paar kleine Bitten:</p>
+          <div class="rlist">
+            <div class="ritem"><span class="ri">🛋️</span>Bitte Sofas und Betten freihalten</div>
+            <div class="ritem"><span class="ri">🍽️</span>Kein Küchengeschirr oder Töpfe als Futter- oder Wasserschüssel verwenden</div>
+            <div class="ritem"><span class="ri">🏠</span>Das Tier bitte nicht allein in der Wohnung lassen</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <div data-l="it" class="on">
     <div class="rlist">
       <div class="ritem"><span class="ri">✅</span>Differenzia i rifiuti: carta, plastica, vetro e umido separati. Le istruzioni sono sul cartello nella porta interna del frigo</div>
@@ -275,14 +327,6 @@ html.has-pet .pet-only{display:block}
       <div class="ritem"><span class="ri">🛠️</span>Qualcosa si è rotto? Scrivici subito. Nessun problema, ci pensiamo noi</div>
       <div class="ritem"><span class="ri">🧊</span>Prima di partire svuota il frigo e i cassetti</div>
       <div class="ritem"><span class="ri">🧹</span>Lascia l'appartamento in ordine. Se c'è sporco eccessivo aggiungiamo un costo</div>
-    </div>
-    <div class="pet-only" style="margin-top:16px">
-      <p style="font-size:13px;margin:0 0 10px;color:var(--text)">Il vostro animale è il benvenuto! Ci fa piacere averlo con voi. Vi chiediamo solo qualche piccola attenzione:</p>
-      <div class="rlist">
-        <div class="ritem"><span class="ri">🛋️</span>Tenetelo lontano da divani e letti</div>
-        <div class="ritem"><span class="ri">🍽️</span>Non usate stoviglie o pentole della cucina come ciotola</div>
-        <div class="ritem"><span class="ri">🏠</span>Non lasciatelo solo in casa</div>
-      </div>
     </div>
   </div>
   <div data-l="en">
@@ -294,14 +338,6 @@ html.has-pet .pet-only{display:block}
       <div class="ritem"><span class="ri">🧊</span>Empty the fridge and drawers before you leave</div>
       <div class="ritem"><span class="ri">🧹</span>Leave the apartment tidy. Excessive mess may result in extra cleaning costs</div>
     </div>
-    <div class="pet-only" style="margin-top:16px">
-      <p style="font-size:13px;margin:0 0 10px;color:var(--text)">Your pet is very welcome here — we're happy to have them with you. Just a few small things to keep in mind:</p>
-      <div class="rlist">
-        <div class="ritem"><span class="ri">🛋️</span>Please keep them off sofas and beds</div>
-        <div class="ritem"><span class="ri">🍽️</span>Don't use kitchen dishes or pots as food or water bowls</div>
-        <div class="ritem"><span class="ri">🏠</span>Don't leave your pet alone in the apartment</div>
-      </div>
-    </div>
   </div>
   <div data-l="de">
     <div class="rlist">
@@ -311,14 +347,6 @@ html.has-pet .pet-only{display:block}
       <div class="ritem"><span class="ri">🛠️</span>Etwas kaputt? Sofort schreiben. Kein Problem, wir kümmern uns</div>
       <div class="ritem"><span class="ri">🧊</span>Kühlschrank und Schubladen vor der Abreise leeren</div>
       <div class="ritem"><span class="ri">🧹</span>Wohnung ordentlich hinterlassen. Bei starker Verschmutzung Reinigungskosten möglich</div>
-    </div>
-    <div class="pet-only" style="margin-top:16px">
-      <p style="font-size:13px;margin:0 0 10px;color:var(--text)">Ihr Tier ist herzlich willkommen! Wir freuen uns, es bei euch zu haben. Nur ein paar kleine Dinge zu beachten:</p>
-      <div class="rlist">
-        <div class="ritem"><span class="ri">🛋️</span>Bitte Sofas und Betten freihalten</div>
-        <div class="ritem"><span class="ri">🍽️</span>Kein Küchengeschirr oder Töpfe als Futter- oder Wasserschüssel verwenden</div>
-        <div class="ritem"><span class="ri">🏠</span>Das Tier bitte nicht allein in der Wohnung lassen</div>
-      </div>
     </div>
   </div>
 </section>
@@ -601,6 +629,7 @@ function ciToggle(id){const a=document.getElementById(id+'-actions'),r=document.
 
 // ACCORDION
 function accToggle(b){const d=b.nextElementSibling,o=d.classList.contains('on');b.classList.toggle('on',!o);d.classList.toggle('on',!o);}
+function petToggle(c){c.classList.toggle('open')}
 
 // WEATHER — Olbia coordinates
 const WXI={0:'☀️',1:'🌤',2:'⛅',3:'☁️',45:'🌫',51:'🌦',53:'🌦',55:'🌧',61:'🌧',63:'🌧',65:'🌧',80:'🌦',81:'🌧',82:'⛈',95:'⛈'};
