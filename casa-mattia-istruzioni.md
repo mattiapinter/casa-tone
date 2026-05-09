@@ -126,29 +126,51 @@ JS: `if(new URLSearchParams(window.location.search).has('pet')){ document.docume
 
 ---
 
-## Contenuti specifici Casa Marika (da adattare)
+## Contenuti Casa Mattia (dati reali da Notion)
 
-### Indirizzi e coordinate
-- Indirizzo: Via dello Zenzero 16F, Murta Maria, Olbia (SS)
-- Coordinate mappa casa: lat 40.88601, lng 9.5904704
-- Parcheggio: lato sinistro del piazzaletto sotto la casa
+### Indirizzo e coordinate
+- Indirizzo: Via Maltineddu 19C, Murta Maria (Olbia, SS)
+- Coordinate mappa casa: lat 40.8865387, lng 9.5890972
+- Google Maps link: https://www.google.com/maps/dir//40.8865387,9.5890972
+- Parcheggio: sotto la tettoia all'interno della proprietà
 
 ### Check-in/out
+- Check-in: dalle 15:00
+- Check-out: entro le 10:00
 - Debora chiavi: +39 340 352 1832
-- Raccolta rifiuti: rotonda Murta Maria, 6:00-24:00
-- Codice fiscale proprietaria: VAIPLA64B56L378B
-- €20 se smaltimento a carico nostro, da dare a Debora
+- Raccolta rifiuti al check-out: rotonda Murta Maria, 8:00-13:00 (DIVERSO da Marika che era 6:00-24:00)
+- Nessun codice fiscale richiesto (differenza da Marika)
+- Testo checkout Notion: "portare la spazzatura al punto di raccolta presso la rotonda di Murta Maria. Se uscite senza incontrarci mandateci un messaggio."
 
-### Regole rifiuti (accordion)
-- Guida sul frigo (porta interna)
-- Porta a porta per soggiorni >1 settimana: bidoni angolo casa su strada principale
-- Martedì: plastica, vetro, umido
-- Giovedì: carta
-- Sabato: secco, umido
+### Wi-Fi
+- Rete: Bilo
+- Password: casamattia
 
-### Info appartamento
-- Acqua rubinetto: non consigliata per bere, usa bottiglia, per il resto ok
-- Aria condizionata: ogni stanza, usarla a piacimento, spegnere quando si esce
+### Acqua (tono diverso da Casa Marika)
+- L'acqua viene dall'acquedotto, sicura per uso quotidiano (doccia, denti, piatti)
+- Per bere e cucinare, consigliata acqua in bottiglia
+- NON usare "non consigliata per bere" come a Marika, qui il tono è più positivo
+
+### Giardino
+- Perfetto per mangiare all'aperto con il sole
+- Gli ospiti lo adorano
+- Nessun riferimento a tramonti (quelli erano dalla terrazza di Marika)
+
+### Zanzariere
+- Presenti su tutte le finestre (a Marika erano state rimosse dall'accordion, qui possono restare come FAQ)
+
+### Regole (da Notion)
+1. Raccolta differenziata
+2. No fumo all'interno
+3. Spegnere luci e aria condizionata se non in casa
+4. Avvisare subito danni/rotture
+5. Svuotare frigo e cassetti alla partenza
+6. Lasciare in ordine (altrimenti tariffe pulizia extra)
+
+### Regole rifiuti (adattare da Marika)
+- Guida differenziata: verificare se c'è cartello sul frigo anche a Casa Mattia (chiedere a Mattia)
+- Porta a porta: stesso calendario presumibilmente (Martedi plastica/vetro/umido, Giovedi carta, Sabato secco/umido) — verificare
+- Punto raccolta: rotonda Murta Maria, 8:00-13:00
 
 ### Contatti
 | Persona | Tel | Emoji | Note |
@@ -179,15 +201,17 @@ Spiagge con link spiaggesardegna.eu (slug pattern: `spiaggia-[nome]`).
 
 ### Differenze da applicare rispetto a Casa Marika
 
-1. **Titolo** — cambiare "Casa Marika" → "Casa Mattia" in tutto
-2. **Favicon/brand** — stessa ancora ⚓
-3. **Camere** — 1 camera invece di 2 (aggiornare qualsiasi riferimento alle stanze)
-4. **Giardino** — sostituire ogni riferimento alla terrazza con il giardino
-   - Sezione "Info appartamento": se si aggiunge, descrivere il giardino
-   - Non menzionare tramonti dalla terrazza
-5. **Indirizzo/coordinate** — chiedere a Mattia l'indirizzo esatto e le coordinate di Casa Mattia
-6. **Parcheggio** — chiedere se stesso o diverso
-7. **Spiagge/ristoranti/mappa** — identici, stessa zona
+1. **Titolo**: "Casa Marika" diventa "Casa Mattia" ovunque nel file
+2. **Favicon/brand**: stessa ancora, stessa famiglia Brigadoi
+3. **Camere**: 1 camera invece di 2
+4. **Giardino**: sostituire terrazza con giardino. Testo suggerito: "Il giardino e perfetto per mangiare all'aperto. Gli ospiti lo adorano."
+5. **Indirizzo**: Via Maltineddu 19C, Murta Maria (Olbia, SS)
+6. **Coordinate**: lat 40.8865387, lng 9.5890972
+7. **Parcheggio**: sotto la tettoia all'interno della proprieta
+8. **Wi-Fi**: Rete Bilo / Password casamattia
+9. **Raccolta rifiuti orari**: 8:00-13:00 (non 6:00-24:00 come Marika). Nessun codice fiscale.
+10. **Acqua**: tono positivo (diverso da Marika). Sicura per uso quotidiano, bottiglia solo per bere/cucinare
+11. **Spiagge/ristoranti/mappa**: identici, stessa zona, stessi PLACES
 
 ### Tone of voice
 - Caldo, diretto, familiare
