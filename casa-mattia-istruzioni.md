@@ -138,9 +138,9 @@ JS: `if(new URLSearchParams(window.location.search).has('pet')){ document.docume
 - Check-in: dalle 15:00
 - Check-out: entro le 10:00
 - Debora chiavi: +39 340 352 1832
-- Raccolta rifiuti al check-out: rotonda Murta Maria, 8:00-13:00 (DIVERSO da Marika che era 6:00-24:00)
-- Nessun codice fiscale richiesto (differenza da Marika)
-- Testo checkout Notion: "portare la spazzatura al punto di raccolta presso la rotonda di Murta Maria. Se uscite senza incontrarci mandateci un messaggio."
+- Raccolta rifiuti al check-out: rotonda Murta Maria, 6:00-24:00 (stesse modalita di Marika, anno 2025)
+- Codice fiscale proprietaria: VAIPLA64B56L378B (stesso di Marika)
+- 20 euro se smaltimento a carico nostro, da dare a Debora
 
 ### Wi-Fi
 - Rete: Bilo
@@ -167,10 +167,11 @@ JS: `if(new URLSearchParams(window.location.search).has('pet')){ document.docume
 5. Svuotare frigo e cassetti alla partenza
 6. Lasciare in ordine (altrimenti tariffe pulizia extra)
 
-### Regole rifiuti (adattare da Marika)
-- Guida differenziata: verificare se c'è cartello sul frigo anche a Casa Mattia (chiedere a Mattia)
-- Porta a porta: stesso calendario presumibilmente (Martedi plastica/vetro/umido, Giovedi carta, Sabato secco/umido) — verificare
-- Punto raccolta: rotonda Murta Maria, 8:00-13:00
+### Regole rifiuti
+- Guida differenziata: cartello sulla porta interna del frigo (come a Marika)
+- Porta a porta per soggiorni oltre 1 settimana: bidoni fuori dal cancello sulla strada principale (diverso da Marika dove si mettono nell angolo della casa)
+- Calendario raccolta identico a Marika: Martedi plastica/vetro/umido, Giovedi carta, Sabato secco/umido
+- Punto raccolta rotonda Murta Maria (stesse modalita di Marika, orari aggiornati 2025)
 
 ### Contatti
 | Persona | Tel | Emoji | Note |
@@ -209,7 +210,7 @@ Spiagge con link spiaggesardegna.eu (slug pattern: `spiaggia-[nome]`).
 6. **Coordinate**: lat 40.8865387, lng 9.5890972
 7. **Parcheggio**: sotto la tettoia all'interno della proprieta
 8. **Wi-Fi**: Rete Bilo / Password casamattia
-9. **Raccolta rifiuti orari**: 8:00-13:00 (non 6:00-24:00 come Marika). Nessun codice fiscale.
+9. **Raccolta rifiuti**: stesse modalita di Marika (rotonda Murta Maria 6:00-24:00, codice fiscale VAIPLA64B56L378B). Porta a porta: bidoni fuori dal cancello (non angolo casa come Marika)
 10. **Acqua**: tono positivo (diverso da Marika). Sicura per uso quotidiano, bottiglia solo per bere/cucinare
 11. **Spiagge/ristoranti/mappa**: identici, stessa zona, stessi PLACES
 
